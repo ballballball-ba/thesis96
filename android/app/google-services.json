@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "336979417521",
+    "firebase_url": "https://thesis96-a41c0.firebaseio.com",
+    "project_id": "thesis96-a41c0",
+    "storage_bucket": "thesis96-a41c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336979417521:android:1870223419793fae4bc590",
+        "android_client_info": {
+          "package_name": "com.example.mythesis96"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336979417521-mgtdq974aaasim6cb4qg1cslb93r9bpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-L5nZJNYvxHboYORb9g_kTJKAAQHSF1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336979417521-mgtdq974aaasim6cb4qg1cslb93r9bpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
