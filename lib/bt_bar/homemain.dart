@@ -5,6 +5,7 @@ import 'package:mythesis96/bt_bar/notiac_sc.dart';
 import 'package:mythesis96/bt_bar/porfile.dart';
 import 'package:mythesis96/bt_bar/search_sc.dart';
 import 'package:mythesis96/bt_bar/driver_regis.dart';
+import 'package:mythesis96/bt_bar/sharefeeds.dart';
 import 'package:mythesis96/feed_home.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:mythesis96/phone_auth.dart';
@@ -44,7 +45,7 @@ class _HomeState extends State<Home> {
                    //เรียกใช้ฟังชันจากหน้า feed 
         //  PhoneAuth(),        
           Feedhome(currentUserID: currentUserID),
-          Search(),
+          Sharefeeds(),
           Activity(),
           Notiac(),
           //Driverregis(),

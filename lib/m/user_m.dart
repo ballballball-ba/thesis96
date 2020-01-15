@@ -37,5 +37,21 @@ class User{
 
 }
 
+class Usershare{
+   String id;//uid on firebase
+   String name;
+   String profileImgUrl;
+   String email;
+   String gender;
+
+   Usershare.fromMap(Map<String, dynamic> data){
+    // id = data.documentID,
+     name = data['username'];
+     profileImgUrl= data['picprofileUrl'];
+     email= data['email'];
+     gender= data['gender'];
+   }
+}
+
 
 
