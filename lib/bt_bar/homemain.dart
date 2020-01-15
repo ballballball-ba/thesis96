@@ -7,6 +7,7 @@ import 'package:mythesis96/bt_bar/search_sc.dart';
 import 'package:mythesis96/bt_bar/driver_regis.dart';
 import 'package:mythesis96/feed_home.dart';
 import 'package:mythesis96/m/user_data.dart';
+import 'package:mythesis96/phone_auth.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -41,6 +42,7 @@ class _HomeState extends State<Home> {
         controller: _pageController,
         children: <Widget>[
                    //เรียกใช้ฟังชันจากหน้า feed 
+        //  PhoneAuth(),        
           Feedhome(currentUserID: currentUserID),
           Search(),
           Activity(),
@@ -77,7 +79,16 @@ class _HomeState extends State<Home> {
         activeColor: Color(0xFFF2551D),
         backgroundColor: Color(0xFFFBFCFC),
         items: [
+          // BottomNavigationBarItem(
+            
+          //   icon: Icon(
+          //     Icons.home,
+          //     size: 35,
+          //   ),
+          //   title: Text("เบอ"),
+          // ),
           BottomNavigationBarItem(
+            
             icon: Icon(
               Icons.home,
               size: 35,
