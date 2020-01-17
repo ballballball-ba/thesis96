@@ -37,5 +37,13 @@ class Share {
     );
     
   }
-
+Map<String, dynamic> toJson() =>{
+'Concertname':concertname,
+'StartPlace': startplace,
+'Endplace': endplace,
+'Price': price,
+'Seat': seat,
+'DateTime': datetime,
+'AuthorId': authorId,
+};
 }

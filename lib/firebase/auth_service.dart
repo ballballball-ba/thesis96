@@ -10,6 +10,10 @@ import 'package:provider/provider.dart';
 class AuthService {
   static final _auth = FirebaseAuth.instance;
   static final _firestore = Firestore.instance;
+// // GET UID
+//   Future<String> getCurrentUID() async {
+//     return (await _firestore.currentUser()).uid;
+//   }
 
   static void signUpUser(
       BuildContext context, String username, String email, String password,String gender) async {
