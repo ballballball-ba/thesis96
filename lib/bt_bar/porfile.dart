@@ -18,6 +18,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final Color purple1 = Color(0xff5A45A5);
+  final Color purple2 = Color(0xff2A1D59);
+  final Color orange1 = Color(0xffF2551D);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +37,7 @@ class _ProfileState extends State<Profile> {
                 );
               }
               User user = User.fromDoc(snapshot.data);
-             // Post drive = postsRef.document('k');
+              // Post drive = postsRef.document('k');
 //print(user.gender);
 //print(user.email);
               //print(drive.id2);
@@ -53,13 +56,27 @@ class _ProfileState extends State<Profile> {
                       ),
                       Column(
                         children: <Widget>[
-                        
                           Container(
-                            
-                            height: 150,
-                            margin: EdgeInsets.only(top: 60),
+                            margin: EdgeInsets.only(top: 25.0),
+
+                            // child: Row(
+                            //   children: <Widget>[
+                            //      Align(alignment: Alignment.bottomLeft,),
+                            //     IconButton(
+                            //             icon: Icon(Icons.settings),
+                            //             tooltip: 'ตั้งค่า',
+                            //             onPressed: () => Navigator.push(context, MaterialPageRoute(
+                            //               builder: (_) => Editprofile(user: user,)
+                            //             )),
+                            //           ),
+                            //   ],
+                            // ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 35.0),
+                            height: 120,
                             child: CircleAvatar(
-                              radius: 75,
+                              radius: 60,
                               backgroundColor: Colors.grey,
                               backgroundImage: user.profileImgUrl.isEmpty
                                   ? AssetImage(
@@ -73,21 +90,20 @@ class _ProfileState extends State<Profile> {
                           ),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            
                             children: <Widget>[
-                             
-                             
                               Text(
                                 user.name,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 22),
                                 textAlign: TextAlign.center,
                               ),
-                               FlatButton(
+                              FlatButton(
                                 //icon: Icon(Icons.settings),
-                                
-                                color: Colors.orange[200],
-                               // alignment: Alignment.topRight,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(10.0),
+                                ),
+                                color: orange1,
+                                // alignment: Alignment.topRight,
                                 onPressed: () => Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -95,19 +111,20 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                                 //color: Color(0xff5A45A5),
-                                                child: Text(
-                                                  'ตั้งค่า',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                              ),
-                              
-                               )
+                                child: Text(
+                                  'ตั้งค่า',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              )
                             ],
                           ),
                           Container(
                             margin: EdgeInsets.only(top: 7),
                             padding: EdgeInsets.all(10),
                             child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
                               child: Row(
                                 children: <Widget>[
                                   Container(
@@ -118,7 +135,7 @@ class _ProfileState extends State<Profile> {
                                   Column(
                                     children: <Widget>[
                                       Container(
-                                    margin: EdgeInsets.only(left: 18),
+                                        margin: EdgeInsets.only(left: 18),
                                         child: IconButton(
                                             icon: Icon(Icons.book),
                                             color: Colors.black38,
@@ -129,7 +146,6 @@ class _ProfileState extends State<Profile> {
                                   ),
                                   Container(
                                     child: Column(
-                                      
                                       children: <Widget>[
                                         Container(
                                           height: 80,
@@ -152,6 +168,9 @@ class _ProfileState extends State<Profile> {
                             child: Column(
                               children: <Widget>[
                                 Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
                                   child: Container(
                                     alignment: Alignment.topLeft,
                                     padding: EdgeInsets.all(15),
@@ -160,7 +179,7 @@ class _ProfileState extends State<Profile> {
                                         Container(
                                           alignment: Alignment.topLeft,
                                           child: Text(
-                                            "User Information",
+                                            "ข้อมูลของคุณ",
                                             style: TextStyle(
                                               color: Colors.black87,
                                               fontWeight: FontWeight.w500,
@@ -199,6 +218,9 @@ class _ProfileState extends State<Profile> {
                             padding: EdgeInsets.only(bottom: 10, right: 10),
                             child: Column(children: <Widget>[
                               Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
                                 child: Container(
                                   alignment: Alignment.topRight,
                                   padding: EdgeInsets.all(15),
@@ -244,18 +266,16 @@ class _ProfileState extends State<Profile> {
                                       Divider(
                                         color: Colors.black38,
                                       ),
-                                     
                                       Container(
                                         child: Column(
                                           children: <Widget>[
-                                            
                                             ListTile(
                                               leading:
                                                   Icon(Icons.directions_car),
                                               title: Text("ID"),
 
                                               //subtitle: Text(user.email),
-                                               
+
                                               subtitle: Text(user.id),
                                             ),
                                             FlatButton(

@@ -19,18 +19,20 @@ class Driverregis extends StatefulWidget {
 class _DriverregisState extends State<Driverregis> {
   File _image;
   File _image1;
- // File _image2;
+  // File _image2;
 
   TextEditingController _captionController = TextEditingController();
- // String _caption = '';
+  // String _caption = '';
   bool _isloading = false;
 
   _showSelectImageDialog() {
     return Platform.isAndroid ? _androidDialog() : _iosBottomSheet();
   }
+
   _showSelectImageDialog2() {
     return Platform.isAndroid ? _androidDialog() : _iosBottomSheet();
   }
+
   // _showSelectImageDialog3() {
   //   return Platform.isAndroid ? _androidDialog() : _iosBottomSheet();
   // }
@@ -95,13 +97,13 @@ class _DriverregisState extends State<Driverregis> {
     Navigator.pop(context);
     File imageFile = await ImagePicker.pickImage(source: source);
     File imageFile1 = await ImagePicker.pickImage(source: source);
-   // File imageFile2 = await ImagePicker.pickImage(source: source);
+    // File imageFile2 = await ImagePicker.pickImage(source: source);
     if (imageFile != null && imageFile1 != null) {
       // imageFile = await _cropImage(imageFile);
       setState(() {
         _image = imageFile;
         _image1 = imageFile1;
-       // _image2 = imageFile2;
+        // _image2 = imageFile2;
       });
     }
   }
@@ -115,38 +117,37 @@ class _DriverregisState extends State<Driverregis> {
 // }
 
   _submit() async {
-if (!_isloading && _image != null && _image1 != null){
-  setState(() {
-    _isloading = true;
-  });
-  // cretae
- String imageUrl = await StoreSer.uploadpost(_image);
- String imageUrl1 = await StoreSer.uploadpost1(_image1);
- //String imageUrl = await StoreSer.uploadpost(_imageFile2);
+    if (!_isloading && _image != null && _image1 != null) {
+      setState(() {
+        _isloading = true;
+      });
+      // cretae
+      String imageUrl = await StoreSer.uploadpost(_image);
+      String imageUrl1 = await StoreSer.uploadpost1(_image1);
+      //String imageUrl = await StoreSer.uploadpost(_imageFile2);
 
- Post post = Post(
-   imageUrl: imageUrl,
-   imageUrl1: imageUrl1,
-   likes: {},
-   authorId: Provider.of<Userdata>(context).currentUserID,
-   timestamp: Timestamp.fromDate(DateTime.now()),
- );
- DatabaseSer.sendpic(post);
-  // update data
-  _captionController.clear();
-  
-  setState(() {
-    
-    _image = null;
-    _image1 = null;
-    _isloading = false;
-  });
-  
+      Post post = Post(
+        imageUrl: imageUrl,
+        imageUrl1: imageUrl1,
+        likes: {},
+        authorId: Provider.of<Userdata>(context).currentUserID,
+        timestamp: Timestamp.fromDate(DateTime.now()),
+      );
+      DatabaseSer.sendpic(post);
+      // update data
+      _captionController.clear();
+
+      setState(() {
+        _image = null;
+        _image1 = null;
+        _isloading = false;
+      });
+    }
   }
 
-
-  }
-
+  final Color purple1 = Color(0xff5A45A5);
+  final Color purple2 = Color(0xff2A1D59);
+  final Color orange1 = Color(0xffF2551D);
   @override
   Widget build(BuildContext context) {
     // final height = MediaQuery.of(context).size.height;
@@ -168,54 +169,130 @@ if (!_isloading && _image != null && _image1 != null){
               "ยืนยัน",
               style: TextStyle(fontSize: 16, color: Color(0xffFF7240)),
             ),
-            
           )
         ],
       ),
       body: Column(
         children: <Widget>[
-          _isloading ? Padding(padding: EdgeInsets.only(bottom: 10),
-          child: LinearProgressIndicator(
-            backgroundColor: Colors.blue[200],
-            valueColor: AlwaysStoppedAnimation(Colors.blue),
+          _isloading
+              ? Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: LinearProgressIndicator(
+                    backgroundColor: Colors.blue[200],
+                    valueColor: AlwaysStoppedAnimation(Colors.blue),
+                  ),
+                )
+              : SizedBox.shrink(),
+
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(
+                      2.0, // horizontal, move right 10
+                      2.0, // vertical, move down 10
+                    ),
+                  ),
+                ], borderRadius: BorderRadius.circular(15)),
+                child: GestureDetector(
+                  onTap: _showSelectImageDialog,
+                  child: Container(
+                    height: 200,
+                    width: 200,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.grey[200],
+                    ),
+                    child: _image == null
+                        ? Icon(
+                            Icons.add_a_photo,
+                            color: Colors.white70,
+                            size: 70,
+                          )
+                        : Image(
+                            image: FileImage(_image),
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  margin: EdgeInsets.only(top: 20),
+                  child: Text(
+                    'อัพโหลดรูปใบขับขี่ของคุณ',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: orange1,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+            ],
           ),
-          )
-          : SizedBox.shrink(),
-          GestureDetector(
-            onTap: _showSelectImageDialog,
-            child: Container(
-                height: 200,
-                width: 200,
-                color: Colors.grey[200],
-                child: _image == null
-                    ? Icon(
-                        Icons.add_a_photo,
-                        color: Colors.white70,
-                        size: 70,
-                      )
-                    : Image(
-                        image: FileImage(_image),
-                        fit: BoxFit.cover,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.all(10),
+                decoration: BoxDecoration(boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 4,
+                    offset: Offset(
+                      2.0, // horizontal, move right 10
+                      2.0, // vertical, move down 10
+                    ),
+                  ),
+                ], borderRadius: BorderRadius.circular(15)),
+                child: GestureDetector(
+                  onTap: _showSelectImageDialog2,
+                  child: Container(
+                      height: 200,
+                      width: 200,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.grey[200],
                       ),
-                      
-                      ),
-          ),
-          GestureDetector(
-            onTap: _showSelectImageDialog2,
-            child: Container(
-                height: 200,
-                width: 200,
-                color: Colors.grey[200],
-                child: _image1 == null
-                    ? Icon(
-                        Icons.add_a_photo,
-                        color: Colors.white70,
-                        size: 70,
-                      )
-                    : Image(
-                        image: FileImage(_image1),
-                        fit: BoxFit.cover,
-                      )),
+                      child: _image1 == null
+                          ? Icon(
+                              Icons.add_a_photo,
+                              color: Colors.white70,
+                              size: 70,
+                            )
+                          : Image(
+                              image: FileImage(_image1),
+                              fit: BoxFit.cover,
+                            )),
+                ),
+              ),
+
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                  margin: EdgeInsets.only(top: 20),
+                  child: Text(
+                    'อัพโหลดรูปภาษีรถยนต์ของคุณ',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontSize: 13,
+                        color: orange1,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.topLeft,
+
+              // ),
+            ],
           ),
           // GestureDetector(
           //   onTap: _showSelectImageDialog3,

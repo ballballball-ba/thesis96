@@ -115,7 +115,7 @@ class Sharefeeds extends StatelessWidget {
   final Color purple1 = Color(0xff5A45A5);
   final Color purple2 = Color(0xff2A1D59);
   final Color orange1 = Color(0xffF2551D);
- // final Color secondaryColor = Color(0xff324558);
+  // final Color secondaryColor = Color(0xff324558);
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -146,9 +146,10 @@ class Sharefeeds extends StatelessWidget {
             child: Scaffold(
               backgroundColor: Theme.of(context).buttonColor,
               appBar: AppBar(
+                //center text
                 centerTitle: true,
                 title: Text('การแชร์'),
-                leading: Icon(Icons.category),
+
                 actions: <Widget>[
                   IconButton(
                     icon: Icon(Icons.search),
@@ -156,7 +157,8 @@ class Sharefeeds extends StatelessWidget {
                   )
                 ],
                 bottom: TabBar(
-                  isScrollable: true,
+                  // fic width
+                  //  isScrollable: true,
                   labelColor: orange1,
                   indicatorColor: orange1,
                   unselectedLabelColor: orange1,
@@ -173,14 +175,6 @@ class Sharefeeds extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text("หญิง"),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Text("Education"),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Text("Entertainment"),
-                    // ),
                   ],
                 ),
               ),
@@ -255,11 +249,22 @@ class Sharefeeds extends StatelessWidget {
   Widget buildTripCard(BuildContext context, DocumentSnapshot trip) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 15.0, // has the effect of softening the shadow
+            spreadRadius: 5.0, // has the effect of extending the shadow
+            offset: Offset(
+              5.0, // horizontal, move right 10
+              5.0, // vertical, move down 10
+            ),
+          )
+        ],
+        borderRadius: BorderRadius.circular(20),
         color: Colors.white,
       ),
       width: double.infinity,
-      height: 160,
+      height: 150,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
@@ -271,6 +276,7 @@ class Sharefeeds extends StatelessWidget {
             margin: EdgeInsets.only(right: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
+
               //กอบ
               border: Border.all(width: 1, color: purple1),
               image: DecorationImage(
@@ -282,28 +288,34 @@ class Sharefeeds extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                 Row(
-                   children: <Widget>[
-              //        Text(
-              //        'ชื่อคอนเสิร์ต',
-              //         style: TextStyle(
-              //             color: primaryColor,
-              //             fontWeight: FontWeight.w100,
-              //             fontSize: 14),
-              //   ),
-              //  Padding(
-              //     padding: EdgeInsets.only(left: 10),
-              //   ),
-                Text(
-                 trip['Concertname'],
-                  style: TextStyle(
-                      color: purple1,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                Row(
+                  children: <Widget>[
+                    //        Text(
+                    //        'ชื่อคอนเสิร์ต',
+                    //         style: TextStyle(
+                    //             color: primaryColor,
+                    //             fontWeight: FontWeight.w100,
+                    //             fontSize: 14),
+                    //   ),
+                    //  Padding(
+                    //     padding: EdgeInsets.only(left: 10),
+                    //   ),
+
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          trip['Concertname'],
+                          style: TextStyle(
+                              color: purple1,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18),
+                        ),
+                        // Align(
+                        //   alignment: Alignment.centerRight,
+                      ],
+                    ),
+                  ],
                 ),
-                   ],
-                 ),
-                
                 SizedBox(
                   height: 6,
                 ),
@@ -335,7 +347,7 @@ class Sharefeeds extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text( trip['Endplace'],
+                    Text(trip['Endplace'],
                         style: TextStyle(
                             color: purple1, fontSize: 13, letterSpacing: .3)),
                   ],
@@ -353,7 +365,7 @@ class Sharefeeds extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text( trip['DateTime'],
+                    Text(trip['DateTime'],
                         style: TextStyle(
                             color: purple1, fontSize: 13, letterSpacing: .3)),
                   ],
@@ -371,24 +383,43 @@ class Sharefeeds extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text( trip['Seat'],
+                    Text(trip['Seat'],
                         style: TextStyle(
                             color: purple1, fontSize: 13, letterSpacing: .3)),
-                             Padding(padding: EdgeInsets.only(left: 80),),
-                             Icon(
+                    Padding(
+                      padding: EdgeInsets.only(left: 80),
+                    ),
+                    Icon(
                       Icons.attach_money,
                       color: orange1,
                       size: 20,
                     ),
-                   
-                    Text( trip['Price'],
+                    Text(trip['Price'],
                         style: TextStyle(
                             color: purple1, fontSize: 13, letterSpacing: .3)),
                   ],
                 ),
               ],
             ),
-          )
+          ),
+          Column(
+            children: <Widget>[
+              Expanded(
+                
+                child: Row(
+                  children: <Widget>[
+                    Align(alignment: Alignment.centerLeft,),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      // Icons.keyboard_arrow_right,
+                      color: orange1,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -415,15 +446,15 @@ class Sharefeeds extends StatelessWidget {
     //   child: Padding(
     //     padding: const EdgeInsets.symmetric(horizontal: 20),
     //     child: Column(
-          
+
     //       children: <Widget>[
     //           Padding(
     //               padding: EdgeInsets.only(top: 20),
     //             ),
     //         Row(
-              
+
     //           children: <Widget>[
-               
+
     //             CircleAvatar(
     //             radius: 40.0,
     //             backgroundImage:
