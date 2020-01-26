@@ -156,6 +156,9 @@ class _EditprofileState extends State<Editprofile> {
                     height: 40,
                     width: 250,
                     child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0),
+                      ),
                       //กดแล้วเรียก submit fuction
                       onPressed: _submit,
                       color: Color(0xff5A45A5),
@@ -171,6 +174,9 @@ class _EditprofileState extends State<Editprofile> {
                     height: 40,
                     width: 250,
                     child: FlatButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(10.0),
+                      ),
                       //กดแล้วเรียก submit fuction
                       onPressed: () => AuthService.logout(),
                       color: Colors.black38,

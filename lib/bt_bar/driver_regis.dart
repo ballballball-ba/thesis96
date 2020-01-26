@@ -117,7 +117,7 @@ class _DriverregisState extends State<Driverregis> {
 // }
 
   _submit() async {
-    if (!_isloading && _image != null && _image1 != null) {
+    if (_isloading && _image != null && _image1 != null) {
       setState(() {
         _isloading = true;
       });
@@ -134,6 +134,7 @@ class _DriverregisState extends State<Driverregis> {
         timestamp: Timestamp.fromDate(DateTime.now()),
       );
       DatabaseSer.sendpic(post);
+      
       // update data
       _captionController.clear();
 

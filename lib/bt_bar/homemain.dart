@@ -35,33 +35,33 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     //ไว้เช็ค id user
-        final String currentUserID = Provider.of<Userdata>(context).currentUserID;
+    final String currentUserID = Provider.of<Userdata>(context).currentUserID;
 
-   // print(Provider.of<Userdata>(context).currentUserID);
+    // print(Provider.of<Userdata>(context).currentUserID);
     return Scaffold(
       body: PageView(
         controller: _pageController,
         children: <Widget>[
-                   //เรียกใช้ฟังชันจากหน้า feed 
-        //  PhoneAuth(),        
+          //เรียกใช้ฟังชันจากหน้า feed
+          //  PhoneAuth(),
           Feedhome(currentUserID: currentUserID),
           Sharefeeds(),
+
           Activity(),
           Notiac(),
           //Driverregis(),
           //old
-         // Profile(userId: widget.userId),
-         Profile(userId: Provider.of<Userdata>(context).currentUserID,)
-        
+          // Profile(userId: widget.userId),
+          Profile(
+            userId: Provider.of<Userdata>(context).currentUserID,
+          )
         ],
         onPageChanged: (int index) {
           //ทำให้เปลี่ยนหน้าตาม icon
           setState(() {
             _currentab = index;
           });
-          },
-          
-        
+        },
       ),
       bottomNavigationBar: CupertinoTabBar(
         //กำหนดให้คลิกแล้วเปลี่ยนหน้าตามที่คลิก
@@ -70,54 +70,53 @@ class _HomeState extends State<Home> {
           setState(() {
             _currentab = index;
           });
-            _pageController.animateToPage(
+          _pageController.animateToPage(
             index,
             duration: Duration(milliseconds: 200),
             curve: Curves.easeIn,
           );
         },
-        
+ 
         activeColor: Color(0xFFF2551D),
         backgroundColor: Color(0xFFFBFCFC),
         items: [
           // BottomNavigationBarItem(
-            
+
           //   icon: Icon(
           //     Icons.home,
           //     size: 35,
           //   ),
           //   title: Text("เบอ"),
           // ),
+         
           BottomNavigationBarItem(
             
             icon: Icon(
               Icons.home,
               size: 35,
             ),
-            title: Text("หน้าแรก"),
+            title: Text("หน้าแรก",style: TextStyle(fontFamily: 'Kanit'),),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               size: 35,
             ),
-            title: Text("ค้นหาการแชร์"),
+            title: Text("ค้นหาการแชร์",style: TextStyle(fontFamily: 'Kanit')),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.directions_car,
               size: 35,
             ),
-            title: Text("การแชร์ของฉัน"),
+            title: Text("การแชร์ของฉัน",style: TextStyle(fontFamily: 'Kanit')),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.notifications,
               size: 35,
             ),
-            title: Text("แจ้งเตือน"),
-          
-         
+            title: Text("แจ้งเตือน",style: TextStyle(fontFamily: 'Kanit')),
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(
@@ -126,13 +125,13 @@ class _HomeState extends State<Home> {
           //   ),
           //   title: Text("สร้างแชร์"),
           // ),
-           BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.account_circle,
               size: 35,
             ),
-            title: Text("โพรไฟล์"),
-            ),
+            title: Text("โพรไฟล์",style: TextStyle(fontFamily: 'Kanit')),
+          ),
         ],
       ),
     );

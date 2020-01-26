@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class Share {
   final String id;
@@ -7,7 +8,8 @@ class Share {
   final String endplace;
   final String price;
   final String seat;
-  final String datetime;
+  final DateTime date;
+  final String time;
   final Timestamp timestamp;
   final String authorId;
 
@@ -18,7 +20,8 @@ class Share {
    this.endplace,
    this.price,
    this.seat,
-   this.datetime,
+   this.date,
+   this.time,
    this.timestamp,
    this.authorId,
   });
@@ -30,7 +33,8 @@ class Share {
       endplace: doc['Endplace'],
       price: doc['Price'],
       seat: doc['Seat'],
-      datetime: doc['DateTime'],
+      date: doc['Date'],
+      time: doc['Time'],
       timestamp: doc['Timestamp'],
       authorId: doc['AuthorId'],
 
@@ -43,7 +47,8 @@ Map<String, dynamic> toJson() =>{
 'Endplace': endplace,
 'Price': price,
 'Seat': seat,
-'DateTime': datetime,
+'Date': date,
+'Time': time,
 'AuthorId': authorId,
 };
 }

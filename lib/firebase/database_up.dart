@@ -3,10 +3,10 @@ import 'package:mythesis96/m/car_data.dart';
 import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_m.dart';
-import 'package:mythesis96/constance.dart';
+import 'package:mythesis96/firebase/constance.dart';
 
 class DatabaseSer {
-    static final _firestore = Firestore.instance;
+  static final _firestore = Firestore.instance;
 
   static void updateUser(User user) {
     userRef.document(user.id).updateData({
@@ -42,26 +42,27 @@ class DatabaseSer {
       'timestamp': post.timestamp,
     });
   }
- 
 
   static void createShare(Share sharepost) {
-    shareRef.document(sharepost.authorId).collection('Shareposts').add({
+    userRef.document(sharepost.authorId).collection('Shareposts').add({
       'Concertname': sharepost.concertname,
       'StartPlace': sharepost.startplace,
       'Endplace': sharepost.endplace,
       'Price': sharepost.price,
       'Seat': sharepost.seat,
-      'DateTime': sharepost.datetime,
+      'Date': sharepost.date,
+      'Time': sharepost.time,
       'timestamp': sharepost.timestamp,
       'AuthorId': sharepost.authorId,
     });
-    _firestore.collection('Shareposts_web').add({
+    _firestore.collection('Shareposts').add({
       'Concertname': sharepost.concertname,
       'StartPlace': sharepost.startplace,
       'Endplace': sharepost.endplace,
       'Price': sharepost.price,
       'Seat': sharepost.seat,
-      'DateTime': sharepost.datetime,
+      'Date': sharepost.date,
+      'Time': sharepost.time,
       'timestamp': sharepost.timestamp,
       'AuthorId': sharepost.authorId,
     });
@@ -79,7 +80,7 @@ class DatabaseSer {
   }
 
   static Future<List<Share>> getFeedPosts(String userId) async {
-    QuerySnapshot feedshare = await shareRef
+    QuerySnapshot feedshare = await userRef
         .document(userId)
         .collection('Shareposts')
         .orderBy('timestamp', descending: true)

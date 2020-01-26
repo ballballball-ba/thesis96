@@ -118,132 +118,137 @@ class Sharefeeds extends StatelessWidget {
   // final Color secondaryColor = Color(0xff324558);
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-        // appBar: AppBar(
-        //   backgroundColor: Colors.transparent,
-        //   elevation: 0,
-        // ),
-        initialIndex: 0,
-        length: 3,
-        child: Theme(
-            data: ThemeData(
-              primaryColor: purple2,
-              appBarTheme: AppBarTheme(
-                color: Colors.white,
-                textTheme: TextTheme(
-                  title: TextStyle(
+   
+      return DefaultTabController(
+          // appBar: AppBar(
+          //   backgroundColor: Colors.transparent,
+          //   elevation: 0,
+          // ),
+          initialIndex: 0,
+          length: 3,
+          child: Theme(
+              data: ThemeData(
+                primaryColor: purple2,
+                appBarTheme: AppBarTheme(
+                  color: Colors.white,
+                  textTheme: TextTheme(
+                    title: TextStyle(
+                      color: purple2,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  iconTheme: IconThemeData(color: purple2),
+                  actionsIconTheme: IconThemeData(
                     color: purple2,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                iconTheme: IconThemeData(color: purple2),
-                actionsIconTheme: IconThemeData(
-                  color: purple2,
-                ),
               ),
-            ),
-            child: Scaffold(
-              backgroundColor: Theme.of(context).buttonColor,
-              appBar: AppBar(
-                //center text
-                centerTitle: true,
-                title: Text('การแชร์'),
+              child: Scaffold(
+                backgroundColor: Theme.of(context).buttonColor,
+                appBar: AppBar(
+                  //center text
+                  centerTitle: true,
+                  title: Text('การแชร์',style: TextStyle(fontFamily: 'Kanit',)),
 
-                actions: <Widget>[
-                  IconButton(
-                    icon: Icon(Icons.search),
-                    onPressed: () {},
-                  )
-                ],
-                bottom: TabBar(
-                  // fic width
-                  //  isScrollable: true,
-                  labelColor: orange1,
-                  indicatorColor: orange1,
-                  unselectedLabelColor: orange1,
-                  tabs: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("ทั้งหมด"),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(Icons.search),
+                      onPressed: () {},
+                    )
+                  ],
+                  bottom: TabBar(
+                    // fic width
+                    //  isScrollable: true,
+                    labelColor: orange1,
+                    indicatorColor: orange1,
+                    unselectedLabelColor: orange1,
+                    tabs: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("ทั้งหมด",style: TextStyle(fontFamily: 'Kanit',)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("ชาย",style: TextStyle(fontFamily: 'Kanit',)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text("หญิง",style: TextStyle(fontFamily: 'Kanit',)),
+                      ),
+                    ],
+                  ),
+                ),
+                body: TabBarView(
+                  children: <Widget>[
+                    // ListView.separated(
+                    //   padding: const EdgeInsets.all(16.0),
+                    //   itemCount: articles.length,
+                    //   itemBuilder: (context, index) {
+                    //     return _buildArticleItem(index);
+                    //   },
+                    //   separatorBuilder: (context, index) =>
+                    //       const SizedBox(height: 16.0),
+                    // ),
+                    StreamBuilder<Object>(builder: (context, snapshot) {
+                      return Container(
+                        child: StreamBuilder(
+                            stream: getUsersTripsStreamSnapshots(context),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData)
+                                return const Text("Loading...");
+                              return new ListView.builder(
+                                  itemCount: snapshot.data.documents.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) =>
+                                          buildTripCard(context,
+                                              snapshot.data.documents[index]));
+                            }),
+                      );
+                    }),
+                    Container(
+                      //ตัวเลือกกำหนดเพศ
+                      child: Text("Tab 2"),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("ชาย"),
+                    Container(
+                      child: Text("Tab 3"),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("หญิง"),
-                    ),
+                    // Container(
+                    //   child: Text("Tab 4"),
+                    // ),
+                    // Container(
+                    //   child: Text("Tab 5"),
+                    // ),
                   ],
                 ),
-              ),
-              body: TabBarView(
-                children: <Widget>[
-                  // ListView.separated(
-                  //   padding: const EdgeInsets.all(16.0),
-                  //   itemCount: articles.length,
-                  //   itemBuilder: (context, index) {
-                  //     return _buildArticleItem(index);
-                  //   },
-                  //   separatorBuilder: (context, index) =>
-                  //       const SizedBox(height: 16.0),
-                  // ),
-                  StreamBuilder<Object>(builder: (context, snapshot) {
-                    return Container(
-                      child: StreamBuilder(
-                          stream: getUsersTripsStreamSnapshots(context),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData)
-                              return const Text("Loading...");
-                            return new ListView.builder(
-                                itemCount: snapshot.data.documents.length,
-                                itemBuilder:
-                                    (BuildContext context, int index) =>
-                                        buildTripCard(context,
-                                            snapshot.data.documents[index]));
-                          }),
-                    );
-                  }),
-                  Container(
-                    //ตัวเลือกกำหนดเพศ
-                    child: Text("Tab 2"),
-                  ),
-                  Container(
-                    child: Text("Tab 3"),
-                  ),
-                  // Container(
-                  //   child: Text("Tab 4"),
-                  // ),
-                  // Container(
-                  //   child: Text("Tab 5"),
-                  // ),
-                ],
-              ),
-            )));
+              )),
+    );
   }
 
   //@override
   Widget build2(
     BuildContext context,
   ) {
-    return Container(
-      child: StreamBuilder(
-          stream: getUsersTripsStreamSnapshots(context),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) return const Text("Loading...");
-            return new ListView.builder(
-                itemCount: snapshot.data.documents.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    buildTripCard(context, snapshot.data.documents[index]));
-          }),
+    return MaterialApp(
+      theme: ThemeData(fontFamily: 'Kanit'),
+      home: Container(
+        child: StreamBuilder(
+            stream: getUsersTripsStreamSnapshots(context),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) return const Text("Loading...");
+              return new ListView.builder(
+                  itemCount: snapshot.data.documents.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      buildTripCard(context, snapshot.data.documents[index]));
+            }),
+      ),
     );
   }
 
   Stream<QuerySnapshot> getUsersTripsStreamSnapshots(
       BuildContext context) async* {
     // final uid = await Provider.of(context).auth.getCurrentUID();
-    yield* Firestore.instance.collection('Shareposts_web').snapshots();
+    yield* Firestore.instance.collection('Shareposts').snapshots();
   }
 
   Widget buildTripCard(BuildContext context, DocumentSnapshot trip) {
@@ -264,7 +269,7 @@ class Sharefeeds extends StatelessWidget {
         color: Colors.white,
       ),
       width: double.infinity,
-      height: 150,
+      height: 151,
       margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: Row(
@@ -307,7 +312,7 @@ class Sharefeeds extends StatelessWidget {
                           trip['Concertname'],
                           style: TextStyle(
                               color: purple1,
-                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Kanit',
                               fontSize: 18),
                         ),
                         // Align(
@@ -331,7 +336,7 @@ class Sharefeeds extends StatelessWidget {
                     ),
                     Text(trip['StartPlace'],
                         style: TextStyle(
-                            color: purple1, fontSize: 13, letterSpacing: .3)),
+                            color: purple1, fontSize: 13, letterSpacing: .3,fontFamily: 'Kanit',)),
                   ],
                 ),
                 SizedBox(
@@ -349,7 +354,7 @@ class Sharefeeds extends StatelessWidget {
                     ),
                     Text(trip['Endplace'],
                         style: TextStyle(
-                            color: purple1, fontSize: 13, letterSpacing: .3)),
+                            color: purple1, fontSize: 13, letterSpacing: .3,fontFamily: 'Kanit',)),
                   ],
                 ),
                 SizedBox(
@@ -365,9 +370,9 @@ class Sharefeeds extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(trip['DateTime'],
-                        style: TextStyle(
-                            color: purple1, fontSize: 13, letterSpacing: .3)),
+                    // Text(trip['Date'],
+                    // style: TextStyle(
+                    //     color: purple1, fontSize: 13, letterSpacing: .3)),
                   ],
                 ),
                 SizedBox(
@@ -385,7 +390,7 @@ class Sharefeeds extends StatelessWidget {
                     ),
                     Text(trip['Seat'],
                         style: TextStyle(
-                            color: purple1, fontSize: 13, letterSpacing: .3)),
+                            color: purple1, fontSize: 13, letterSpacing: .3,fontFamily: 'Kanit',)),
                     Padding(
                       padding: EdgeInsets.only(left: 80),
                     ),
@@ -396,7 +401,7 @@ class Sharefeeds extends StatelessWidget {
                     ),
                     Text(trip['Price'],
                         style: TextStyle(
-                            color: purple1, fontSize: 13, letterSpacing: .3)),
+                            color: purple1, fontSize: 13, letterSpacing: .3,fontFamily: 'Kanit',)),
                   ],
                 ),
               ],
@@ -405,10 +410,11 @@ class Sharefeeds extends StatelessWidget {
           Column(
             children: <Widget>[
               Expanded(
-                
                 child: Row(
                   children: <Widget>[
-                    Align(alignment: Alignment.centerLeft,),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                    ),
                     Icon(
                       Icons.arrow_forward_ios,
                       // Icons.keyboard_arrow_right,

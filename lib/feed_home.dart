@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:mythesis96/bt_bar/driver_regis.dart';
+import 'package:mythesis96/bt_bar/edit_profile.dart';
+import 'package:mythesis96/bt_bar/sharefeeds.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/firebase/database_up.dart';
@@ -44,6 +47,10 @@ class CommonThings {
 }
 
 class _FeedhomeState extends State<Feedhome> {
+  final Color purple1 = Color(0xff5A45A5);
+  final Color purple2 = Color(0xff2A1D59);
+  final Color orange1 = Color(0xffF2551D);
+  // final Color secondaryColor = Color(0xff3
   @override
   Widget build(BuildContext context) {
     //Auto playing carousel
@@ -71,6 +78,7 @@ class _FeedhomeState extends State<Feedhome> {
     );
 
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Kanit'),
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
@@ -92,9 +100,117 @@ class _FeedhomeState extends State<Feedhome> {
               Padding(padding: EdgeInsets.only(bottom: 35)),
               autoPlayDemo,
               Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 35, vertical: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              width: 120,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(
+                                      2.0, // horizontal, move right 10
+                                      2.0, // vertical, move down 10
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.directions_car,
+                                  color: purple1,
+                                  size: 50,
+                                ),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => Driverregis(),
+                                  ),
+                                ),
+                              ),
+                              padding: EdgeInsets.all(10),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              'สร้างการแชร์',
+                              style: TextStyle(fontSize: 12, color: orange1),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              width: 120,
+                              height: 80,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black26,
+                                    blurRadius: 4,
+                                    offset: Offset(
+                                      2.0, // horizontal, move right 10
+                                      2.0, // vertical, move down 10
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.search,
+                                  color: purple1,
+                                  size: 50,
+                                ),
+                                onPressed: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => Sharefeeds(),
+                                  ),
+                                ),
+                              ),
+                              padding: EdgeInsets.all(10),
+                            ),
+                            SizedBox(
+                              height: 4,
+                            ),
+                            Text(
+                              'ค้นหาการแชร์',
+                              style: TextStyle(fontSize: 12, color: orange1),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              
+              Divider(
+                color: Colors.black,
+              ),
+              Container(
                 //ขนาดกล่อง
                 constraints: BoxConstraints.expand(width: 411, height: 500),
-                margin: EdgeInsets.all(30),
+                margin:
+                    EdgeInsets.only(top: 10, bottom: 30, left: 30, right: 30),
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: StreamBuilder(
                     stream:
@@ -118,6 +234,7 @@ class _FeedhomeState extends State<Feedhome> {
                               snapshot.data.documents[index];
                           return new Container(
                             child: Container(
+                              
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
@@ -143,6 +260,7 @@ class _FeedhomeState extends State<Feedhome> {
                                         // child:  Image.network('${doc.data['PicURL']}'+ '?alt-media'),
                                         //child: Image.network('https://korea.tlcthai.com/wp-content/uploads/%E0%B9%84%E0%B8%AD%E0%B8%A2%E0%B8%B9IU.jpg'),
                                       ),
+                                      
                                     ),
                                     Expanded(
                                       child: ListTile(
@@ -150,14 +268,14 @@ class _FeedhomeState extends State<Feedhome> {
                                           doc.data['NameCon'],
                                           style: TextStyle(
                                             color: Colors.purple,
-                                            fontSize: 14,
+                                            fontSize: 12,
                                           ),
                                         ),
                                         subtitle: Text(
                                           doc.data['Place'],
                                           style: TextStyle(
                                               color: Colors.deepPurple,
-                                              fontSize: 12),
+                                              fontSize: 10),
                                         ),
 
                                         //  subtitle: Text(
@@ -171,16 +289,21 @@ class _FeedhomeState extends State<Feedhome> {
                                       ),
                                     ),
                                     Row(
+                                      
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
-                                        Text(
-                                          doc.data['Day'],
-                                          style: TextStyle(
-                                              color: Colors.deepPurple,
-                                              fontSize: 12),
+                                        Container(
+                                          margin: EdgeInsets.only(right: 5),
+                                          child: Text(
+                                            doc.data['Day'],
+                                            style: TextStyle(
+                                                color: Colors.deepPurple,
+                                                fontSize: 10),
+                                          ),
                                         )
                                       ],
                                     ),
+                                   
                                   ],
                                 ),
                               ),
