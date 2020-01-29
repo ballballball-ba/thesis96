@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mythesis96/bt_bar/alert_report.dart';
 import 'package:mythesis96/bt_bar/edit_profile.dart';
 import 'package:mythesis96/bt_bar/driver_regis.dart';
 import 'package:mythesis96/bt_bar/form_share.dart';
+import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/m/user_m.dart';
 import 'package:mythesis96/firebase/constance.dart';
@@ -21,11 +23,13 @@ class _ProfileState extends State<Profile> {
   final Color purple1 = Color(0xff5A45A5);
   final Color purple2 = Color(0xff2A1D59);
   final Color orange1 = Color(0xffF2551D);
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-       theme: new ThemeData(
+      theme: new ThemeData(
         fontFamily: 'Kanit',
+        // primarySwatch: Colors.black
       ),
       home: Scaffold(
         backgroundColor: Colors.white,
@@ -49,148 +53,323 @@ class _ProfileState extends State<Profile> {
 
 //print(drive.id2);
                 //print(snapshot.data['username']);
-                return ListView(
-                  children: <Widget>[
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                          width: double.infinity,
-                          height: 330,
-                          color: Color(0xFF5A45A5),
+                return Scaffold(
+                  key: _scaffoldKey,
+                  appBar: AppBar(
+                    backgroundColor: purple1,
+                    elevation: 0,
+                    leading: Container(
+                      margin: EdgeInsets.only(left: 15, top: 15),
+                      child: new IconButton(
+                        icon: new Icon(
+                          Icons.short_text,
+                          color: purple2,
+                          size: 40,
                         ),
-                        Column(
+                        onPressed: () => _scaffoldKey.currentState.openDrawer(),
+                      ),
+                    ),
+                    // title: Text("แจ้งปัญหา/แจ้งเหตุ",
+                    //     style: TextStyle(
+                    //       fontFamily: 'Kanit',
+                    //       fontWeight: FontWeight.w600,
+                    //       color: purple2,
+                    //     )),
+                    // centerTitle: true,
+                  ),
+                  drawer: Theme(
+                    data: Theme.of(context).copyWith(
+                      canvasColor: Colors.transparent,
+                      primaryColor: Colors.black, //***PRIMARY COLOR overide works */
+
+                      //** */DOES NOT OVERRIDE THEMEDATA IN MATERIALAPP***
+                      primaryColorBrightness: Brightness.light,
+                    ),
+                    child: Drawer(
+                      child: Container(
+                        color: Colors.white,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
                             Container(
-                              margin: EdgeInsets.only(top: 25.0),
-
-                              // child: Row(
-                              //   children: <Widget>[
-                              //      Align(alignment: Alignment.bottomLeft,),
-                              //     IconButton(
-                              //             icon: Icon(Icons.settings),
-                              //             tooltip: 'ตั้งค่า',
-                              //             onPressed: () => Navigator.push(context, MaterialPageRoute(
-                              //               builder: (_) => Editprofile(user: user,)
-                              //             )),
-                              //           ),
-                              //   ],
-                              // ),
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 35.0),
-                              height: 120,
-                              child: CircleAvatar(
-                                radius: 60,
-                                backgroundColor: Colors.grey,
-                                backgroundImage: user.profileImgUrl.isEmpty
-                                    ? AssetImage(
-                                        'assets/images/user_placeholder.jpg')
-                                    : CachedNetworkImageProvider(
-                                        user.profileImgUrl),
+                              child: UserAccountsDrawerHeader(
+                                //arrowColor: orange1,
+                                accountName: Text(user.name),
+                                accountEmail: Text(user.email),
+                                currentAccountPicture: CircleAvatar(
+                                  backgroundImage: user.profileImgUrl.isEmpty
+                                      ? AssetImage(
+                                          'assets/images/user_placeholder.jpg')
+                                      : CachedNetworkImageProvider(
+                                          user.profileImgUrl),
+                                ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsets.all(2),
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Text(
-                                  user.name,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                  textAlign: TextAlign.center,
+                            ListTile(
+                              leading: Icon(Icons.settings),
+                              title: Text('ตั้งค่า'),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => Editprofile(user: user),
                                 ),
-                                FlatButton(
-                                  //icon: Icon(Icons.settings),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.report_problem),
+                              title: Text('แจ้งปัญหา/แจ้งเหตุ'),
+                              onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => Alertreport(),
+                                ),
+                              ),
+                            ),
+                            ListTile(
+                              leading: Icon(Icons.info),
+                              title: Text('About Us'),
+                              onTap: () {
+                                // Navigator.pushNamed(
+                                //     context,
+                                //     About.routeName
+                                // );
+                              },
+                            ),
+                            Expanded(
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: ListTile(
+                                  leading: Icon(Icons.exit_to_app),
+                                  title: Text('ออกจากระบบ'),
+                                  onTap: () => AuthService.logout(),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  // drawer: new Drawer(
+                  //   child: new ListView(
+                  //     children: <Widget>[
+                  //       new Container(
+                  //         child: Column(
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //       mainAxisSize: MainAxisSize.max,
+                  //           children: <Widget>[
+                  //             new DrawerHeader(child: new CircleAvatar(
+                  //                 backgroundImage: user.profileImgUrl.isEmpty
+                  //                     ? AssetImage(
+                  //                         'assets/images/user_placeholder.jpg')
+                  //                     : CachedNetworkImageProvider(
+                  //                         user.profileImgUrl),
+                  //               ),),
+                  //           ],
+
+                  //         ),
+                  //         color: purple1,
+                  //       ),
+                  //       new Container(
+                  //         color: Colors.white,
+                  //         child: new Column(
+                  //           children: new List.generate(4, (int index) {
+                  //             return new ListTile(
+                  //               leading: new Icon(Icons.info),
+                  //             );
+                  //           }),
+                  //         ),
+                  //       )
+                  //     ],
+                  //   ),
+                  // ),
+                  body: ListView(
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          Container(
+                            width: double.infinity,
+                            height: 250,
+                            color: Color(0xFF5A45A5),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Container(
+                                margin: const EdgeInsets.only(top: 20.0),
+                                height: 120,
+                                child: CircleAvatar(
+                                  radius: 60,
+                                  backgroundColor: Colors.grey,
+                                  backgroundImage: user.profileImgUrl.isEmpty
+                                      ? AssetImage(
+                                          'assets/images/user_placeholder.jpg')
+                                      : CachedNetworkImageProvider(
+                                          user.profileImgUrl),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(2),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    user.name,
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 22),
+                                    textAlign: TextAlign.center,
+                                  ),
+
+                                  // )
+                                ],
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                padding: EdgeInsets.all(10),
+                                child: Card(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  color: orange1,
-                                  // alignment: Alignment.topRight,
-                                  onPressed: () => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => Editprofile(user: user),
-                                    ),
-                                  ),
-                                  //color: Color(0xff5A45A5),
-                                  child: Text(
-                                    'ตั้งค่า',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 7),
-                              padding: EdgeInsets.all(10),
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Row(
-                                  children: <Widget>[
-                                    Container(
-                                      child: Column(
-                                        children: <Widget>[],
-                                      ),
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Container(
-                                          margin: EdgeInsets.only(left: 18),
-                                          child: IconButton(
-                                              icon: Icon(Icons.book),
-                                              color: Colors.black38,
-                                              alignment: Alignment.topRight,
-                                              onPressed: () => print('4')),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Container(
+                                        child: Column(
+                                          children: <Widget>[],
                                         ),
-                                      ],
-                                    ),
-                                    Container(
-                                      child: Column(
+                                      ),
+                                      Column(
                                         children: <Widget>[
                                           Container(
-                                            height: 80,
-                                            margin: EdgeInsets.only(left: 20),
-                                            padding: EdgeInsets.only(top: 25),
-                                            child: Text(
-                                              user.bio,
-                                              style: TextStyle(fontSize: 16),
-                                            ),
+                                            margin: EdgeInsets.only(left: 18),
+                                            child: IconButton(
+                                                icon: Icon(Icons.book),
+                                                color: Colors.black38,
+                                                alignment: Alignment.topRight,
+                                                onPressed: () => print('4')),
                                           ),
                                         ],
                                       ),
-                                    ),
+                                      Container(
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              height: 80,
+                                              margin: EdgeInsets.only(left: 20),
+                                              padding: EdgeInsets.only(top: 25),
+                                              child: Text(
+                                                user.bio,
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                padding: EdgeInsets.all(10),
+                                child: Column(
+                                  children: <Widget>[
+                                    Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Container(
+                                        alignment: Alignment.topLeft,
+                                        padding: EdgeInsets.all(15),
+                                        child: Column(
+                                          children: <Widget>[
+                                            Container(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                "ข้อมูลของคุณ",
+                                                style: TextStyle(
+                                                  color: Colors.black87,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                ),
+                                                textAlign: TextAlign.left,
+                                              ),
+                                            ),
+                                            Divider(
+                                              color: Colors.black38,
+                                            ),
+                                            Container(
+                                              child: Column(
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    leading: Icon(Icons.email),
+                                                    title: Text("Email"),
+                                                    subtitle: Text(user.email),
+                                                  ),
+                                                  ListTile(
+                                                    leading: Icon(Icons.face),
+                                                    title: Text("เพศ"),
+                                                    subtitle: Text(user.gender),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                               ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              child: Column(
-                                children: <Widget>[
+                              Container(
+                                padding: EdgeInsets.only(bottom: 10, right: 10),
+                                child: Column(children: <Widget>[
                                   Card(
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Container(
-                                      alignment: Alignment.topLeft,
+                                      alignment: Alignment.topRight,
                                       padding: EdgeInsets.all(15),
                                       child: Column(
                                         children: <Widget>[
                                           Container(
-                                            alignment: Alignment.topLeft,
-                                            child: Text(
-                                              "ข้อมูลของคุณ",
-                                              style: TextStyle(
-                                                color: Colors.black87,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 16,
-                                              ),
-                                              textAlign: TextAlign.left,
+                                            child: Column(
+                                              children: <Widget>[
+                                                ListTile(
+                                                  leading: FlatButton(
+                                                    onPressed: () =>
+                                                        Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (_) =>
+                                                            Driverregis(),
+                                                      ),
+                                                    ),
+                                                    color: Color(0xff5A45A5),
+                                                    child: Text(
+                                                      'สมัครคนขับ',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
+                                            // child: Column(
+                                            //       children: <Widget>[
+                                            //         ListTile(
+                                            //           leading: Icon(Icons.email),
+                                            //           title: Text("Email"),
+                                            //           subtitle: Text(user.email),
+                                            //         ),
+                                            //         ListTile(
+                                            //           leading: Icon(Icons.face),
+                                            //           title: Text("เพศ"),
+                                            //           subtitle: Text("5555555555"),
+                                            //         ),
+                                            //       ],
+                                            //     ),
                                           ),
                                           Divider(
                                             color: Colors.black38,
@@ -199,14 +378,29 @@ class _ProfileState extends State<Profile> {
                                             child: Column(
                                               children: <Widget>[
                                                 ListTile(
-                                                  leading: Icon(Icons.email),
-                                                  title: Text("Email"),
-                                                  subtitle: Text(user.email),
+                                                  leading: Icon(
+                                                      Icons.directions_car),
+                                                  title: Text("ID"),
+
+                                                  //subtitle: Text(user.email),
+
+                                                  subtitle: Text(user.id),
                                                 ),
-                                                ListTile(
-                                                  leading: Icon(Icons.face),
-                                                  title: Text("เพศ"),
-                                                  subtitle: Text(user.gender),
+                                                FlatButton(
+                                                  onPressed: () =>
+                                                      Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (_) =>
+                                                          Shareform(),
+                                                    ),
+                                                  ),
+                                                  color: Colors.black,
+                                                  child: Text(
+                                                    'สร้างการแชร์',
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -214,103 +408,16 @@ class _ProfileState extends State<Profile> {
                                         ],
                                       ),
                                     ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(bottom: 10, right: 10),
-                              child: Column(children: <Widget>[
-                                Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
                                   ),
-                                  child: Container(
-                                    alignment: Alignment.topRight,
-                                    padding: EdgeInsets.all(15),
-                                    child: Column(
-                                      children: <Widget>[
-                                        Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              ListTile(
-                                                leading: FlatButton(
-                                                  onPressed: () => Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          Driverregis(),
-                                                    ),
-                                                  ),
-                                                  color: Color(0xff5A45A5),
-                                                  child: Text(
-                                                    'สมัครคนขับ',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          // child: Column(
-                                          //       children: <Widget>[
-                                          //         ListTile(
-                                          //           leading: Icon(Icons.email),
-                                          //           title: Text("Email"),
-                                          //           subtitle: Text(user.email),
-                                          //         ),
-                                          //         ListTile(
-                                          //           leading: Icon(Icons.face),
-                                          //           title: Text("เพศ"),
-                                          //           subtitle: Text("5555555555"),
-                                          //         ),
-                                          //       ],
-                                          //     ),
-                                        ),
-                                        Divider(
-                                          color: Colors.black38,
-                                        ),
-                                        Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              ListTile(
-                                                leading:
-                                                    Icon(Icons.directions_car),
-                                                title: Text("ID"),
-
-                                                //subtitle: Text(user.email),
-
-                                                subtitle: Text(user.id),
-                                              ),
-                                              FlatButton(
-                                                onPressed: () => Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (_) => Shareform(),
-                                                  ),
-                                                ),
-                                                color: Colors.black,
-                                                child: Text(
-                                                  'สร้างการแชร์',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ]),
-                            )
-                          ],
-                        ),
-                        //
-                      ],
-                    )
-                  ],
+                                ]),
+                              )
+                            ],
+                          ),
+                          //
+                        ],
+                      )
+                    ],
+                  ),
                 );
               }),
         ),

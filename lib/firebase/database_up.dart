@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mythesis96/m/car_data.dart';
 import 'package:mythesis96/m/driver_regit.dart';
+import 'package:mythesis96/m/report.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_m.dart';
 import 'package:mythesis96/firebase/constance.dart';
@@ -76,6 +77,18 @@ class DatabaseSer {
       'licensecar': car.licensecar,
       'Timestamp': car.timestamp,
       'AuthorId': car.authorId,
+    });
+  }
+
+  static void createReport(Report report) {
+    _firestore.collection('Report').add({
+      'Topic': report.topic,
+      'Text': report.text,
+      'Date': report.date,
+      'Time': report.time,
+      'AuthorId': report.authorId,
+      //'licensecar': car.licensecar,
+      'Timestamp': report.timestamp,
     });
   }
 

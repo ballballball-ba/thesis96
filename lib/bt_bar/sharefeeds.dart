@@ -313,7 +313,7 @@ class Sharefeeds extends StatelessWidget {
                           style: TextStyle(
                               color: purple1,
                               fontFamily: 'Kanit',
-                              fontSize: 18),
+                              fontSize: 18,fontWeight: FontWeight.w600),
                         ),
                         // Align(
                         //   alignment: Alignment.centerRight,

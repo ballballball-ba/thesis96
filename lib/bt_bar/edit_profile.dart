@@ -92,14 +92,29 @@ class _EditprofileState extends State<Editprofile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   title: Text(
+      //     "แก้ไขโพรไฟล์",
+      //     style: TextStyle(color: Color(0xff5A45A5)),
+      //     textAlign: TextAlign.center,
+      //   ),
+      // ),
+       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text(
-          "แก้ไขโพรไฟล์",
-          style: TextStyle(color: Color(0xff5A45A5)),
-          textAlign: TextAlign.center,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios, color: Color(0xff5A45A5)),
+          onPressed: () => Navigator.of(context).pop(),
         ),
+        title: Text("แก้ไขโพรไฟล์",
+            style: TextStyle(
+              fontFamily: 'Kanit',
+              fontWeight: FontWeight.w600,
+             color: Color(0xff5A45A5)
+            )),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -169,30 +184,30 @@ class _EditprofileState extends State<Editprofile> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    height: 40,
-                    width: 250,
-                    child: FlatButton(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(10.0),
-                      ),
-                      //กดแล้วเรียก submit fuction
-                      onPressed: () => AuthService.logout(),
-                      color: Colors.black38,
-                      textColor: Colors.white,
-                      child: Text(
-                        "ออกจากระบบ",
-                        style: TextStyle(fontSize: 18),
-                      ),
-                      //  Center(
-                      //   child: FlatButton( //logout funtion
-                      //     onPressed: () => AuthService.logout(),
-                      //     child: Text('LOGOUT'),
-                      //   ),
-                      // )
-                    ),
-                  )
+                  // Container(
+                  //   margin: EdgeInsets.all(10),
+                  //   height: 40,
+                  //   width: 250,
+                  //   child: FlatButton(
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: new BorderRadius.circular(10.0),
+                  //     ),
+                  //     //กดแล้วเรียก submit fuction
+                  //     onPressed: () => AuthService.logout(),
+                  //     color: Colors.black38,
+                  //     textColor: Colors.white,
+                  //     child: Text(
+                  //       "ออกจากระบบ",
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     //  Center(
+                  //     //   child: FlatButton( //logout funtion
+                  //     //     onPressed: () => AuthService.logout(),
+                  //     //     child: Text('LOGOUT'),
+                  //     //   ),
+                  //     // )
+                  //   ),
+                  // )
                 ],
               ),
             ),

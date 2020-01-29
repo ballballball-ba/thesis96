@@ -20,22 +20,34 @@ class Shareform extends StatefulWidget {
   _ShareformState createState() => _ShareformState();
 }
 
+// main() {
+//   var now = new DateTime.now();
+//   var formatter = new DateFormat('yyyy-MMM-dd');
+//   String formatted = formatter.format(now);
+//   print(formatted); // something like 2019-Jun-20
+// }
+
 class _ShareformState extends State<Shareform> {
+  String dateFormate;
   DateTime pickedDate;
   TimeOfDay time;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    pickedDate = DateTime.now();
-    time = TimeOfDay.now();
-  }
+  // something like 2019-Jun-20
+  // DateTime now = DateTime.now();
+  // var format = DateFormat.yMd('ar');
+  //String dateString = format.format(DateTime.now());
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   pickedDate = DateTime.now();
+  //   time = TimeOfDay.now();
+  // }
   // DateTime selectedDate = DateTime.now();
 
   // final _formkey = GlobalKey<FormState>();
   var selectedCurrency, selectdatetime;
-  final format = DateFormat("HH:mm");
+  // final format = DateFormat("HH:mm");
+
   TextEditingController _startTimeController = TextEditingController();
   TextEditingController _endTimeController = TextEditingController();
 
@@ -45,6 +57,8 @@ class _ShareformState extends State<Shareform> {
   TextEditingController _priceController = TextEditingController();
   TextEditingController _seatController = TextEditingController();
   TextEditingController _datetimeController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
 
   //car
   TextEditingController _brandcarControlle = TextEditingController();
@@ -58,7 +72,7 @@ class _ShareformState extends State<Shareform> {
   String _endplace = '';
   String _price = '';
   String _seat = '';
-  DateTime _date;
+  String _date = '';
   String _time = '';
 
   ///car
@@ -72,6 +86,7 @@ class _ShareformState extends State<Shareform> {
   final Color purple2 = Color(0xff2A1D59);
   final Color purple3 = Color(0xffBDAEF2);
   final Color orage1 = Color(0xffF2551D);
+  // final Color fonts = Color(0xffb3b3b3);
   //final Color bg_orange = Color(0xffF48C67);
   final _formkey = GlobalKey<FormState>();
   // String _username, _email, _password;
@@ -141,6 +156,8 @@ class _ShareformState extends State<Shareform> {
       _priceController.clear();
       _seatController.clear();
       _datetimeController.clear();
+      _dateController.clear();
+      _timeController.clear();
       //car clear
       _brandcarControlle.clear();
       _gencarControlle.clear();
@@ -153,7 +170,7 @@ class _ShareformState extends State<Shareform> {
         _endplace = '';
         _price = '';
         _seat = '';
-        _date;
+        _date = '';
         _time = '';
         /////////////
         _brandcar = '';
@@ -226,36 +243,31 @@ class _ShareformState extends State<Shareform> {
   //   });
   // }
 
-  
-  
-
   @override
   Widget build(BuildContext context) {
-   // final Share newContact = new Share();
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
+    // final Share newContact = new Share();
     return Scaffold(
-      
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "สร้างการแชร์",
-          style: TextStyle(color: purple1),
-          textAlign: TextAlign.center,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios, color: purple2),
+          onPressed: () => Navigator.of(context).pop(),
         ),
-        // actions: <Widget>[
-        //   FlatButton(
-        //     onPressed: _submit,
-        //     child: Text(
-        //       "ยืนยัน",
-        //       style: TextStyle(fontSize: 16, color: Color(0xffFF7240)),
-        //     ),
-
-        //   )
-        // ],
+        title: Text("สร้างการแชร์",
+            style: TextStyle(
+              fontFamily: 'Kanit',
+              fontWeight: FontWeight.w600,
+              color: purple2,
+            )),
+        centerTitle: true,
       ),
 
       ///แก้ button float
       body: SingleChildScrollView(
-        
         child: Container(
           //กำกับความสูง
           //   height: MediaQuery.of(context).size.height,
@@ -317,7 +329,10 @@ class _ShareformState extends State<Shareform> {
                                         child: Text(
                                           snap.data['NameCon'],
                                           style: TextStyle(
-                                              color: orage1, fontSize: 12,fontFamily: 'Kanit',),
+                                            color: orage1,
+                                            fontSize: 12,
+                                            fontFamily: 'Kanit',
+                                          ),
                                         ),
                                       ),
                                       value: "${snap.data['NameCon']}",
@@ -367,7 +382,10 @@ class _ShareformState extends State<Shareform> {
                                           margin: EdgeInsets.only(left: 10),
                                           child: new Text(
                                             "เลือกคอนเสิร์ต",
-                                            style: TextStyle(color: orage1,fontFamily: 'Kanit',),
+                                            style: TextStyle(
+                                              color: orage1,
+                                              fontFamily: 'Kanit',
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -405,10 +423,10 @@ class _ShareformState extends State<Shareform> {
                             border: InputBorder.none,
                             prefixIcon: Icon(Icons.place, color: Colors.white),
                             hintText: 'จุดเริ่มต้น',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) => input.trim().isEmpty
                               ? 'กรุณาเลือกจุดเริ่มต้น'
@@ -431,10 +449,10 @@ class _ShareformState extends State<Shareform> {
                             border: InputBorder.none,
                             prefixIcon: Icon(Icons.place, color: Colors.white),
                             hintText: 'ปลายทาง',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) =>
                               input.trim().isEmpty ? 'กรุณากำหนดปลายทาง' : null,
@@ -457,10 +475,10 @@ class _ShareformState extends State<Shareform> {
                             prefixIcon:
                                 Icon(Icons.attach_money, color: Colors.white),
                             hintText: 'ราคา/ที่นั่ง',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) =>
                               input.trim().isEmpty ? 'กรุณากำหนดราคา' : null,
@@ -473,294 +491,333 @@ class _ShareformState extends State<Shareform> {
                             color: purple3,
                             borderRadius: BorderRadius.circular(10)),
                         margin: EdgeInsets.only(
-                            left: 15.0, right: 15.0, top: 10, bottom: 20),
-                        child: Column(
-                          children: <Widget>[
-                            // new Text('data seect ${_date.toString()}'),
-
-                            // new RaisedButton(
-                            //   child: new Text('select'),
-                            //   onPressed: () {
-                            //     // createRecord();
-                            //      _selectDate(context);
-                            //     // onChanged:
-                            //     // (context) => _datetime = context;
-
-                            //     // this._datetime=input;
-
-                            //   },
-                            // ),
-                            // new Text('time seect ${_time.toString()}'),
-                            // new RaisedButton(
-                            //   child: new Text('select'),
-                            //   onPressed: () {
-                            //     _selectTime(context);
-                            //   },
-                            // ),
-                            //////////////////////////// ไม่เอา
-                            //            Text(_pickedDate == null ? 'Nothing has been picked yet' : _pickedDate.toString()),
-                            //            RaisedButton(
-                            //              child: Text('Pick a date'),
-                            //              onPressed: (){
-                            //                showDatePicker(
-                            //                  context: context,
-                            //                 initialDate: _pickedDate == null ? DateTime.now() : _pickedDate,
-                            // firstDate: DateTime(2001),
-                            // lastDate: DateTime(2021)
-                            //                ).then((date){
-                            //                  setState(() {
-                            //                    _pickedDate = date;
-                            //                  });
-
-                            //                });
-                            //              },
-
-                            //            ),
-                            // //////////////////////////// ไม่เอา
-                            // TextFormField(
-
-                            //   // title: Text(
-                            //   //   'วันเวลา: ${pickedDate.year}-${pickedDate.month}-${pickedDate.day}  -  ${time.hour}:${time.minute}',
-                            //   // ),
-                            //   // trailing:
-                            //   //     Icon(Icons.date_range, color: Colors.white),
-                            //   readOnly: true,
-                            //   decoration: InputDecoration(
-                            //     border: InputBorder.none,
-                            //     prefixIcon: Icon(Icons.date_range, color:Colors.white),
-                            //     hintText: 'วันเวลา',
-                            //   ),
-                            //   onTap: _pickDatetime,
-                            //   keyboardType: TextInputType.datetime,
-
-                            // ),
-                            //     new Row(children: <Widget>[
-                            //       new Expanded(
-                            //           child: new TextFormField(
-                            //         decoration: new InputDecoration(
-                            //           icon: const Icon(Icons.calendar_today),
-                            //           hintText: 'Enter your date of birth',
-                            //           labelText: 'Dob',
-                            //         ),
-                            //         controller: _controller,
-                            //         keyboardType: TextInputType.datetime,
-                            //       //  onChanged: (datetime) {
-                            //       //    setState(() {
-                            //       //      this._time = datetime;
-                            //       //      print(datetime);
-                            //       //    });
-                            //       //  }
-                            //       onSaved: (val) => _date = convertToDate(val),
-                            //   )
-                            //   ),
-
-                            //   new IconButton(
-                            //     icon: new Icon(Icons.more_horiz),
-                            //     tooltip: 'Choose date',
-
-                            //     onPressed: (() {
-                            //       _chooseDate(context, _controller.text);
-                            //     }),
-
-                            //   )
-                            // ]),
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     _pickDatetime(); // Call Function that has showDatePicker()
-                            //   },
-
-                            //   child: AbsorbPointer(
-                            //       child: TextFormField(
-                            //           // controller: _datetimeController,
-                            //           decoration: InputDecoration(
-                            //             border: InputBorder.none,
-                            //             prefixIcon: Icon(Icons.date_range,
-                            //                 color: Colors.white),
-                            //             // labelText:
-                            //             //     'วันเวลา: ${pickedDate.year}-${pickedDate.month}-${pickedDate.day}  -  ${time.hour}:${time.minute}',
-                            //             hintText: 'ระบุวันเวลา',
-                            //           ),
-
-                            //           onSaved: (String val) => _datetime = val,
-
-                            //           ////////////////////////////////////////////////////////////////////////
-                            //           // validator: (input) => input.trim().isEmpty
-                            //           //     ? 'กรุณากำหนดวันและเวลา'
-                            //           //     : null,
-                            //           // onSaved: (input) => _password = input,
-                            //           // obscureText: true,
-
-                            //           //  onChanged: (input) => _datetime = input,
-                            //           )),
-                            // ),
-                            // GestureDetector(
-                            //   onTap: () => _selectDate(context),
-                            //   child: AbsorbPointer(
-                            //     child: TextFormField(
-                            //         controller: _date,
-                            //         keyboardType: TextInputType.datetime,
-                            //         decoration: InputDecoration(
-                            //           hintText: 'Date of Birth',
-                            //           prefixIcon: Icon(
-                            //             Icons.dialpad,
-                            //             color: Colors.black,
-                            //           ),
-                            //         ),
-                            //         validator: (selectedDate) =>
-                            //             selectedDate.isEmpty
-                            //                 ? 'กรุณาระบุวันเวลา'
-                            //                 : null,
-                            //         //  onChanged: (input) {
-                            //         //    this._datetime =input;
-                            //         //    print('change $input');
-                            //         //   //  setState(() {
-                            //         //   //    selectdatetime = input;
-                            //         //   //  });
-                            //         //  }
-                            //          onChanged: (context) {
-                            //            print('data to $context');
-                            //          }
-                            //         // onChanged: (String picked) {
-                            //         //   setState(
-                            //         //       () => picked = 'Change: ${picked}');
-                            //         // }
-                            //         ),
-                            //   ),
-                            // ),
-                            // Text('Basic date & time field (${format.pattern})'),
-///////////////////////////////////////////////////////////////
-                            Container(
-                               margin: EdgeInsets.only(
-                            left: 15.0),
-                              child: DateTimeField(
-                                textAlign: TextAlign.left,
-                                format: DateFormat("yyyy-MM-dd – kk:mm"),
-                                readOnly: true,
-                                 style: TextStyle(
-                                  color: Colors.white,
-                                  decoration: TextDecoration.none,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                                
-                                decoration: InputDecoration(
-                                  
-                                  icon: Icon(Icons.date_range,color: Colors.white),
-                                  hintText: "เลือกเวลา",
-                                  hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
-                                  border: InputBorder.none,
-                                ),
-                                //  DateTime dateTime = DateFormat.parse("2019-07-19 8:40:23");
-                                onChanged: (currentValue) {
-                                  this._date = currentValue;
-                                  print(currentValue);
-                                },
-                                onShowPicker: (context, currentValue) async {
-                                  final date = await showDatePicker(
-                                      context: context,
-                                      firstDate: DateTime(2020),
-                                      initialDate: currentValue ?? DateTime.now(),
-                                      lastDate: DateTime(2021));
-
-                                  if (date != null) {
-                                    final time = await showTimePicker(
-                                      context: context,
-                                      initialTime: TimeOfDay.fromDateTime(
-                                          currentValue ?? DateTime.now()),
-                                    );
-                                    setState(() {});
-                                    //setState(() => _date = date.toString() );
-                                    //  setState(() => _time = time.toString());
-                                    setState(() {
-                                      print('day $date');
-                                      print('time $time');
-                                      //print(currentValue);
-                                      //this._date = date;
-                                    });
-                                    return DateTimeField.combine(date, time);
-                                    // print('{$date}{$time}');
-
-                                  } else {
-                                    return currentValue;
-                                  }
-                                },
-                              ),
+                            left: 15.0, right: 150, top: 10, bottom: 20),
+                        child: TextFormField(
+                          keyboardType: TextInputType.datetime,
+                          controller: _dateController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon:
+                                Icon(Icons.date_range, color: Colors.white),
+                            hintText: 'ระบุวันที่ 1/01/2020',
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
                             ),
-                            ///////////////////////////////////////////////
-                            ///
-                            ///
-                            // Container(
-                            //   width: 200,
-                            //   child: DateTimeField(
-                            //     controller: _startTimeController,
-                            //     decoration: InputDecoration(
-                            //         enabledBorder: UnderlineInputBorder(
-                            //           borderSide: BorderSide(color: orage1),
-                            //         ),
-                            //         focusedBorder: UnderlineInputBorder(
-                            //           borderSide: BorderSide(color: purple1),
-                            //         )),
-                            //         style: TextStyle(color: Colors.white),
-                            //         format: format,
-                            //         onShowPicker: (context, currentValue) async{
-                            //           final time = await showTimePicker(
-                            //             context: context,
-                            //             initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                          ),
+                          validator: (input) =>
+                              input.trim().isEmpty ? 'กรุณาระบุระบุเวลา' : null,
+                          // onSaved: (input) => _password = input,
+                          // obscureText: true,
+                          onChanged: (input) => _date = input,
+                        ),
+                      ),
 
-                            //           );
-                            //           //setState(() => _date = time.toString() );
-                            //           //   setState((currentValue)
-                            //           // {
-                            //           //    this._date = a;
+                      // new Text('data seect ${_date.toString()}'),
 
-                            //           //  });
-                            //           return DateTimeField.convert(time);
+                      // new RaisedButton(
+                      //   child: new Text('select'),
+                      //   onPressed: () {
+                      //     // createRecord();
+                      //      _selectDate(context);
+                      //     // onChanged:
+                      //     // (context) => _datetime = context;
 
-                            //         },
-                            //   ),
-                            //  ),
+                      //     // this._datetime=input;
 
-                            // DateTimeField(
-                            //   textAlign: TextAlign.center,
-                            //   format: DateFormat("yyyy-MM-dd – kk:mm"),
-                            //   readOnly: true,
-                            //   style: TextStyle(
-                            //     color: Colors.white,
-                            //     decoration: TextDecoration.none,
-                            //     fontWeight: FontWeight.w600,
-                            //   ),
-                            //   decoration: InputDecoration(
-                            //     hintText: "เลือกเวลา",
-                            //     hintStyle: TextStyle(
-                            //       color: Colors.white,
-                            //       fontWeight: FontWeight.w600,
-                            //     ),
-                            //     border: InputBorder.none,
-                            //   ),
-                            //   onShowPicker: (context, currentValue) {
-                            //     return showDatePicker(
+                      //   },
+                      // ),
+                      // new Text('time seect ${_time.toString()}'),
+                      // new RaisedButton(
+                      //   child: new Text('select'),
+                      //   onPressed: () {
+                      //     _selectTime(context);
+                      //   },
+                      // ),
 
-                            //         context: context,
-                            //         firstDate: DateTime(2020, 1, 1),
-                            //         initialDate:
-                            //         currentValue ?? DateTime.now(),
-                            //         lastDate: DateTime(2021, 12, 30));
+                      // ////////////////////////////
+                      // TextFormField(
 
-                            //   },
-                            //   onChanged: (DateTime date){
-                            //     setState(() {
-                            //       print(context);
-                            //       print(date);
-                            //      // print(currentValue);
-                            //      print(DateTime);
-                            //    // setState(() => _date = date.toString() );
-                            //     });
-                            //   } ,
-                            //  // onChanged: (context) => _date = context,
-                            // ),
-                          ],
+                      //   // title: Text(
+                      //   //   'วันเวลา: ${pickedDate.year}-${pickedDate.month}-${pickedDate.day}  -  ${time.hour}:${time.minute}',
+                      //   // ),
+                      //   // trailing:
+                      //   //     Icon(Icons.date_range, color: Colors.white),
+                      //   readOnly: true,
+                      //   decoration: InputDecoration(
+                      //     border: InputBorder.none,
+                      //     prefixIcon: Icon(Icons.date_range, color:Colors.white),
+                      //     hintText: 'วันเวลา',
+                      //   ),
+                      //   onTap: _pickDatetime,
+                      //   keyboardType: TextInputType.datetime,
+
+                      // ),
+                      //     new Row(children: <Widget>[
+                      //       new Expanded(
+                      //           child: new TextFormField(
+                      //         decoration: new InputDecoration(
+                      //           icon: const Icon(Icons.calendar_today),
+                      //           hintText: 'Enter your date of birth',
+                      //           labelText: 'Dob',
+                      //         ),
+                      //         controller: _controller,
+                      //         keyboardType: TextInputType.datetime,
+                      //       //  onChanged: (datetime) {
+                      //       //    setState(() {
+                      //       //      this._time = datetime;
+                      //       //      print(datetime);
+                      //       //    });
+                      //       //  }
+                      //       onSaved: (val) => _date = convertToDate(val),
+                      //   )
+                      //   ),
+
+                      //   new IconButton(
+                      //     icon: new Icon(Icons.more_horiz),
+                      //     tooltip: 'Choose date',
+
+                      //     onPressed: (() {
+                      //       _chooseDate(context, _controller.text);
+                      //     }),
+
+                      //   )
+                      // ]),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     _pickDatetime(); // Call Function that has showDatePicker()
+                      //   },
+
+                      //   child: AbsorbPointer(
+                      //       child: TextFormField(
+                      //           // controller: _datetimeController,
+                      //           decoration: InputDecoration(
+                      //             border: InputBorder.none,
+                      //             prefixIcon: Icon(Icons.date_range,
+                      //                 color: Colors.white),
+                      //             // labelText:
+                      //             //     'วันเวลา: ${pickedDate.year}-${pickedDate.month}-${pickedDate.day}  -  ${time.hour}:${time.minute}',
+                      //             hintText: 'ระบุวันเวลา',
+                      //           ),
+
+                      //           onSaved: (String val) => _datetime = val,
+
+                      //           ////////////////////////////////////////////////////////////////////////
+                      //           // validator: (input) => input.trim().isEmpty
+                      //           //     ? 'กรุณากำหนดวันและเวลา'
+                      //           //     : null,
+                      //           // onSaved: (input) => _password = input,
+                      //           // obscureText: true,
+
+                      //           //  onChanged: (input) => _datetime = input,
+                      //           )),
+                      // ),
+                      // GestureDetector(
+                      //   onTap: () => _selectDate(context),
+                      //   child: AbsorbPointer(
+                      //     child: TextFormField(
+                      //         controller: _date,
+                      //         keyboardType: TextInputType.datetime,
+                      //         decoration: InputDecoration(
+                      //           hintText: 'Date of Birth',
+                      //           prefixIcon: Icon(
+                      //             Icons.dialpad,
+                      //             color: Colors.black,
+                      //           ),
+                      //         ),
+                      //         validator: (selectedDate) =>
+                      //             selectedDate.isEmpty
+                      //                 ? 'กรุณาระบุวันเวลา'
+                      //                 : null,
+                      //         //  onChanged: (input) {
+                      //         //    this._datetime =input;
+                      //         //    print('change $input');
+                      //         //   //  setState(() {
+                      //         //   //    selectdatetime = input;
+                      //         //   //  });
+                      //         //  }
+                      //          onChanged: (context) {
+                      //            print('data to $context');
+                      //          }
+                      //         // onChanged: (String picked) {
+                      //         //   setState(
+                      //         //       () => picked = 'Change: ${picked}');
+                      //         // }
+                      //         ),
+                      //   ),
+                      // ),
+                      // Text('Basic date & time field (${format.pattern})'),
+///////////////////////////////////////////////////////////////
+////// ล่าสุดดดดดดดดดดดดดดดดดดดดดดดดดด
+                      // Container(
+                      //   margin: EdgeInsets.only(left: 15.0),
+                      //   child: DateTimeField(
+                      //     textAlign: TextAlign.left,
+                      //     // format: DateFormat("yyyy-MM-dd – kk:mm"),
+
+                      //     readOnly: true,
+                      //     style: TextStyle(
+                      //       color: Colors.blue,
+                      //       decoration: TextDecoration.none,
+                      //       fontWeight: FontWeight.w600,
+                      //     ),
+
+                      //     decoration: InputDecoration(
+                      //       icon: Icon(Icons.date_range, color: Colors.black),
+                      //       hintText: "เลือกเวลา",
+                      //       hintStyle: TextStyle(
+                      //         color: Colors.black, fontFamily: 'Kanit',
+                      //         // fontWeight: FontWeight.w600,
+                      //       ),
+                      //       border: InputBorder.none,
+                      //     ),
+                      //     //  DateTime dateTime = DateFormat.parse("2019-07-19 8:40:23");
+                      //     onChanged: (currentValue) {
+                      //       //    this._date = currentValue;
+                      //       print(currentValue);
+                      //     },
+                      //     onShowPicker: (context, currentValue) async {
+                      //       final date = await showDatePicker(
+                      //           context: context,
+                      //           firstDate: DateTime(2020),
+                      //           initialDate: currentValue ?? DateTime.now(),
+                      //           lastDate: DateTime(2021));
+                      //       // var formatter = new DateFormat('yyyy-MMM-dd');
+                      //       // String formatted = formatter.format(now);
+                      //       // print(formatted);
+                      //       // this._date = formatted;
+                      //       if (date != null) {
+                      //         final time = await showTimePicker(
+                      //           context: context,
+                      //           initialTime: TimeOfDay.fromDateTime(
+                      //               currentValue ?? DateTime.now()),
+                      //         );
+                      //         // String formatDate(DateTime date) =>
+                      //         //     new DateFormat("MMMM d").format(date);
+                      //         // print(new DateFormat.yMMMd()
+                      //         //     .format(new DateTime.now()));
+                      //         main() {
+                      //           var now = new DateTime.now();
+                      //           var formatter = new DateFormat('yyyy-MMM-dd');
+                      //           String formatted = formatter.format(now);
+                      //           print(formatted); // something like 2019-Jun-20
+                      //           this._date = formatted;
+                      //         }
+
+                      //         //setState(() => _date = date.toString() );
+                      //         //  setState(() => _time = time.toString());
+                      //         setState(() {
+                      //           main();
+                      //           print('day $date');
+                      //           print('time $time');
+                      //           //print(currentValue);
+                      //         });
+                      //         return DateTimeField.combine(date, time);
+                      //         // print('{$date}{$time}');
+
+                      //       } else {
+                      //         return currentValue;
+                      //       }
+                      //     },
+                      //   ),
+                      // ),
+                      ///////////////////////////////////////////////
+                      ///
+                      ///
+                      // Container(
+                      //   width: 200,
+                      //   child: DateTimeField(
+                      //     controller: _startTimeController,
+                      //     decoration: InputDecoration(
+                      //         enabledBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: orage1),
+                      //         ),
+                      //         focusedBorder: UnderlineInputBorder(
+                      //           borderSide: BorderSide(color: purple1),
+                      //         )),
+                      //         style: TextStyle(color: Colors.white),
+                      //         format: format,
+                      //         onShowPicker: (context, currentValue) async{
+                      //           final time = await showTimePicker(
+                      //             context: context,
+                      //             initialTime: TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+
+                      //           );
+                      //           //setState(() => _date = time.toString() );
+                      //           //   setState((currentValue)
+                      //           // {
+                      //           //    this._date = a;
+
+                      //           //  });
+                      //           return DateTimeField.convert(time);
+
+                      //         },
+                      //   ),
+                      //  ),
+
+                      // DateTimeField(
+                      //   textAlign: TextAlign.center,
+                      //   format: DateFormat("yyyy-MM-dd – kk:mm"),
+                      //   readOnly: true,
+                      //   style: TextStyle(
+                      //     color: Colors.white,
+                      //     decoration: TextDecoration.none,
+                      //     fontWeight: FontWeight.w600,
+                      //   ),
+                      //   decoration: InputDecoration(
+                      //     hintText: "เลือกเวลา",
+                      //     hintStyle: TextStyle(
+                      //       color: Colors.white,
+                      //       fontWeight: FontWeight.w600,
+                      //     ),
+                      //     border: InputBorder.none,
+                      //   ),
+                      //   onShowPicker: (context, currentValue) {
+                      //     return showDatePicker(
+
+                      //         context: context,
+                      //         firstDate: DateTime(2020, 1, 1),
+                      //         initialDate:
+                      //         currentValue ?? DateTime.now(),
+                      //         lastDate: DateTime(2021, 12, 30));
+
+                      //   },
+                      //   onChanged: (DateTime date){
+                      //     setState(() {
+                      //       print(context);
+                      //       print(date);
+                      //      // print(currentValue);
+                      //      print(DateTime);
+                      //    // setState(() => _date = date.toString() );
+                      //     });
+                      //   } ,
+                      //  // onChanged: (context) => _date = context,
+                      // ),
+
+                      Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                            color: purple3,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(
+                            left: 15.0, right: 150, top: 10, bottom: 20),
+                        child: TextFormField(
+                          controller: _timeController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon:
+                                Icon(Icons.access_time, color: Colors.white),
+                            hintText: 'ระบุเวลา 19.30',
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          validator: (input) =>
+                              input.trim().isEmpty ? 'กรุณาระบุระบุเวลา' : null,
+                          // onSaved: (input) => _password = input,
+                          // obscureText: true,
+                          onChanged: (input) => _time = input,
                         ),
                       ),
                       Divider(
@@ -780,10 +837,10 @@ class _ShareformState extends State<Shareform> {
                             prefixIcon:
                                 Icon(Icons.directions_car, color: Colors.white),
                             hintText: 'ยี่ห้อรถ',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) =>
                               input.trim().isEmpty ? 'กรุณาระบุยี่ห้อรถ' : null,
@@ -806,10 +863,10 @@ class _ShareformState extends State<Shareform> {
                             prefixIcon:
                                 Icon(Icons.directions_car, color: Colors.white),
                             hintText: 'รุ่นรถ',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) =>
                               input.trim().isEmpty ? 'กรุณาระบุรุ่นรถ' : null,
@@ -832,10 +889,10 @@ class _ShareformState extends State<Shareform> {
                             prefixIcon:
                                 Icon(Icons.color_lens, color: Colors.white),
                             hintText: 'สีรถ',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit'
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                                color: Colors.white70, fontFamily: 'Kanit'
+                                // fontWeight: FontWeight.w600,
+                                ),
                           ),
                           validator: (input) =>
                               input.trim().isEmpty ? 'กรุณาระบุสี' : null,
@@ -858,10 +915,10 @@ class _ShareformState extends State<Shareform> {
                             prefixIcon: Icon(Icons.format_list_numbered,
                                 color: Colors.white),
                             hintText: 'เลขะเบียน',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) => input.trim().isEmpty
                               ? 'กรุณาระบุเลขทะเบียน'
@@ -885,10 +942,10 @@ class _ShareformState extends State<Shareform> {
                             prefixIcon:
                                 Icon(Icons.event_seat, color: Colors.white),
                             hintText: 'ที่นั่งว่าง',
-                             hintStyle: TextStyle(
-                                    color: Colors.white,fontFamily: 'Kanit',
-                                   // fontWeight: FontWeight.w600,
-                                  ),
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
                           ),
                           validator: (input) => input.trim().isEmpty
                               ? 'กรุณาระบบที่นั่งว่าง'
@@ -914,7 +971,8 @@ class _ShareformState extends State<Shareform> {
                     // onPressed: _submit,
                     child: Text('ยืนยัน',
                         style: TextStyle(
-                          color: Colors.white,fontFamily: 'Kanit',
+                          color: Colors.white,
+                          fontFamily: 'Kanit',
                           fontSize: 22,
                         )),
                   ),
@@ -928,6 +986,12 @@ class _ShareformState extends State<Shareform> {
   }
 
   _pickDatetime() async {
+    var now = new DateTime.now();
+    var formatter = new DateFormat('dd-MM-yyyy');
+    String formattedTime = DateFormat('kk:mm:a').format(now);
+    String formattedDate = formatter.format(now);
+    print(formattedTime);
+    print(formattedDate);
     DateTime date = await showDatePicker(
       context: context,
       firstDate: DateTime(DateTime.now().year - 1),
@@ -944,4 +1008,20 @@ class _ShareformState extends State<Shareform> {
         print(time);
       });
   }
+}
+
+main() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('yyyy-MMM-dd');
+  String formatted = formatter.format(now);
+  print(formatted); // something like 2019-Jun-20
+}
+
+todayDate() {
+  var now = new DateTime.now();
+  var formatter = new DateFormat('dd-MM-yyyy');
+  String formattedTime = DateFormat('kk:mm:a').format(now);
+  String formattedDate = formatter.format(now);
+  print(formattedTime);
+  print(formattedDate);
 }

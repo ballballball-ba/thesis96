@@ -8,7 +8,7 @@ class Share {
   final String endplace;
   final String price;
   final String seat;
-  final DateTime date;
+  final String date;
   final String time;
   final Timestamp timestamp;
   final String authorId;
