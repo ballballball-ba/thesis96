@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:mythesis96/bt_bar/notifier_share.dart';
+import 'package:mythesis96/bt_bar/payment.dart';
 import 'package:mythesis96/m/car_data.dart';
 import 'package:mythesis96/m/driver_regit.dart';
+import 'package:mythesis96/m/payment_data.dart';
 import 'package:mythesis96/m/report.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_m.dart';
@@ -68,6 +71,41 @@ class DatabaseSer {
       'AuthorId': sharepost.authorId,
     });
   }
+   static void createPay(PaymentM payment) {
+    userRef.document(payment.authorId).collection('Payment').add({
+      'Cardnumber': payment.cardnum,
+      'CardExp': payment.cardexp,
+      'CardCvv': payment.cardcvv,
+      'CardCvv': payment.cardname,
+      // 'Seat': payment.seat,
+      // 'Date': payment.date,
+      // 'Time': payment.time,
+      'timestamp': payment.timestamp,
+      'AuthorId': payment.authorId,
+    });
+    // shareRef.document(payment.id).collection('Payment').add({
+    //   'Cardnumber': payment.cardnum,
+    //   'CardExp': payment.cardexp,
+    //   'CardCvv': payment.cardcvv,
+    //   'CardCvv': payment.cardname,
+    //   // 'Seat': payment.seat,
+    //   // 'Date': payment.date,
+    //   // 'Time': payment.time,
+    //   'timestamp': payment.timestamp,
+    //   'AuthorId': payment.authorId,
+    // });
+    _firestore.collection('Payment').add({
+      'Cardnumber': payment.cardnum,
+      'CardExp': payment.cardexp,
+      'CardCvv': payment.cardcvv,
+      'CardCvv': payment.cardname,
+      // 'Seat': sharepost.seat,
+      // 'Date': sharepost.date,
+      // 'Time': sharepost.time,
+      'timestamp': payment.timestamp,
+      'AuthorId': payment.authorId,
+    });
+  }
 
   static void createCar(Cardata car) {
     carRef.document(car.authorId).collection('Mycar').add({
@@ -101,6 +139,19 @@ class DatabaseSer {
     List<Share> posts =
         feedshare.documents.map((doc) => Share.fromDoc(doc)).toList();
     return posts;
+  }
+
+  getShare(ShareNotifier shareNotifier) async {
+    QuerySnapshot snapshot = await Firestore.instance
+        .collection('Shareposts')
+        .orderBy('timestamp', descending: true)
+        .getDocuments();
+    List<Share> _shareList = [];
+    snapshot.documents.forEach((document) {
+      Share share = Share.fromMap(document.data);
+      _shareList.add(share);
+    });
+    shareNotifier.shareList = _shareList;
   }
 
   //pass authoid and i kenow name and email

@@ -55,32 +55,33 @@ class _ProfileState extends State<Profile> {
                 //print(snapshot.data['username']);
                 return Scaffold(
                   key: _scaffoldKey,
-                  appBar: AppBar(
-                    backgroundColor: purple1,
-                    elevation: 0,
-                    leading: Container(
-                      margin: EdgeInsets.only(left: 15, top: 15),
-                      child: new IconButton(
-                        icon: new Icon(
-                          Icons.short_text,
-                          color: purple2,
-                          size: 40,
-                        ),
-                        onPressed: () => _scaffoldKey.currentState.openDrawer(),
-                      ),
-                    ),
-                    // title: Text("แจ้งปัญหา/แจ้งเหตุ",
-                    //     style: TextStyle(
-                    //       fontFamily: 'Kanit',
-                    //       fontWeight: FontWeight.w600,
-                    //       color: purple2,
-                    //     )),
-                    // centerTitle: true,
-                  ),
+                  // appBar: AppBar(
+                  //   backgroundColor: Colors.white30,
+                  //   elevation: 0,
+                  //   leading: Container(
+                  //     margin: EdgeInsets.only(left: 15, top: 15),
+                  //     child: new IconButton(
+                  //       icon: new Icon(
+                  //         Icons.short_text,
+                  //         color: purple2,
+                  //         size: 40,
+                  //       ),
+                  //       onPressed: () => _scaffoldKey.currentState.openDrawer(),
+                  //     ),
+                  //   ),
+                  //   // title: Text("แจ้งปัญหา/แจ้งเหตุ",
+                  //   //     style: TextStyle(
+                  //   //       fontFamily: 'Kanit',
+                  //   //       fontWeight: FontWeight.w600,
+                  //   //       color: purple2,
+                  //   //     )),
+                  //   // centerTitle: true,
+                  // ),
                   drawer: Theme(
                     data: Theme.of(context).copyWith(
                       canvasColor: Colors.transparent,
-                      primaryColor: Colors.black, //***PRIMARY COLOR overide works */
+                      primaryColor:
+                          Color(0xff5A45A5), //***PRIMARY COLOR overide works */
 
                       //** */DOES NOT OVERRIDE THEMEDATA IN MATERIALAPP***
                       primaryColorBrightness: Brightness.light,
@@ -188,229 +189,284 @@ class _ProfileState extends State<Profile> {
                     children: <Widget>[
                       Stack(
                         children: <Widget>[
-                          Container(
-                            width: double.infinity,
-                            height: 250,
-                            color: Color(0xFF5A45A5),
-                          ),
                           Column(
                             children: <Widget>[
-                              Container(
-                                margin: const EdgeInsets.only(top: 20.0),
-                                height: 120,
-                                child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundColor: Colors.grey,
-                                  backgroundImage: user.profileImgUrl.isEmpty
-                                      ? AssetImage(
-                                          'assets/images/user_placeholder.jpg')
-                                      : CachedNetworkImageProvider(
-                                          user.profileImgUrl),
-                                ),
-                              ),
+                              Stack(
+                                  alignment: Alignment.center,
+                                  overflow: Overflow.visible,
+                                  children: <Widget>[
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 800.0,
+                                      decoration: BoxDecoration(
+                                          gradient: new LinearGradient(
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                              colors: [
+                                            Color(0xff2A1D59),
+                                            Colors.white30,
+
+                                            /// Colors.white30,
+                                          ])),
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 25)),
+                                        Row(
+                                          children: <Widget>[
+                                            IconButton(
+                                              icon: new Icon(
+                                                Icons.menu,
+                                                color: Colors.white,
+                                                size: 40,
+                                              ),
+                                              onPressed: () => _scaffoldKey
+                                                  .currentState
+                                                  .openDrawer(),
+                                            ),
+                                          ],
+                                        ),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 40.0),
+                                          height: 120,
+                                          child: CircleAvatar(
+                                            radius: 60,
+                                            backgroundColor: Colors.grey,
+                                            backgroundImage: user
+                                                    .profileImgUrl.isEmpty
+                                                ? AssetImage(
+                                                    'assets/images/user_placeholder.jpg')
+                                                : CachedNetworkImageProvider(
+                                                    user.profileImgUrl),
+                                          ),
+                                        ),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            Text(
+                                              user.name,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 22),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            // )
+                                          ],
+                                        ),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 50.0),
+                                          padding: EdgeInsets.all(10),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Card(
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Container(
+                                                  alignment: Alignment.topLeft,
+                                                  padding: EdgeInsets.all(15),
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Container(
+                                                        alignment:
+                                                            Alignment.topLeft,
+                                                        child: Text(
+                                                          "ข้อมูลของคุณ",
+                                                          style: TextStyle(
+                                                            color:
+                                                                Colors.black87,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            fontSize: 16,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.left,
+                                                        ),
+                                                      ),
+                                                      Divider(
+                                                        color: Colors.black38,
+                                                      ),
+                                                      Container(
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            ListTile(
+                                                              leading: Icon(
+                                                                  Icons.email),
+                                                              title:
+                                                                  Text("Email"),
+                                                              subtitle: Text(
+                                                                  user.email),
+                                                            ),
+                                                            ListTile(
+                                                              leading: Icon(
+                                                                  Icons.face),
+                                                              title:
+                                                                  Text("เพศ"),
+                                                              subtitle: Text(
+                                                                  user.gender),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(
+                                              bottom: 10, right: 10, left: 10),
+                                          child: Column(children: <Widget>[
+                                            Card(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: Container(
+                                                alignment: Alignment.topRight,
+                                                padding: EdgeInsets.all(15),
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Container(
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          ListTile(
+                                                            leading: FlatButton(
+                                                              onPressed: () =>
+                                                                  Navigator
+                                                                      .push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                  builder: (_) =>
+                                                                      Driverregis(),
+                                                                ),
+                                                              ),
+                                                              color: Color(
+                                                                  0xff5A45A5),
+                                                              child: Text(
+                                                                'สมัครคนขับ',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      // child: Column(
+                                                      //       children: <Widget>[
+                                                      //         ListTile(
+                                                      //           leading: Icon(Icons.email),
+                                                      //           title: Text("Email"),
+                                                      //           subtitle: Text(user.email),
+                                                      //         ),
+                                                      //         ListTile(
+                                                      //           leading: Icon(Icons.face),
+                                                      //           title: Text("เพศ"),
+                                                      //           subtitle: Text("5555555555"),
+                                                      //         ),
+                                                      //       ],
+                                                      //     ),
+                                                    ),
+                                                    Divider(
+                                                      color: Colors.black38,
+                                                    ),
+                                                    Container(
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          ListTile(
+                                                            leading: Icon(Icons
+                                                                .directions_car),
+                                                            title: Text("ID"),
+
+                                                            //subtitle: Text(user.email),
+
+                                                            subtitle:
+                                                                Text(user.id),
+                                                          ),
+                                                          FlatButton(
+                                                            onPressed: () =>
+                                                                Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                builder: (_) =>
+                                                                    Shareform(),
+                                                              ),
+                                                            ),
+                                                            color: Colors.black,
+                                                            child: Text(
+                                                              'สร้างการแชร์',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ]),
+                                        )
+                                      ],
+                                    ),
+                                  ]),
                               Padding(
                                 padding: EdgeInsets.all(2),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Text(
-                                    user.name,
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 22),
-                                    textAlign: TextAlign.center,
-                                  ),
-
-                                  // )
-                                ],
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(top: 20),
-                                padding: EdgeInsets.all(10),
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Container(
-                                        child: Column(
-                                          children: <Widget>[],
-                                        ),
-                                      ),
-                                      Column(
-                                        children: <Widget>[
-                                          Container(
-                                            margin: EdgeInsets.only(left: 18),
-                                            child: IconButton(
-                                                icon: Icon(Icons.book),
-                                                color: Colors.black38,
-                                                alignment: Alignment.topRight,
-                                                onPressed: () => print('4')),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                              height: 80,
-                                              margin: EdgeInsets.only(left: 20),
-                                              padding: EdgeInsets.only(top: 25),
-                                              child: Text(
-                                                user.bio,
-                                                style: TextStyle(fontSize: 16),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Card(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      child: Container(
-                                        alignment: Alignment.topLeft,
-                                        padding: EdgeInsets.all(15),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Container(
-                                              alignment: Alignment.topLeft,
-                                              child: Text(
-                                                "ข้อมูลของคุณ",
-                                                style: TextStyle(
-                                                  color: Colors.black87,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 16,
-                                                ),
-                                                textAlign: TextAlign.left,
-                                              ),
-                                            ),
-                                            Divider(
-                                              color: Colors.black38,
-                                            ),
-                                            Container(
-                                              child: Column(
-                                                children: <Widget>[
-                                                  ListTile(
-                                                    leading: Icon(Icons.email),
-                                                    title: Text("Email"),
-                                                    subtitle: Text(user.email),
-                                                  ),
-                                                  ListTile(
-                                                    leading: Icon(Icons.face),
-                                                    title: Text("เพศ"),
-                                                    subtitle: Text(user.gender),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.only(bottom: 10, right: 10),
-                                child: Column(children: <Widget>[
-                                  Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Container(
-                                      alignment: Alignment.topRight,
-                                      padding: EdgeInsets.all(15),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            child: Column(
-                                              children: <Widget>[
-                                                ListTile(
-                                                  leading: FlatButton(
-                                                    onPressed: () =>
-                                                        Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            Driverregis(),
-                                                      ),
-                                                    ),
-                                                    color: Color(0xff5A45A5),
-                                                    child: Text(
-                                                      'สมัครคนขับ',
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            // child: Column(
-                                            //       children: <Widget>[
-                                            //         ListTile(
-                                            //           leading: Icon(Icons.email),
-                                            //           title: Text("Email"),
-                                            //           subtitle: Text(user.email),
-                                            //         ),
-                                            //         ListTile(
-                                            //           leading: Icon(Icons.face),
-                                            //           title: Text("เพศ"),
-                                            //           subtitle: Text("5555555555"),
-                                            //         ),
-                                            //       ],
-                                            //     ),
-                                          ),
-                                          Divider(
-                                            color: Colors.black38,
-                                          ),
-                                          Container(
-                                            child: Column(
-                                              children: <Widget>[
-                                                ListTile(
-                                                  leading: Icon(
-                                                      Icons.directions_car),
-                                                  title: Text("ID"),
-
-                                                  //subtitle: Text(user.email),
-
-                                                  subtitle: Text(user.id),
-                                                ),
-                                                FlatButton(
-                                                  onPressed: () =>
-                                                      Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          Shareform(),
-                                                    ),
-                                                  ),
-                                                  color: Colors.black,
-                                                  child: Text(
-                                                    'สร้างการแชร์',
-                                                    style: TextStyle(
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                              )
+                              // Container(
+                              //   child: Card(
+                              //     shape: RoundedRectangleBorder(
+                              //       borderRadius: BorderRadius.circular(10.0),
+                              //     ),
+                              //     child: Row(
+                              //       children: <Widget>[
+                              //         Container(
+                              //           child: Column(
+                              //             children: <Widget>[],
+                              //           ),
+                              //         ),
+                              //         Column(
+                              //           children: <Widget>[
+                              //             Container(
+                              //               margin: EdgeInsets.only(left: 18),
+                              //               child: IconButton(
+                              //                   icon: Icon(Icons.book),
+                              //                   color: Colors.black38,
+                              //                   alignment: Alignment.topRight,
+                              //                   onPressed: () => print('4')),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //         Container(
+                              //           child: Column(
+                              //             children: <Widget>[
+                              //               Container(
+                              //                 height: 80,
+                              //                 margin: EdgeInsets.only(left: 20),
+                              //                 padding: EdgeInsets.only(top: 25),
+                              //                 child: Text(
+                              //                   user.bio,
+                              //                   style: TextStyle(fontSize: 16),
+                              //                 ),
+                              //               ),
+                              //             ],
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                           //

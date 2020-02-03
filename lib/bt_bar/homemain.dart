@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mythesis96/bt_bar/activity_sc.dart';
+import 'package:mythesis96/bt_bar/detail_share.dart';
 import 'package:mythesis96/bt_bar/notiac_sc.dart';
 import 'package:mythesis96/bt_bar/porfile.dart';
 import 'package:mythesis96/bt_bar/search_sc.dart';
@@ -76,7 +77,7 @@ class _HomeState extends State<Home> {
             curve: Curves.easeIn,
           );
         },
- 
+
         activeColor: Color(0xFFF2551D),
         backgroundColor: Color(0xFFFBFCFC),
         items: [
@@ -88,35 +89,37 @@ class _HomeState extends State<Home> {
           //   ),
           //   title: Text("เบอ"),
           // ),
-         
+
           BottomNavigationBarItem(
-            
             icon: Icon(
               Icons.home,
               size: 35,
             ),
-            title: Text("หน้าแรก",style: TextStyle(fontFamily: 'Kanit'),),
+            title: Text(
+              "หน้าแรก",
+              style: TextStyle(fontFamily: 'Kanit'),
+            ),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.search,
               size: 35,
             ),
-            title: Text("ค้นหาการแชร์",style: TextStyle(fontFamily: 'Kanit')),
+            title: Text("ค้นหาการแชร์", style: TextStyle(fontFamily: 'Kanit')),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.directions_car,
               size: 35,
             ),
-            title: Text("การแชร์ของฉัน",style: TextStyle(fontFamily: 'Kanit')),
+            title: Text("การแชร์ของฉัน", style: TextStyle(fontFamily: 'Kanit')),
           ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.notifications,
               size: 35,
             ),
-            title: Text("แจ้งเตือน",style: TextStyle(fontFamily: 'Kanit')),
+            title: Text("แจ้งเตือน", style: TextStyle(fontFamily: 'Kanit')),
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(
@@ -130,7 +133,7 @@ class _HomeState extends State<Home> {
               Icons.account_circle,
               size: 35,
             ),
-            title: Text("โพรไฟล์",style: TextStyle(fontFamily: 'Kanit')),
+            title: Text("โพรไฟล์", style: TextStyle(fontFamily: 'Kanit')),
           ),
         ],
       ),
