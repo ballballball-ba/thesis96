@@ -46,6 +46,34 @@ class DatabaseSer {
       'timestamp': post.timestamp,
     });
   }
+  // static void createCar(Cardata car) {
+  //   carRef.document(car.authorId).collection('Mycar').add({
+  //     'Brandcar': car.brandcar,
+  //     'Gencar': car.gencar,
+  //     'Color': car.color,
+  //     'licensecar': car.licensecar,
+  //     'Timestamp': car.timestamp,
+  //     'AuthorId': car.authorId,
+  //   });
+  // }
+static void createCar(Cardata car) {
+    userRef.document(car.authorId).collection('Mycar').add({
+      'Brandcar': car.brandcar,
+      'Gencar': car.gencar,
+      'Color': car.color,
+      'licensecar': car.licensecar,
+      'Timestamp': car.timestamp,
+      'AuthorId': car.authorId,
+    });
+     carRef.document(car.authorId).collection('Mycar').add({
+      'Brandcar': car.brandcar,
+      'Gencar': car.gencar,
+      'Color': car.color,
+      'licensecar': car.licensecar,
+      'Timestamp': car.timestamp,
+      'AuthorId': car.authorId,
+    });
+  }
 
   static void createShare(Share sharepost) {
     userRef.document(sharepost.authorId).collection('Shareposts').add({
@@ -53,9 +81,12 @@ class DatabaseSer {
       'StartPlace': sharepost.startplace,
       'Endplace': sharepost.endplace,
       'Price': sharepost.price,
+      'Seatyou': sharepost.seatyou,
       'Seat': sharepost.seat,
+      'Seatyou2': sharepost.seatyou2,
       'Date': sharepost.date,
       'Time': sharepost.time,
+      'details': sharepost.details,
       'timestamp': sharepost.timestamp,
       'AuthorId': sharepost.authorId,
     });
@@ -65,8 +96,16 @@ class DatabaseSer {
       'Endplace': sharepost.endplace,
       'Price': sharepost.price,
       'Seat': sharepost.seat,
+      'Seatyou': sharepost.seatyou,
+      'Seatyou2': sharepost.seatyou2,
       'Date': sharepost.date,
       'Time': sharepost.time,
+      'details': sharepost.details,
+      //******************* */
+      'Brandcar': sharepost.brandcar,
+      'Gencar': sharepost.gencar,
+      'Color': sharepost.color,
+      'licensecar': sharepost.licensecar,
       'timestamp': sharepost.timestamp,
       'AuthorId': sharepost.authorId,
     });
@@ -107,16 +146,7 @@ class DatabaseSer {
     });
   }
 
-  static void createCar(Cardata car) {
-    carRef.document(car.authorId).collection('Mycar').add({
-      'Brandcar': car.brandcar,
-      'Gencar': car.gencar,
-      'Color': car.color,
-      'licensecar': car.licensecar,
-      'Timestamp': car.timestamp,
-      'AuthorId': car.authorId,
-    });
-  }
+  
 
   static void createReport(Report report) {
     _firestore.collection('Report').add({
@@ -141,18 +171,7 @@ class DatabaseSer {
     return posts;
   }
 
-  getShare(ShareNotifier shareNotifier) async {
-    QuerySnapshot snapshot = await Firestore.instance
-        .collection('Shareposts')
-        .orderBy('timestamp', descending: true)
-        .getDocuments();
-    List<Share> _shareList = [];
-    snapshot.documents.forEach((document) {
-      Share share = Share.fromMap(document.data);
-      _shareList.add(share);
-    });
-    shareNotifier.shareList = _shareList;
-  }
+  
 
   //pass authoid and i kenow name and email
   static Future<User> getUserWithId(String userId) async {

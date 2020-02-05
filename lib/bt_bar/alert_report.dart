@@ -28,19 +28,12 @@ class _AlertreportState extends State<Alertreport> {
   String _date = '';
   String _time = '';
 
+  
+ // String readTimestamp;
+  //String _time = '';
+
   _submit() async {
-    Flushbar(
-      message: 'แจ้งปัญหา/แจ้งเหตุ เรียบร้อย',
-      icon: Icon(
-        Icons.info,
-        size: 28.0,
-        color: Color(0xffF2551D),
-      ),
-      duration: Duration(seconds: 4),
-      //leftBarIndicatorColor: Colors.blue[300],
-      margin: EdgeInsets.all(8),
-      borderRadius: 10,
-    )..show(context);
+    
     // final snackBar = SnackBar(
     //   content: Text('แจ้งปัญหา/แจ้งเหตุ เรียบร้อย'),
     //   action: SnackBarAction(
@@ -61,6 +54,18 @@ class _AlertreportState extends State<Alertreport> {
     // }
     if (_formkey.currentState.validate()) {
       _formkey.currentState.save();
+      Flushbar(
+      message: 'แจ้งปัญหา/แจ้งเหตุ เรียบร้อย',
+      icon: Icon(
+        Icons.info,
+        size: 28.0,
+        color: Color(0xffF2551D),
+      ),
+      duration: Duration(seconds: 4),
+      //leftBarIndicatorColor: Colors.blue[300],
+      margin: EdgeInsets.all(8),
+      borderRadius: 10,
+    )..show(context);
       // setState(() {
       //   _isloading = true;
       //       // });
@@ -80,7 +85,34 @@ class _AlertreportState extends State<Alertreport> {
       //         _isloading = true;
       //       });
       // สร้างแชร
+String readTimestamp(int timestamp) {
+    var now = new DateTime.now();
+    var format = new DateFormat('HH:mm a');
+    var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var diff = now.difference(date);
+    var time = '';
 
+    if (diff.inSeconds <= 0 ||
+        diff.inSeconds > 0 && diff.inMinutes == 0 ||
+        diff.inMinutes > 0 && diff.inHours == 0 ||
+        diff.inHours > 0 && diff.inDays == 0) {
+      time = format.format(date);
+    } else if (diff.inDays > 0 && diff.inDays < 7) {
+      if (diff.inDays == 1) {
+        time = diff.inDays.toString() + ' วันที่แล้ว';
+      } else {
+        time = diff.inDays.toString() + ' วันที่แล้ว';
+      }
+    } else {
+      if (diff.inDays == 7) {
+        time = (diff.inDays / 7).floor().toString() + ' สัปดาห์ที่แล้ว';
+      } else {
+        time = (diff.inDays / 7).floor().toString() + ' สัปดาห์ที่แล้ว';
+      }
+    }
+
+    return time;
+  }
       Report car = Report(
         topic: _topic,
         text: _text,
@@ -91,6 +123,7 @@ class _AlertreportState extends State<Alertreport> {
         // seat: _seat,
         // date: _date,
         // time: _time,
+        // DateTime.fromMillisecondsSinceEpoch(created.creationTimeMillis, isUtc: true).toString()
         timestamp: Timestamp.fromDate(DateTime.now()),
         authorId: Provider.of<Userdata>(context).currentUserID,
       );
@@ -104,8 +137,8 @@ class _AlertreportState extends State<Alertreport> {
       setState(() {
         _topic = '';
         _text = '';
-        _date = '';
-        _time = '';
+       _date = '';
+       _time = '';
         // _endplace = '';
         // _price = '';
         // _seat = '';
@@ -119,7 +152,18 @@ class _AlertreportState extends State<Alertreport> {
 
         // _isloading = false;
       });
-    }
+    }Flushbar(
+      message: 'ไม่สามารถ แจ้งปัญหา/แจ้งเหตุได้',
+      icon: Icon(
+        Icons.info,
+        size: 28.0,
+        color: Color(0xffF2551D),
+      ),
+      duration: Duration(seconds: 4),
+      //leftBarIndicatorColor: Colors.blue[300],
+      margin: EdgeInsets.all(8),
+      borderRadius: 10,
+    )..show(context);
 
     //  _formkey.currentState.validate();
     //  _formkey.currentState.save();
@@ -128,6 +172,7 @@ class _AlertreportState extends State<Alertreport> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -296,8 +341,13 @@ class _AlertreportState extends State<Alertreport> {
     print(formattedTime);
     print(formattedDate);
     setState(() {
-      this._date = formattedDate;
-      this._time = formattedTime;
+    //  this._date = formattedDate;
+     // this._time = formattedTime;
     });
   }
+  // @override
+  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  //   super.debugFillProperties(properties);
+  //   properties.add(StringProperty('time', time));
+  // }
 }

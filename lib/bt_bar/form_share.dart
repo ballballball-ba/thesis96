@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mythesis96/firebase/constance.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
@@ -64,9 +66,12 @@ class _ShareformState extends State<Shareform> {
   TextEditingController _endplaceController = TextEditingController();
   TextEditingController _priceController = TextEditingController();
   TextEditingController _seatController = TextEditingController();
+  TextEditingController _seatyouController = TextEditingController();
+  TextEditingController _seatyou2Controller = TextEditingController();
   TextEditingController _datetimeController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
+  TextEditingController _detailsController = TextEditingController();
 
   //car
   TextEditingController _brandcarControlle = TextEditingController();
@@ -80,8 +85,11 @@ class _ShareformState extends State<Shareform> {
   String _endplace = '';
   String _price = '';
   String _seat = '';
+  String _seatyou = '';
+  String _seatyou2 = '';
   String _date = '';
   String _time = '';
+  String _details = '';
 
   ///car
   String _brandcar = '';
@@ -94,7 +102,7 @@ class _ShareformState extends State<Shareform> {
   final Color purple2 = Color(0xff2A1D59);
   final Color purple3 = Color(0xffBDAEF2);
   final Color orage1 = Color(0xffF2551D);
-  final Color purple4 = Color(0xffA99CD9); 
+  final Color purple4 = Color(0xffA99CD9);
   // final Color fonts = Color(0xffb3b3b3);
   //final Color bg_orange = Color(0xffF48C67);
   final _formkey = GlobalKey<FormState>();
@@ -134,6 +142,19 @@ class _ShareformState extends State<Shareform> {
       //         _isloading = true;
       //       });
       // สร้างแชร
+      Flushbar(
+        message: 'สร้างการแชร์เรียบร้อย เรียบร้อย',
+        backgroundColor: Colors.green,
+        icon: Icon(
+          Icons.assignment_turned_in,
+          size: 28.0,
+          color: Colors.white,
+        ),
+        duration: Duration(seconds: 4),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 10,
+      )..show(context);
 
       Share sharepost = Share(
         concertname: _concertname,
@@ -141,8 +162,17 @@ class _ShareformState extends State<Shareform> {
         endplace: _endplace,
         price: _price,
         seat: _seat,
+        seatyou: _seatyou,
+        seatyou2: _seatyou2,
         date: _date,
         time: _time,
+        details: _details,
+        //********************** */
+        brandcar: _brandcar,
+        gencar: _gencar,
+        color: _color,
+        licensecar: _licensecar,
+
         timestamp: Timestamp.fromDate(DateTime.now()),
         authorId: Provider.of<Userdata>(context).currentUserID,
       );
@@ -164,9 +194,12 @@ class _ShareformState extends State<Shareform> {
       _endplaceController.clear();
       _priceController.clear();
       _seatController.clear();
+      _seatyouController.clear();
+      _seatyou2Controller.clear();
       _datetimeController.clear();
       _dateController.clear();
       _timeController.clear();
+      _detailsController.clear();
       //car clear
       _brandcarControlle.clear();
       _gencarControlle.clear();
@@ -179,8 +212,11 @@ class _ShareformState extends State<Shareform> {
         _endplace = '';
         _price = '';
         _seat = '';
+        _seatyou = '';
+        _seatyou2 = '';
         _date = '';
         _time = '';
+        _details = '';
         /////////////
         _brandcar = '';
         _gencar = '';
@@ -189,6 +225,20 @@ class _ShareformState extends State<Shareform> {
 
         // _isloading = false;
       });
+    } else {
+      Flushbar(
+        message: 'ไม่สามารถสร้างการแชร์ได้ ลองอีกครั้ง',
+        backgroundColor: Colors.red,
+        icon: Icon(
+          Icons.assignment_turned_in,
+          size: 28.0,
+          color: Colors.white,
+        ),
+        duration: Duration(seconds: 4),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 10,
+      )..show(context);
     }
 
     //  _formkey.currentState.validate();
@@ -335,20 +385,18 @@ class _ShareformState extends State<Shareform> {
                                       snapshot.data.documents[i];
                                   currencyItems.add(
                                     DropdownMenuItem(
-                                      
                                       child: Container(
-                                        
                                         margin: EdgeInsets.only(left: 5),
                                         child: Text(
-                                          snap.data['NameCon'],
+                                          snap.data['nameconshort'],
                                           style: TextStyle(
                                             color: orage1,
-                                            fontSize: 12,
+                                            fontSize: 14,
                                             fontFamily: 'Kanit',
                                           ),
                                         ),
                                       ),
-                                      value: "${snap.data['NameCon']}",
+                                      value: "${snap.data['nameconshort']}",
                                     ),
                                   );
                                 }
@@ -374,7 +422,7 @@ class _ShareformState extends State<Shareform> {
                                         onChanged: (input) {
                                           this._concertname = input;
                                           print('$input');
-                                         
+
                                           setState(() {
                                             // this._concertname = input;
                                             selectedCurrency = input;
@@ -674,7 +722,7 @@ class _ShareformState extends State<Shareform> {
                                   : null,
                               // onSaved: (input) => _password = input,
                               // obscureText: true,
-                              onChanged: (input) => _gencar = input,
+                              onChanged: (input) => _brandcar = input,
                             ),
                           ),
                           Container(
@@ -687,25 +735,59 @@ class _ShareformState extends State<Shareform> {
                               left: 15.0,
                             ),
                             child: TextFormField(
-                              controller: _gencarControlle,
+                              controller: _colorControlle,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
-                                prefixIcon: Icon(Icons.directions_car,
-                                    color: Colors.white),
-                                hintText: 'รุ่นรถ',
+                                prefixIcon:
+                                    Icon(Icons.color_lens, color: Colors.white),
+                                hintText: 'สีรถ',
                                 hintStyle: TextStyle(
-                                  color: Colors.white70, fontFamily: 'Kanit',
-                                  // fontWeight: FontWeight.w600,
-                                ),
+                                    color: Colors.white70, fontFamily: 'Kanit'
+                                    // fontWeight: FontWeight.w600,
+                                    ),
                               ),
-                              validator: (input) => input.trim().isEmpty
-                                  ? 'กรุณาระบุรุ่นรถ'
-                                  : null,
+                              validator: (input) =>
+                                  input.trim().isEmpty ? 'กรุณาระบุสี' : null,
                               // onSaved: (input) => _password = input,
                               // obscureText: true,
-                              onChanged: (input) => _gencar = input,
+                              onChanged: (input) => _color = input,
                             ),
                           ),
+                          // Column(
+                          //   children: <Widget>[
+                          //     Container(
+                          //       height: 50,
+                          //       width: 140,
+                          //       decoration: BoxDecoration(
+                          //           color: purple4,
+                          //           borderRadius: BorderRadius.circular(10)),
+                          //       margin: EdgeInsets.only(
+                          //         left: 15.0,
+                          //       ),
+                          //       child: TextFormField(
+                          //         controller: _gencarControlle,
+                          //         decoration: InputDecoration(
+                          //           border: InputBorder.none,
+                          //           prefixIcon: Icon(Icons.directions_car,
+                          //               color: Colors.white),
+                          //           hintText: 'รุ่นรถ',
+                          //           hintStyle: TextStyle(
+                          //             color: Colors.white70, fontFamily: 'Kanit',
+                          //             // fontWeight: FontWeight.w600,
+                          //           ),
+                          //         ),
+
+                          //         // onSaved: (input) => _password = input,
+                          //         // obscureText: true,
+                          //         onChanged: (input) => _gencar = input,
+                          //       ),
+                          //     ),
+                          //     // Text('ไม่บังคับ',style: TextStyle(
+                          //     //         color: Colors.white70, fontFamily: 'Kanit',fontSize: 10,
+                          //     //         // fontWeight: FontWeight.w600,
+                          //     //       ))
+                          //   ],
+                          // ),
                         ],
                       ),
 
@@ -739,39 +821,57 @@ class _ShareformState extends State<Shareform> {
                               onChanged: (input) => _licensecar = input,
                             ),
                           ),
-                        ],
-                      ),
-                      Row(
-                        children: <Widget>[
-                          Container(
-                            height: 50,
-                            width: 160,
-                            decoration: BoxDecoration(
-                                color: purple4,
-                                borderRadius: BorderRadius.circular(10)),
-                            margin: EdgeInsets.only(
-                                left: 15.0, top: 10, bottom: 20),
-                            child: TextFormField(
-                              controller: _colorControlle,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                prefixIcon:
-                                    Icon(Icons.color_lens, color: Colors.white),
-                                hintText: 'สีรถ',
-                                hintStyle: TextStyle(
-                                    color: Colors.white70, fontFamily: 'Kanit'
-                                    // fontWeight: FontWeight.w600,
-                                    ),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'เราจะไม่บอกเลขทะเบียน',
+                                style: TextStyle(
+                                    color: Colors.white70,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 13),
                               ),
-                              validator: (input) =>
-                                  input.trim().isEmpty ? 'กรุณาระบุสี' : null,
-                              // onSaved: (input) => _password = input,
-                              // obscureText: true,
-                              onChanged: (input) => _color = input,
-                            ),
+                              Text(
+                                '   ก่อนจะมีการตอบรับคำร้อง',
+                                style: TextStyle(
+                                    color: Colors.white70,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 13),
+                              )
+                            ],
                           ),
                         ],
                       ),
+                      // Row(
+                      //   children: <Widget>[
+                      //     Container(
+                      //       height: 50,
+                      //       width: 160,
+                      //       decoration: BoxDecoration(
+                      //           color: purple4,
+                      //           borderRadius: BorderRadius.circular(10)),
+                      //       margin: EdgeInsets.only(
+                      //           left: 15.0, top: 10, bottom: 20),
+                      //       child: TextFormField(
+                      //         controller: _colorControlle,
+                      //         decoration: InputDecoration(
+                      //           border: InputBorder.none,
+                      //           prefixIcon:
+                      //               Icon(Icons.color_lens, color: Colors.white),
+                      //           hintText: 'สีรถ',
+                      //           hintStyle: TextStyle(
+                      //               color: Colors.white70, fontFamily: 'Kanit'
+                      //               // fontWeight: FontWeight.w600,
+                      //               ),
+                      //         ),
+                      //         validator: (input) =>
+                      //             input.trim().isEmpty ? 'กรุณาระบุสี' : null,
+                      //         // onSaved: (input) => _password = input,
+                      //         // obscureText: true,
+                      //         onChanged: (input) => _color = input,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                       Row(
                         children: <Widget>[
                           Container(
@@ -803,6 +903,116 @@ class _ShareformState extends State<Shareform> {
                             ),
                           ),
                         ],
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Container(
+                            height: 50,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                color: purple4,
+                                borderRadius: BorderRadius.circular(10)),
+                            margin:
+                                EdgeInsets.only(top: 10, left: 15, bottom: 20),
+                            child: TextFormField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _seatyouController,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: Icon(FontAwesomeIcons.male,
+                                    color: Colors.white),
+                                hintText: 'ช',
+                                hintStyle: TextStyle(
+                                  color: Colors.white70, fontFamily: 'Kanit',
+                                  // fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'กรุณาระบบที่นั่งว่าง'
+                                  : null,
+                              // onSaved: (input) => _password = input,
+                              // obscureText: true,
+                              onChanged: (input) => _seatyou = input,
+                            ),
+                          ),
+                          Container(
+                            height: 50,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                color: purple4,
+                                borderRadius: BorderRadius.circular(10)),
+                            margin:
+                                EdgeInsets.only(top: 10, left: 15, bottom: 20),
+                            child: TextFormField(
+                              inputFormatters: [
+                                LengthLimitingTextInputFormatter(2),
+                              ],
+                              controller: _seatyou2Controller,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                prefixIcon: Icon(FontAwesomeIcons.female,
+                                    color: Colors.white),
+                                hintText: 'ญ',
+                                hintStyle: TextStyle(
+                                  color: Colors.white70, fontFamily: 'Kanit',
+                                  // fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              validator: (input) => input.trim().isEmpty
+                                  ? 'กรุณาระบบที่นั่งว่าง'
+                                  : null,
+                              // onSaved: (input) => _password = input,
+                              // obscureText: true,
+                              onChanged: (input) => _seatyou2 = input,
+                            ),
+                          ),
+                          Column(
+                            children: <Widget>[
+                              Text(
+                                'กรุณาระบุจำนวน',
+                                style: TextStyle(
+                                    color: Colors.white70,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 13),
+                              ),
+                              Text(
+                                '   คนภายในรถของคุณ',
+                                style: TextStyle(
+                                    color: Colors.white70,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 13),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                      Container(
+                        height: 80,
+                        decoration: BoxDecoration(
+                            color: purple4,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(
+                            left: 15.0, right: 15.0, top: 10, bottom: 20),
+                        child: TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          controller: _detailsController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            prefixIcon: Icon(Icons.info, color: Colors.white),
+                            hintText: 'รายละเอียดเพิ่มติม เช่น ขึ้นทางด่วน',
+                            hintStyle: TextStyle(
+                              color: Colors.white70, fontFamily: 'Kanit',
+                              // fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          
+                          // onSaved: (input) => _password = input,
+                          // obscureText: true,
+                          onChanged: (input) => _details = input,
+                        ),
                       ),
                     ])),
               ),

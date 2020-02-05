@@ -197,13 +197,13 @@ class _ProfileState extends State<Profile> {
                                   children: <Widget>[
                                     Container(
                                       width: MediaQuery.of(context).size.width,
-                                      height: 800.0,
+                                      height: 600.0,
                                       decoration: BoxDecoration(
                                           gradient: new LinearGradient(
                                               begin: Alignment.topCenter,
                                               end: Alignment.bottomCenter,
                                               colors: [
-                                            Color(0xff2A1D59),
+                                            Color(0xff5A45A5),
                                             Colors.white30,
 
                                             /// Colors.white30,
@@ -258,16 +258,47 @@ class _ProfileState extends State<Profile> {
                                         ),
                                         Container(
                                           margin:
-                                              const EdgeInsets.only(top: 50.0),
-                                          padding: EdgeInsets.all(10),
+                                              const EdgeInsets.only(top: 40.0),
+                                          decoration: BoxDecoration(
+                                            boxShadow: [
+                                              BoxShadow(
+                                                  color: Colors.black26,
+                                                  blurRadius: 10,
+                                                  spreadRadius: 3,
+                                                  offset: Offset(10, 0))
+                                            ],
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.only(
+                                              topLeft:
+                                                  const Radius.circular(40.0),
+                                              topRight:
+                                                  const Radius.circular(40.0),
+                                              bottomLeft:
+                                                  const Radius.circular(10.0),
+                                              bottomRight:
+                                                  const Radius.circular(10.0),
+                                            ),
+                                          ),
                                           child: Column(
                                             children: <Widget>[
-                                              Card(
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
+                                              Container(
+                                                // shape: RoundedRectangleBorder(
+                                                //   borderRadius:
+                                                //       BorderRadius.only(
+                                                //     topLeft:
+                                                //         const Radius.circular(
+                                                //             40.0),
+                                                //     topRight:
+                                                //         const Radius.circular(
+                                                //             40.0),
+                                                //     bottomLeft:
+                                                //         const Radius.circular(
+                                                //             10.0),
+                                                //     bottomRight:
+                                                //         const Radius.circular(
+                                                //             10.0),
+                                                //   ),
+                                                // ),
                                                 child: Container(
                                                   alignment: Alignment.topLeft,
                                                   padding: EdgeInsets.all(15),
@@ -310,76 +341,19 @@ class _ProfileState extends State<Profile> {
                                                                   Text("เพศ"),
                                                               subtitle: Text(
                                                                   user.gender),
-                                                            ),
+                                                            ),   ListTile(
+                                                            leading: Icon(Icons
+                                                                .directions_car),
+                                                            title: Text("ID"),
+
+                                                            //subtitle: Text(user.email),
+
+                                                            subtitle:
+                                                                Text(user.id),
+                                                          ),
                                                           ],
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.only(
-                                              bottom: 10, right: 10, left: 10),
-                                          child: Column(children: <Widget>[
-                                            Card(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                              child: Container(
-                                                alignment: Alignment.topRight,
-                                                padding: EdgeInsets.all(15),
-                                                child: Column(
-                                                  children: <Widget>[
-                                                    Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          ListTile(
-                                                            leading: FlatButton(
-                                                              onPressed: () =>
-                                                                  Navigator
-                                                                      .push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                  builder: (_) =>
-                                                                      Driverregis(),
-                                                                ),
-                                                              ),
-                                                              color: Color(
-                                                                  0xff5A45A5),
-                                                              child: Text(
-                                                                'สมัครคนขับ',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      // child: Column(
-                                                      //       children: <Widget>[
-                                                      //         ListTile(
-                                                      //           leading: Icon(Icons.email),
-                                                      //           title: Text("Email"),
-                                                      //           subtitle: Text(user.email),
-                                                      //         ),
-                                                      //         ListTile(
-                                                      //           leading: Icon(Icons.face),
-                                                      //           title: Text("เพศ"),
-                                                      //           subtitle: Text("5555555555"),
-                                                      //         ),
-                                                      //       ],
-                                                      //     ),
-                                                    ),
-                                                    Divider(
-                                                      color: Colors.black38,
-                                                    ),
-                                                    Container(
+                                                      ),       Container(
                                                       child: Column(
                                                         children: <Widget>[
                                                           ListTile(
@@ -412,12 +386,110 @@ class _ProfileState extends State<Profile> {
                                                         ],
                                                       ),
                                                     ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                            ),
-                                          ]),
-                                        )
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        // Container(
+                                        //   padding: EdgeInsets.only(
+                                        //       bottom: 10, right: 10, left: 10),
+                                        //   child: Column(children: <Widget>[
+                                        //     Card(
+                                        //       shape: RoundedRectangleBorder(
+                                        //         borderRadius:
+                                        //             BorderRadius.circular(10.0),
+                                        //       ),
+                                        //       child: Container(
+                                        //         alignment: Alignment.topRight,
+                                        //         padding: EdgeInsets.all(15),
+                                        //         child: Column(
+                                        //           children: <Widget>[
+                                        //             Container(
+                                        //               child: Column(
+                                        //                 children: <Widget>[
+                                        //                   ListTile(
+                                        //                     leading: FlatButton(
+                                        //                       onPressed: () =>
+                                        //                           Navigator
+                                        //                               .push(
+                                        //                         context,
+                                        //                         MaterialPageRoute(
+                                        //                           builder: (_) =>
+                                        //                               Driverregis(),
+                                        //                         ),
+                                        //                       ),
+                                        //                       color: Color(
+                                        //                           0xff5A45A5),
+                                        //                       child: Text(
+                                        //                         'สมัครคนขับ',
+                                        //                         style: TextStyle(
+                                        //                             color: Colors
+                                        //                                 .white),
+                                        //                       ),
+                                        //                     ),
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //               // child: Column(
+                                        //               //       children: <Widget>[
+                                        //               //         ListTile(
+                                        //               //           leading: Icon(Icons.email),
+                                        //               //           title: Text("Email"),
+                                        //               //           subtitle: Text(user.email),
+                                        //               //         ),
+                                        //               //         ListTile(
+                                        //               //           leading: Icon(Icons.face),
+                                        //               //           title: Text("เพศ"),
+                                        //               //           subtitle: Text("5555555555"),
+                                        //               //         ),
+                                        //               //       ],
+                                        //               //     ),
+                                        //             ),
+                                        //             Divider(
+                                        //               color: Colors.black38,
+                                        //             ),
+                                        //             Container(
+                                        //               child: Column(
+                                        //                 children: <Widget>[
+                                        //                   ListTile(
+                                        //                     leading: Icon(Icons
+                                        //                         .directions_car),
+                                        //                     title: Text("ID"),
+
+                                        //                     //subtitle: Text(user.email),
+
+                                        //                     subtitle:
+                                        //                         Text(user.id),
+                                        //                   ),
+                                        //                   FlatButton(
+                                        //                     onPressed: () =>
+                                        //                         Navigator.push(
+                                        //                       context,
+                                        //                       MaterialPageRoute(
+                                        //                         builder: (_) =>
+                                        //                             Shareform(),
+                                        //                       ),
+                                        //                     ),
+                                        //                     color: Colors.black,
+                                        //                     child: Text(
+                                        //                       'สร้างการแชร์',
+                                        //                       style: TextStyle(
+                                        //                           color: Colors
+                                        //                               .white),
+                                        //                     ),
+                                        //                   ),
+                                        //                 ],
+                                        //               ),
+                                        //             ),
+                                        //           ],
+                                        //         ),
+                                        //       ),
+                                        //     ),
+                                        //   ]),
+                                        // )
                                       ],
                                     ),
                                   ]),
@@ -482,57 +554,8 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-// class UserInfo extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       padding: EdgeInsets.all(10),
-
-//       child: Column(
-//         children: <Widget>[
-//           Card(
-//             child: Container(
-//               alignment: Alignment.topLeft,
-//               padding: EdgeInsets.all(15),
-//               child: Column(
-//                 children: <Widget>[
-//                   Container(
-//                     alignment: Alignment.topLeft,
-//                     child: Text(
-//                       "User Information",
-//                       style: TextStyle(
-//                         color: Colors.black87,
-//                         fontWeight: FontWeight.w500,
-//                         fontSize: 16,
-//                       ),
-//                       textAlign: TextAlign.left,
-//                     ),
-//                   ),
-//                   Divider(
-//                     color: Colors.black38,
-//                   ),
-//                   Container(
-
-//                       child: Column(
-//                     children: <Widget>[
-//                       ListTile(
-//                         leading: Icon(Icons.email),
-//                         title: Text("Email"),
-//                         subtitle: Text("test@gmail.com"),
-//                       ),
-//                       ListTile(
-//                         leading: Icon(Icons.phone),
-//                         title: Text("เพศ"),
-//                         subtitle: Text("ชาย"),
-//                       ),
-//                     ],
-//                   ))
-//                 ],
-//               ),
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
+regisdrive(){
+  if(1+2 == 5){
+   
+  }
+}

@@ -12,6 +12,12 @@ import 'package:provider/provider.dart';
 void main() => runApp(MultiProvider(providers: [
       ChangeNotifierProvider(
         builder: (context) => ShareNotifier(),
+      ),
+       ChangeNotifierProvider(
+        builder: (context) => ShareNotifier2(),
+      ),
+       ChangeNotifierProvider(
+        builder: (context) => ShareNotifier3(),
       )
     ],
     child: MyApp(),

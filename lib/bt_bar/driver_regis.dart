@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mythesis96/bt_bar/form_share.dart';
 import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/firebase/store.dart';
 import 'package:mythesis96/m/driver_regit.dart';
@@ -117,15 +119,32 @@ class _DriverregisState extends State<Driverregis> {
 // }
 
   _submit() async {
-    if (_isloading && _image != null && _image1 != null) {
+    if (!_isloading && _image != null && _image1 != null) {
       setState(() {
         _isloading = true;
       });
+      Flushbar(
+        message: 'สมัครคนขับ เรียบร้อย',
+        icon: Icon(
+          Icons.check_circle,
+          size: 28.0,
+          color: Color(0xffF2551D),
+        ),
+        duration: Duration(seconds: 4),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 10,
+      )..show(context);
       // cretae
       String imageUrl = await StoreSer.uploadpost(_image);
       String imageUrl1 = await StoreSer.uploadpost1(_image1);
       //String imageUrl = await StoreSer.uploadpost(_imageFile2);
-
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => Shareform(),
+        ),
+      );
       Post post = Post(
         imageUrl: imageUrl,
         imageUrl1: imageUrl1,
@@ -134,7 +153,7 @@ class _DriverregisState extends State<Driverregis> {
         timestamp: Timestamp.fromDate(DateTime.now()),
       );
       DatabaseSer.sendpic(post);
-      
+
       // update data
       _captionController.clear();
 
@@ -143,6 +162,20 @@ class _DriverregisState extends State<Driverregis> {
         _image1 = null;
         _isloading = false;
       });
+    } else {
+      Flushbar(
+        message: 'ไม่สามารถสมัครคนขับได้ ลองอีกครั้ง',
+        backgroundColor: Colors.red,
+        icon: Icon(
+          Icons.info,
+          size: 28.0,
+          color: Colors.white,
+        ),
+        duration: Duration(seconds: 4),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 10,
+      )..show(context);
     }
   }
 
@@ -157,12 +190,18 @@ class _DriverregisState extends State<Driverregis> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "สมัครคนขับ",
-          style: TextStyle(color: Color(0xff5A45A5)),
-          textAlign: TextAlign.center,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back_ios, color: Color(0xff5A45A5)),
+          onPressed: () => Navigator.of(context).pop(),
         ),
+        title: Text("สมัครคนขับ",
+            style: TextStyle(
+                fontFamily: 'Kanit',
+                fontWeight: FontWeight.w600,
+                color: Color(0xff5A45A5))),
+        centerTitle: true,
         actions: <Widget>[
           FlatButton(
             onPressed: _submit,
@@ -173,6 +212,23 @@ class _DriverregisState extends State<Driverregis> {
           )
         ],
       ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   title: Text(
+      //     "สมัครคนขับ",
+      //     style: TextStyle(color: Color(0xff5A45A5)),
+      //     textAlign: TextAlign.center,
+      //   ),
+      //   actions: <Widget>[
+      //     FlatButton(
+      //       onPressed: _submit,
+      //       child: Text(
+      //         "ยืนยัน",
+      //         style: TextStyle(fontSize: 16, color: Color(0xffFF7240)),
+      //       ),
+      //     )
+      //   ],
+      // ),
       body: Column(
         children: <Widget>[
           _isloading
@@ -226,13 +282,29 @@ class _DriverregisState extends State<Driverregis> {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   margin: EdgeInsets.only(top: 20),
-                  child: Text(
-                    'อัพโหลดรูปใบขับขี่ของคุณ',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: orange1,
-                        fontWeight: FontWeight.bold),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'อัพโหลดรูปใบขับขี่ของคุณ',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontFamily: 'Kanit',
+                            fontSize: 15,
+                            color: orange1,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(padding: EdgeInsets.only(top: 10)),
+                      Text(
+                        'กรุณาอัพโหลดรูปใบขับขี่ของคุณ เพื่อที่เราจะไได้ทำการตรวจสอบ',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: purple1,
+                            fontFamily: 'Kanit'
+                            ),
+                      ),
+                      
+                    ],
                   ),
                 ),
               ),
@@ -279,13 +351,27 @@ class _DriverregisState extends State<Driverregis> {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   margin: EdgeInsets.only(top: 20),
-                  child: Text(
-                    'อัพโหลดรูปภาษีรถยนต์ของคุณ',
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        fontSize: 13,
-                        color: orange1,
-                        fontWeight: FontWeight.bold),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        'อัพโหลดรูปภาษีรถยนต์ของคุณ',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontFamily: 'Kanit',
+                            fontSize: 15,
+                            color: orange1,
+                            fontWeight: FontWeight.bold),
+                      ),Padding(padding: EdgeInsets.only(top: 10)),
+                      Text(
+                        'กรุณาอัพโหลดรูปภาษีรถยนต์ของคุณ เพื่อที่เป็นหลักฐานในการตรวจสอบ',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: purple1,
+                            fontFamily: 'Kanit'
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               ),

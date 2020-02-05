@@ -16,7 +16,7 @@ class AuthService {
 //   }
 
   static void signUpUser(
-      BuildContext context, String username, String email, String password,String gender) async {
+      BuildContext context, String username, String email, String password,String gender,String tel) async {
     try {
       AuthResult authResult = await _auth.createUserWithEmailAndPassword(
         email: email,
@@ -27,7 +27,7 @@ class AuthService {
         _firestore.collection('/Users').document(signedInUser.uid).setData({
           'email': email,
           'gender': gender,
-          'phone': '',
+          'phone': tel,
           'username': username,
           'picprofileUrl': '',
         });

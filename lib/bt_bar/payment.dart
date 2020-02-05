@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mythesis96/Api/api.dart';
 import 'package:mythesis96/Api/apiuse.dart';
@@ -222,16 +223,34 @@ class _PaymentState extends State<Payment> {
                       margin: EdgeInsets.only(
                           left: 15.0, right: 15.0, top: 40, bottom: 20),
                       padding:
-                          new EdgeInsets.only(top: 40, left: 15, right: 15),
+                          new EdgeInsets.only(top: 20, left: 15, right: 15),
                       child: Container(
                         margin: EdgeInsets.only(
                           left: 15.0,
                           right: 15.0,
-                          top: 15,
+                         
                         ),
                         alignment: Alignment.topLeft,
                         child: Column(
                           children: <Widget>[
+                             Row(
+                               crossAxisAlignment: CrossAxisAlignment.center,
+                              textDirection: TextDirection.rtl,
+                              children: <Widget>[
+                                Icon(FontAwesomeIcons.ccVisa,color: Colors.white,size: 30),
+                                Padding(padding: EdgeInsets.only(left: 10)),
+                                 Icon(FontAwesomeIcons.ccMastercard,color: Colors.white,size: 30,),
+                                // Text(
+                                //   '$_cardnum',
+                                //   style: TextStyle(
+                                //     fontFamily: 'Kanit',
+                                //     fontWeight: FontWeight.w600,
+                                //     fontSize: 24,
+                                //     color: purple1,
+                                //   ),
+                                // ),
+                              ],
+                            ),
                             Row(
                               children: <Widget>[
                                 Text(

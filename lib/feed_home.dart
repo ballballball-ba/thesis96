@@ -13,6 +13,7 @@ import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:mythesis96/m/user_m.dart';
+import 'package:mythesis96/phone_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -165,9 +166,11 @@ class _FeedhomeState extends State<Feedhome> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
+                              
                               Container(
                                 child: Column(
                                   children: <Widget>[
+                                    
                                     Container(
                                       width: 120,
                                       height: 80,
@@ -201,7 +204,7 @@ class _FeedhomeState extends State<Feedhome> {
                                               ),
                                             ),
                                           ),Text(
-                                      'สร้างการแชร์',
+                                      'ค้นหาการแชร์',
                                       style: TextStyle(
                                         fontSize: 12,
                                         color: orange1,
@@ -218,6 +221,61 @@ class _FeedhomeState extends State<Feedhome> {
                                   ],
                                 ),
                               ),
+                              //  Container(
+                              //   child: Column(
+                              //     children: <Widget>[
+                              //       Container(
+                              //         width: 120,
+                              //         height: 80,
+                              //         decoration: BoxDecoration(
+                              //           color: Colors.white,
+                              //           borderRadius: BorderRadius.all(
+                              //               Radius.circular(20)),
+                              //           boxShadow: [
+                              //             BoxShadow(
+                              //               color: Colors.black26,
+                              //               blurRadius: 4,
+                              //               offset: Offset(
+                              //                 2.0, // horizontal, move right 10
+                              //                 2.0, // vertical, move down 10
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //         child: Column(
+                              //           children: <Widget>[
+                              //             IconButton(
+                              //               icon: Icon(
+                              //                 Icons.directions_car,
+                              //                 color: purple1,
+                              //                 size: 40,
+                              //               ),
+                              //               onPressed: () => Navigator.push(
+                              //                 context,
+                              //                 MaterialPageRoute(
+                              //                   builder: (_) => PhoneAuth(),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //             Text(
+                              //               'otppp',
+                              //               style: TextStyle(
+                              //                 fontSize: 12,
+                              //                 color: orange1,
+                              //                 fontFamily: 'Kanit',
+                              //               ),
+                              //             ),
+                              //           ],
+                              //         ),
+                              //         padding: EdgeInsets.only(top:5),
+                              //       ),
+                              //       SizedBox(
+                              //         height: 4,
+                              //       ),
+                                    
+                              //     ],
+                              //   ),
+                              // ),
                               Container(
                                 child: Column(
                                   children: <Widget>[
@@ -255,7 +313,7 @@ class _FeedhomeState extends State<Feedhome> {
                                             ),
                                           ),
                                           Text(
-                                            'ค้นหาการแชร์',
+                                            'สร้างการแชร์',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: orange1,
@@ -276,7 +334,8 @@ class _FeedhomeState extends State<Feedhome> {
                             ],
                           ),
                         ),
-                      ),
+                      ), 
+                
                     ],
                   ),
                 ),
@@ -289,6 +348,7 @@ class _FeedhomeState extends State<Feedhome> {
               padding: EdgeInsets.symmetric(vertical: 5),
               child: StreamBuilder(
                   stream: Firestore.instance
+                      // .collection('Concert').where('Place', isEqualTo: 'ธันเดอร์โดม Thunder Dome, Muangthong Thani')
                       .collection('Concert')
                       // .orderBy('timestamp', descending: true)
                       .snapshots(),
