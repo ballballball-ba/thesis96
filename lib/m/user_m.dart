@@ -8,6 +8,7 @@ class User{
   final String email;
   final String gender;
   final String bio;
+  final String phone;
   //final String driver;
   User({
     this.id,
@@ -16,6 +17,7 @@ class User{
     this.email,
     this.gender,
     this.bio,
+    this.phone,
     //this.driver,
   });
 
@@ -26,6 +28,7 @@ class User{
      profileImgUrl: doc['picprofileUrl'],
      email: doc['email'],
      gender: doc['gender'],
+     phone: doc['phone'],
      bio: doc['bio'] ?? '',
      //cartax: doc['email'],
      //driver: doc['pic'],
@@ -43,6 +46,7 @@ class Usershare{
    String profileImgUrl;
    String email;
    String gender;
+    String phone;
 
    Usershare.fromMap(Map<String, dynamic> data){
     // id = data.documentID,
@@ -50,6 +54,7 @@ class Usershare{
      profileImgUrl= data['picprofileUrl'];
      email= data['email'];
      gender= data['gender'];
+      phone= data['phone'];
    }
 }
 

@@ -18,10 +18,14 @@ import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 final List<String> imgList = [
+  'https://www.fungjaizine.com/wp-content/uploads/2019/11/hyukoh.jpg',
   'https://i2.wp.com/www.korseries.com/wp-content/uploads/2019/10/2019-iu-tour-concert-love-poem.jpg?fit=1000%2C596&ssl=1',
+  'https://promotions.co.th/wp-content/uploads/2019/11/Cover-27.jpg',
   'https://www.beartai.com/wp-content/uploads/2019/12/Rockland.jpg',
-  'https://promotions.co.th/wp-content/uploads/2019/11/kjoy-3-horz.jpg',
-  'https://m.thaiticketmajor.com/img_poster/prefix_1/2006/5006/atom-house-of-hearts-concert-2020-5dfb2eac4bfcb-l.jpg'
+  
+  'https://siam2nite.media/vp_spd2atdhTGcvEsV6NdrKKIBE=/events/21285/facebook_46759ad9e81c9869df8241082b408240.jpg',
+  'https://i1.wp.com/www.korseries.com/wp-content/uploads/2019/12/ab6ix-1st-world-tour-6ixense.jpg?resize=1000%2C596&ssl=1',
+
 ];
 final List child = map<Widget>(
   imgList,
@@ -709,156 +713,6 @@ class _FeedhomeState extends State<Feedhome> {
 
     //   );
     // }
-//////////////////////////////asdasdasdasdasd4654646566*********************
-//   Widget build1(BuildContext context) {
-//     CommonThings.size = MediaQuery.of(context).size;
 
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Colors.transparent,
-//         elevation: 0,
-//       ),
-
-//       // backgroundColor: Colors.blueGrey,
-//       body: Container(
-//         //ครอบทั้งหมด
-//         constraints: BoxConstraints.expand(height: 1500, width: 450),
-//         child: Container(
-//           padding: EdgeInsets.symmetric(vertical: 15),
-//           child: StreamBuilder(
-//               stream: Firestore.instance.collection('Concert').snapshots(),
-//               builder: (BuildContext context,
-//                   AsyncSnapshot<QuerySnapshot> snapshot) {
-//                 if (!snapshot.hasData) {
-//                   return Text('is somthing worg about database.....');
-//                 }
-//                 int length = snapshot.data.documents.length;
-//                 return GridView.builder(
-//                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//                     crossAxisCount: 1, //column
-//                     mainAxisSpacing: 0.2, // space
-//                     childAspectRatio: 1.8,
-//                   ),
-//                   itemCount: length,
-//                   padding: EdgeInsets.all(10),
-//                   itemBuilder: (_, int index) {
-//                     final DocumentSnapshot doc = snapshot.data.documents[index];
-//                     return new Container(
-//                       child: Container(
-//                         child: Card(
-//                           margin: EdgeInsets.all(8),
-//                           //เงาเหมือนกด
-//                           // elevation: 10,
-//                           child: Column(
-//                             children: <Widget>[
-//                               InkWell(
-//                                 child: Container(
-//                                   width: 393,
-//                                   height: 120,
-//                                   decoration: BoxDecoration(
-//                                     borderRadius: BorderRadius.circular(5),
-//                                     image: DecorationImage(
-//                                         fit: BoxFit.cover,
-//                                         image: NetworkImage(
-//                                             '${doc.data['PicURL']}' +
-//                                                 '?alt-media')),
-//                                   ),
-//                                   // child:  Image.network('${doc.data['PicURL']}'+ '?alt-media'),
-//                                   //child: Image.network('https://korea.tlcthai.com/wp-content/uploads/%E0%B9%84%E0%B8%AD%E0%B8%A2%E0%B8%B9IU.jpg'),
-//                                 ),
-//                               ),
-//                               Expanded(
-//                                 child: ListTile(
-//                                   title: Text(
-//                                     doc.data['NameCon'],
-//                                     style: TextStyle(
-//                                       color: Colors.purple,
-//                                       fontSize: 14,
-//                                     ),
-//                                   ),
-//                                   subtitle: Text(
-//                                     doc.data['Place'],
-//                                     style: TextStyle(
-//                                         color: Colors.deepPurple, fontSize: 12),
-//                                   ),
-
-//                                   //  subtitle: Text(
-//                                   //   doc.data['Day'],
-//                                   //   style: TextStyle(
-//                                   //       color: Colors.deepPurple, fontSize: 12),
-//                                   // ),
-//                                   onTap: () {
-//                                     print('concert');
-//                                   },
-//                                 ),
-//                               ),
-//                               Row(
-//                                 mainAxisAlignment: MainAxisAlignment.end,
-//                                 children: <Widget>[
-//                                   Text(
-//                                     doc.data['Day'],
-//                                     style: TextStyle(
-//                                         color: Colors.deepPurple, fontSize: 12),
-//                                   )
-//                                 ],
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),
-//                     );
-//                   },
-//                 );
-//               }),
-//         ),
-//       ),
-//       //  Center(
-//       //   child: FlatButton( //logout funtion
-//       //     onPressed: () => AuthService.logout(),
-//       //     child: Text('LOGOUT'),
-//       //   ),
-//       // )
-//     );
-//   }
-// }
-
-//}
-
-// class CurvedBottomClipper extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//     // I've taken approximate height of curved part of view
-//     // Change it if you have exact spec for it
-//     final roundingHeight = size.height * 3 / 5;
-
-//     // this is top part of path, rectangle without any rounding
-//     final filledRectangle =
-//         Rect.fromLTRB(0, 0, size.width, size.height - roundingHeight);
-
-//     // this is rectangle that will be used to draw arc
-//     // arc is drawn from center of this rectangle, so it's height has to be twice roundingHeight
-//     // also I made it to go 5 units out of screen on left and right, so curve will have some incline there
-//     final roundingRectangle = Rect.fromLTRB(
-//         -5, size.height - roundingHeight * 2, size.width + 5, size.height);
-
-//     final path = Path();
-//     path.addRect(filledRectangle);
-
-//     // so as I wrote before: arc is drawn from center of roundingRectangle
-//     // 2nd and 3rd arguments are angles from center to arc start and end points
-//     // 4th argument is set to true to move path to rectangle center, so we don't have to move it manually
-//     path.arcTo(roundingRectangle, pi, -pi, true);
-//     path.close();
-
-//     return path;
-//   }
-
-//   @override
-//   bool shouldReclip(CustomClipper<Path> oldClipper) {
-//     // returning fixed 'true' value here for simplicity, it's not the part of actual question, please read docs if you want to dig into it
-//     // basically that means that clipping will be redrawn on any changes
-//     return true;
-//   }
-// }
   }
 }

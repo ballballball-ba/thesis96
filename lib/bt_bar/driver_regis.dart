@@ -207,7 +207,7 @@ class _DriverregisState extends State<Driverregis> {
             onPressed: _submit,
             child: Text(
               "ยืนยัน",
-              style: TextStyle(fontSize: 16, color: Color(0xffFF7240)),
+              style: TextStyle(fontSize: 16, color: Color(0xffFF7240),fontFamily: 'Kanit',),
             ),
           )
         ],

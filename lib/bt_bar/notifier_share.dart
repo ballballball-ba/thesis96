@@ -65,7 +65,7 @@ class ShareNotifier2 with ChangeNotifier {
 class ShareNotifier3 with ChangeNotifier {
   List<Share> _shareList = [];
   Share _currentShare;
-  Cardata _currentcar;
+  
   UnmodifiableListView<Share> get shareList => UnmodifiableListView(_shareList);
 
   Share get currentShare => _currentShare;
@@ -76,6 +76,25 @@ class ShareNotifier3 with ChangeNotifier {
   }
 
   set currentShare(Share share) {
+    _currentShare = share;
+    notifyListeners();
+  }
+}
+
+class ShareNotifierrequest1 with ChangeNotifier {
+  List<Sharereq> _shareList = [];
+  Sharereq _currentShare;
+  
+  UnmodifiableListView<Sharereq> get shareList => UnmodifiableListView(_shareList);
+
+  Sharereq get currentShare => _currentShare;
+
+  set shareList(List<Sharereq> shareList) {
+    _shareList = shareList;
+    notifyListeners();
+  }
+
+  set currentShare(Sharereq share) {
     _currentShare = share;
     notifyListeners();
   }

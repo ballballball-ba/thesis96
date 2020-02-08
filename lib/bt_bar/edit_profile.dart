@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/firebase/database_up.dart';
@@ -21,12 +22,26 @@ class _EditprofileState extends State<Editprofile> {
   File _profileImage;
   String _name = '';
   String _bio = '';
+  String _phone = '';
+  String _gender ='';
+  String _gender1 ='';
+  String radiovalue= '';
 
+  setRadioValue(String value) {
+    setState(() {
+      radiovalue = _gender1;
+      _gender1 = value;
+      print(radiovalue);
+      print(_gender);
+    });
+  }
   @override
   void initState() {
     super.initState();
     _name = widget.user.name;
     _bio = widget.user.bio;
+    _phone = widget.user.phone;
+    _gender = widget.user.gender;
   }
 
   _handleImageFromGallery() async {
@@ -59,7 +74,7 @@ class _EditprofileState extends State<Editprofile> {
   _submit() async {
     if (_formkey.currentState.validate()) {
       _formkey.currentState.save();
-
+_showDialog();
       // setState(() {
       //   _isLoading = true;
       // });
@@ -81,12 +96,19 @@ class _EditprofileState extends State<Editprofile> {
         name: _name,
         profileImgUrl: _profileImgUrl,
         bio: _bio,
+        phone: _phone,
+        //gender: _gender,
       );
       //database update function
       DatabaseSer.updateUser(user);
       Navigator.pop(context);
     }
   }
+ final Color purple1 = Color(0xff5A45A5);
+    final Color purple2 = Color(0xff2A1D59);
+    final Color purple3 = Color(0xffBDAEF2);
+    final Color orage1 = Color(0xffF2551D);
+    final Color purple4 = Color(0xffA99CD9);
 
   @override
   Widget build(BuildContext context) {
@@ -153,19 +175,76 @@ class _EditprofileState extends State<Editprofile> {
                     onSaved: (input) => _name = input,
                   ),
                   TextFormField(
-                    initialValue: _bio,
+                    initialValue: _phone,
                     style: TextStyle(fontSize: 16),
                     decoration: InputDecoration(
                         icon: Icon(
-                          Icons.book,
+                          Icons.phone,
                           size: 30,
                         ),
-                        labelText: "ไบโอ"),
+                        labelText: "เบอร์โทรศัพท์"),
                     validator: (input) => input.trim().length > 100
-                        ? 'Please enter a valid name'
+                        ? 'Please enter a valid '
                         : null,
                     onSaved: (input) => _bio = input,
                   ),
+                             Container(
+                               margin: EdgeInsets.only(left: 15),
+                               child: Column(
+                                children: <Widget>[
+                                  //  Text('เพศ'),
+                                  ButtonBar(
+                                    alignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Radio(
+                                            onChanged: (String _gender1) {
+                                              setRadioValue(_gender1);
+                                            },
+                                            activeColor:  Colors.purple,
+                                            value: 'ชาย',
+                                            groupValue: radiovalue,
+                                          ),
+                                          Text(
+                                            'ชาย',
+                                            style: TextStyle(
+                                              color: Color(0xffF2551D),
+                                              fontFamily: 'Kanit',
+                                              // fontSize: 24,
+                                              // fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Radio(
+                                            onChanged: (String _gender1) {
+                                              setRadioValue(_gender1);
+                                            },
+                                            
+                                            activeColor: Colors.purple,
+                                            value: 'หญิง',
+                                            groupValue: radiovalue,
+                                          ),
+                                          Text(
+                                            'หญิง',
+                                            style: TextStyle(
+                                              color: Color(0xffF2551D),
+                                              fontFamily: 'Kanit',
+                                              // fontSize: 24,
+                                              // fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  )
+
+                                ],
+                            ),
+                             ),
                   Container(
                     margin: EdgeInsets.all(40),
                     height: 40,
@@ -214,6 +293,50 @@ class _EditprofileState extends State<Editprofile> {
           ),
         ),
       ),
+    );
+  }
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Center(
+          child: Container(
+            height: 271,
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              title: new Text(
+                    "แก้ไขโพรไฟล์เรียบร้อย",
+                    style: TextStyle(fontFamily: 'Kanit',fontSize: 18, color: purple2,fontWeight: FontWeight.w600),
+                  ),
+              content: Column(
+                children: <Widget>[
+                 
+                  Text(
+                    "แก้ไขโพรไฟล์เรียบร้อย",
+                    style: TextStyle(fontFamily: 'Kanit', color: orage1),
+                  ),
+                  Icon(Icons.check_circle, size: 40, color: orage1)
+                ],
+              ),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text(
+                    "ตกลง",
+                    style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

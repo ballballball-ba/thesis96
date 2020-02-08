@@ -8,6 +8,7 @@ import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/m/user_m.dart';
 import 'package:mythesis96/firebase/constance.dart';
+import 'package:mythesis96/phone_auth.dart';
 
 class Profile extends StatefulWidget {
   final String userId;
@@ -45,6 +46,7 @@ class _ProfileState extends State<Profile> {
                   );
                 }
                 User user = User.fromDoc(snapshot.data);
+
                 // Post drive = postsRef.document('k');
 //print(user.gender);
 //print(user.email);
@@ -197,7 +199,7 @@ class _ProfileState extends State<Profile> {
                                   children: <Widget>[
                                     Container(
                                       width: MediaQuery.of(context).size.width,
-                                      height: 600.0,
+                                      height: 670.0,
                                       decoration: BoxDecoration(
                                           gradient: new LinearGradient(
                                               begin: Alignment.topCenter,
@@ -341,51 +343,63 @@ class _ProfileState extends State<Profile> {
                                                                   Text("เพศ"),
                                                               subtitle: Text(
                                                                   user.gender),
-                                                            ),   ListTile(
-                                                            leading: Icon(Icons
-                                                                .directions_car),
-                                                            title: Text("ID"),
+                                                            ),
+                                                            ListTile(
+                                                              leading: Icon(
+                                                                  Icons.phone),
+                                                              title:
+                                                                  Text("เบอร์โทรศัพท์"),
+                                                              subtitle: Text(
+                                                                  user.phone),
+                                                            ),
+                                                            ListTile(
+                                                              leading: Icon(Icons
+                                                                  .directions_car),
+                                                              title: Text("ID"),
 
-                                                            //subtitle: Text(user.email),
+                                                              //subtitle: Text(user.email),
 
-                                                            subtitle:
-                                                                Text(user.id),
-                                                          ),
+                                                              subtitle:
+                                                                  Text(user.id),
+                                                            ),
                                                           ],
                                                         ),
-                                                      ),       Container(
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          ListTile(
-                                                            leading: Icon(Icons
-                                                                .directions_car),
-                                                            title: Text("ID"),
-
-                                                            //subtitle: Text(user.email),
-
-                                                            subtitle:
-                                                                Text(user.id),
-                                                          ),
-                                                          FlatButton(
-                                                            onPressed: () =>
-                                                                Navigator.push(
-                                                              context,
-                                                              MaterialPageRoute(
-                                                                builder: (_) =>
-                                                                    Shareform(),
-                                                              ),
-                                                            ),
-                                                            color: Colors.black,
-                                                            child: Text(
-                                                              'สร้างการแชร์',
-                                                              style: TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ),
-                                                        ],
                                                       ),
-                                                    ),
+                                                      // Container(
+                                                      //   child: Column(
+                                                      //     children: <Widget>[
+                                                      //       ListTile(
+                                                      //         leading: Icon(Icons
+                                                      //             .directions_car),
+                                                      //         title: Text("ID"),
+
+                                                      //         //subtitle: Text(user.email),
+
+                                                      //         subtitle:
+                                                      //             Text(user.id),
+                                                      //       ),
+                                                      //       FlatButton(
+                                                      //         onPressed: () =>
+                                                      //             Navigator
+                                                      //                 .push(
+                                                      //           context,
+                                                      //           MaterialPageRoute(
+                                                      //             builder: (_) =>
+                                                      //                 Shareform(),
+                                                      //           ),
+                                                      //         ),
+                                                      //         color:
+                                                      //             Colors.black,
+                                                      //         child: Text(
+                                                      //           'สร้างการแชร์',
+                                                      //           style: TextStyle(
+                                                      //               color: Colors
+                                                      //                   .white),
+                                                      //         ),
+                                                      //       ),
+                                                      //     ],
+                                                      //   ),
+                                                      // ),
                                                     ],
                                                   ),
                                                 ),
@@ -496,49 +510,6 @@ class _ProfileState extends State<Profile> {
                               Padding(
                                 padding: EdgeInsets.all(2),
                               ),
-                              // Container(
-                              //   child: Card(
-                              //     shape: RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.circular(10.0),
-                              //     ),
-                              //     child: Row(
-                              //       children: <Widget>[
-                              //         Container(
-                              //           child: Column(
-                              //             children: <Widget>[],
-                              //           ),
-                              //         ),
-                              //         Column(
-                              //           children: <Widget>[
-                              //             Container(
-                              //               margin: EdgeInsets.only(left: 18),
-                              //               child: IconButton(
-                              //                   icon: Icon(Icons.book),
-                              //                   color: Colors.black38,
-                              //                   alignment: Alignment.topRight,
-                              //                   onPressed: () => print('4')),
-                              //             ),
-                              //           ],
-                              //         ),
-                              //         Container(
-                              //           child: Column(
-                              //             children: <Widget>[
-                              //               Container(
-                              //                 height: 80,
-                              //                 margin: EdgeInsets.only(left: 20),
-                              //                 padding: EdgeInsets.only(top: 25),
-                              //                 child: Text(
-                              //                   user.bio,
-                              //                   style: TextStyle(fontSize: 16),
-                              //                 ),
-                              //               ),
-                              //             ],
-                              //           ),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ),
-                              // ),
                             ],
                           ),
                           //
@@ -554,8 +525,6 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-regisdrive(){
-  if(1+2 == 5){
-   
-  }
+regisdrive() {
+  if (1 + 2 == 5) {}
 }

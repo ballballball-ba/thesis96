@@ -1,6 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/signup_driver.dart';
@@ -23,15 +24,16 @@ class _SignupState extends State<Signup> {
     if (_formkey.currentState.validate()) {
       _formkey.currentState.save();
       // Logging in the user w/ Firebase
-      Flushbar(
-        message: 'สมัครสมาชิก เรียบร้อย',
-        backgroundColor: Colors.green,
-        icon: Icon(Icons.check_circle, size: 28.0, color: Colors.white),
-        duration: Duration(seconds: 4),
-        //leftBarIndicatorColor: Colors.blue[300],
-        margin: EdgeInsets.all(8),
-        borderRadius: 10,
-      )..show(context);
+      // Flushbar(
+      //   message: 'สมัครสมาชิก เรียบร้อย',
+      //   backgroundColor: Colors.green,
+      //   icon: Icon(Icons.check_circle, size: 28.0, color: Colors.white),
+      //   duration: Duration(seconds: 4),
+      //   //leftBarIndicatorColor: Colors.blue[300],
+      //   margin: EdgeInsets.all(8),
+      //   borderRadius: 10,
+      // )..show(context);
+      _showDialog();
       AuthService.signUpUser(context, _username, _email, _password, _gender, _tel);
     } else
       Flushbar(
@@ -239,7 +241,7 @@ class _SignupState extends State<Signup> {
                             Row(
                               children: <Widget>[
                                 Text(
-                                  '     ไม่จำเป็นต้องใส่เลข 0 +66 คือ 0 ',
+                                  '     ไม่จำเป็นต้องใส่เลข 0 (+66 คือ 0) ',
                                   style: TextStyle(color: Colors.black38),
                                 ),
                               ],
@@ -372,6 +374,47 @@ class _SignupState extends State<Signup> {
           ],
         ),
       ),
+    );
+  }
+    void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Center(
+          child: Container(
+            height: 271,
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              
+              content: Column(
+                children: <Widget>[
+                 
+                  Text(
+                    "สมัครสมาชิกเรียบร้อย",
+                    style: TextStyle(fontFamily: 'Kanit', color: orage1),
+                  ),
+                  Icon(FontAwesomeIcons.checkCircle, size: 40, color: orage1)
+                ],
+              ),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text(
+                    "ตกลง",
+                    style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

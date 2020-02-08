@@ -40,7 +40,9 @@ class AuthService {
       print(e);
     }
   }
-  
+  // static void addNotireq(){
+  //   String currentUserID, Share sharepost, String
+  // }
   static void signUpDriver(
       BuildContext context, String username2, String email2, String password2) async {
     try {

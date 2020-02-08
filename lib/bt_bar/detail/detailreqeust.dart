@@ -12,15 +12,15 @@ import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:provider/provider.dart';
 
-class DetailShare extends StatefulWidget {
+class DetailShareRequest extends StatefulWidget {
   final Share concertname;
   // DetailShare({Key key}) : super(key: key);
-  DetailShare({this.concertname});
+  DetailShareRequest({this.concertname});
   @override
-  _DetailShareState createState() => _DetailShareState();
+  _DetailShareRequestState createState() => _DetailShareRequestState();
 }
 
-class _DetailShareState extends State<DetailShare> {
+class _DetailShareRequestState extends State<DetailShareRequest> {
   final Color purple1 = Color(0xff5A45A5);
   final Color purple2 = Color(0xff2A1D59);
   final Color purple3 = Color(0xffBDAEF2);
@@ -60,7 +60,7 @@ class _DetailShareState extends State<DetailShare> {
     _submit() async {
       if (_formkey.currentState.validate()) {
         _formkey.currentState.save();
-  //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
+        //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -142,7 +142,7 @@ class _DetailShareState extends State<DetailShare> {
           icon: new Icon(Icons.arrow_back_ios, color: purple2),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Text("รายละเอียดการแชร์",
+        title: Text("รายละเอียดการแชร์ (รอการตอบรับ)",
             style: TextStyle(
               fontFamily: 'Kanit',
               fontWeight: FontWeight.w600,
@@ -176,7 +176,7 @@ class _DetailShareState extends State<DetailShare> {
         ),
         child: SingleChildScrollView(
           child: Container(
-            height: 850,
+            height: 750,
             child: Column(
               children: <Widget>[
                 Container(
@@ -187,7 +187,7 @@ class _DetailShareState extends State<DetailShare> {
                       Container(
                         alignment: Alignment.topLeft,
                         child: Text(
-                          "รายละเอียดการแชร์",
+                          "รายละเอียดการแชร์ (รอการตอบรับ)",
                           style: TextStyle(
                             fontFamily: 'Kanit',
                             fontWeight: FontWeight.w600,
@@ -520,7 +520,7 @@ class _DetailShareState extends State<DetailShare> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.venusMars,
+                                        FontAwesomeIcons.car,
                                         color: orange1,
                                         size: 20,
                                       ),
@@ -649,117 +649,7 @@ class _DetailShareState extends State<DetailShare> {
                                     ],
                                   ),
                                   Divider(),
-                                  Row(
-                                    children: <Widget>[
-                                      Padding(
-                                          padding: EdgeInsets.only(left: 15)),
-                                      Text('ระบุจำนวนที่ต้องการขอร่วมเดินทาง',
-                                          style: TextStyle(
-                                              fontFamily: 'Kanit',
-                                              color: purple2,
-                                              fontWeight: FontWeight.w600)),
-                                    ],
-                                  ),
-                                  Form(
-                                    key: _formkey,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Container(
-                                          height: 50,
-                                          width: 90,
-                                          decoration: BoxDecoration(
-                                              color: purple4,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 15, bottom: 20),
-                                          child: TextFormField(
-                                            inputFormatters: [
-                                              LengthLimitingTextInputFormatter(
-                                                  2),
-                                            ],
-                                            // controller: _seatyouController,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              prefixIcon: Icon(
-                                                  FontAwesomeIcons.male,
-                                                  color: Colors.white),
-                                              hintText: 'ช',
-                                              hintStyle: TextStyle(
-                                                color: Colors.white70,
-                                                fontFamily: 'Kanit',
-                                                // fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            validator: (input) =>
-                                                input.trim().isEmpty
-                                                    ? 'กรุณาระบุที่นั่ง'
-                                                    : null,
-                                            // onSaved: (input) => _password = input,
-                                            // obscureText: true,
-                                            onChanged: (input) =>
-                                                _malereq = input,
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 50,
-                                          width: 90,
-                                          decoration: BoxDecoration(
-                                              color: purple4,
-                                              borderRadius:
-                                                  BorderRadius.circular(10)),
-                                          margin: EdgeInsets.only(
-                                              top: 10, left: 15, bottom: 20),
-                                          child: TextFormField(
-                                            inputFormatters: [
-                                              LengthLimitingTextInputFormatter(
-                                                  2),
-                                            ],
-                                            //   controller: _seatyou2Controller,
-                                            decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              prefixIcon: Icon(
-                                                  FontAwesomeIcons.female,
-                                                  color: Colors.white),
-                                              hintText: 'ญ',
-                                              hintStyle: TextStyle(
-                                                color: Colors.white70,
-                                                fontFamily: 'Kanit',
-                                                // fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                            validator: (input) =>
-                                                input.trim().isEmpty
-                                                    ? 'กรุณาระบุที่นั่ง'
-                                                    : null,
-                                            // onSaved: (input) => _password = input,
-                                            // obscureText: true,
-                                            onChanged: (input) =>
-                                                _femalereq = input,
-                                          ),
-                                        ),
-                                        Column(
-                                          children: <Widget>[
-                                            Text(
-                                              'กรุณาระบุจำนวน',
-                                              style: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 13),
-                                            ),
-                                            Text(
-                                              '   ที่ต้องการขอร่วมเดินทาง',
-                                              style: TextStyle(
-                                                  color: Colors.white70,
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 13),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Divider()
+
                                   // Row(
                                   //   crossAxisAlignment: CrossAxisAlignment.start,
                                   //   children: <Widget>[
@@ -772,36 +662,6 @@ class _DetailShareState extends State<DetailShare> {
                                 ],
                               ),
                             ),
-
-                            // ListTile(
-                            //   leading: Icon(Icons.person),
-                            //   title: Text('username'),
-                            //  // subtitle: Text(user.email),
-                            // ),
-                            // ListTile(
-                            //   leading: Icon(Icons.music_note),
-                            //   title: Text("ชื่อคอนเสิร์ต"),
-                            //   subtitle: Text(shareNotifier.currentShare.concertname),
-                            // //  subtitle: Text(user.gender),
-                            // ),
-                            //  ListTile(
-                            //   leading: Icon(Icons.map),
-                            //   title: Text("จุดเริ่มต้น"),
-                            //   subtitle: Text(shareNotifier.currentShare.startplace),
-                            // //  subtitle: Text(user.gender),
-                            // ),
-                            //  ListTile(
-                            //   leading: Icon(Icons.map),
-                            //   title: Text("ปลายทาง"),
-                            //   subtitle: Text(shareNotifier.currentShare.endplace),
-                            // //  subtitle: Text(user.gender),
-                            // ),
-                            //  ListTile(
-                            //   leading: Icon(Icons.attach_money),
-                            //   title: Text("ราคา"),
-                            //   subtitle: Text(shareNotifier.currentShare.price),
-                            // //  subtitle: Text(user.gender),
-                            // ),
                           ],
                         ),
                       ),
@@ -813,13 +673,15 @@ class _DetailShareState extends State<DetailShare> {
                   constraints: BoxConstraints.expand(height: 55, width: 340),
                   child: Container(
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Color(0xff5A45A5)),
+                        borderRadius: BorderRadius.circular(30), color: orage1),
                     child: FlatButton(
-                      // onPressed: () {},
+                      onPressed: () {
+                        print('ยกเลิกขอร่วมเดินทาง');
+                        _showDialog();
+                      },
 
-                      onPressed: _submit,
-                      child: Text('ขอร่วมเดินทาง',
+                      // onPressed: _submit,
+                      child: Text('ยกเลิกขอร่วมเดินทาง',
                           style: TextStyle(
                             color: Colors.white,
                             fontFamily: 'Kanit',
@@ -828,13 +690,54 @@ class _DetailShareState extends State<DetailShare> {
                     ),
                   ),
                 ),
-               
+                // Container(
+                //   margin: EdgeInsets.only(top: 40),
+                //   constraints: BoxConstraints.expand(height: 55, width: 170),
+                //   child: Container(
+                //     decoration: BoxDecoration(
+                //         borderRadius: BorderRadius.circular(30),
+                //         color: Color(0xff5A45A5)),
+                //     child: FlatButton(
+                //       onPressed: () => Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (_) => Payment(),
+                //         ),
+                //       ),
+
+                //       // onPressed: _submit,
+                //       child: Text('ชำระเงิน',
+                //           style: TextStyle(
+                //             color: Colors.white,
+                //             fontFamily: 'Kanit',
+                //             fontSize: 22,
+                //           )),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  final databaseReference = Firestore.instance;
+  void deleteData() {
+    databaseReference
+        .collection('ShareRequest')
+        .getDocuments()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
+        ds.reference.delete();
+      }
+    });
+    // try {
+    //   databaseReference.collection('ShareRequest').document('D55JNu4VVBpxsuKcwP30').delete();
+    // } catch (e) {
+    //   print(e.toString());
+    // }
   }
 
   license() {
@@ -872,14 +775,17 @@ class _DetailShareState extends State<DetailShare> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               title: new Text(
-                    "ส่งคำร้องขอเดินทาง เรียบร้อย",
-                    style: TextStyle(fontFamily: 'Kanit',fontSize: 18, color: purple2,fontWeight: FontWeight.w600),
-                  ),
+                "ยกเลิกขอร่วมเดินทาง",
+                style: TextStyle(
+                    fontFamily: 'Kanit',
+                    fontSize: 18,
+                    color: purple2,
+                    fontWeight: FontWeight.w600),
+              ),
               content: Column(
                 children: <Widget>[
-                 
                   Text(
-                    "ตรวจสอบคำร้องได้ที่หน้า 'การแชร์ของฉัน'",
+                    " คุณต้องการยกเลิกขอร่วมเดินทาง",
                     style: TextStyle(fontFamily: 'Kanit', color: orage1),
                   ),
                   Icon(FontAwesomeIcons.spinner, size: 40, color: orage1)
@@ -889,7 +795,22 @@ class _DetailShareState extends State<DetailShare> {
                 // usually buttons at the bottom of the dialog
                 new FlatButton(
                   child: new Text(
-                    "ตกลง",
+                    "ยืนยัน",
+                    style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => Home(),
+                      ),
+                    );
+                    deleteData();
+                  },
+                ),
+                new FlatButton(
+                  child: new Text(
+                    "ยกเลิก",
                     style: TextStyle(fontFamily: 'Kanit', color: purple2),
                   ),
                   onPressed: () {

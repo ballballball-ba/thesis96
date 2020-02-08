@@ -124,7 +124,8 @@ String readTimestamp(int timestamp) {
         // date: _date,
         // time: _time,
         // DateTime.fromMillisecondsSinceEpoch(created.creationTimeMillis, isUtc: true).toString()
-        timestamp: Timestamp.fromDate(DateTime.now()),
+        timestamp: Timestamp.fromDate(DateTime.now()
+        ),
         authorId: Provider.of<Userdata>(context).currentUserID,
       );
 

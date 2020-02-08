@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mythesis96/Firebasemessaging/FirebaseMessaging.dart';
 import 'package:mythesis96/bt_bar/activity_sc.dart';
-import 'package:mythesis96/bt_bar/detail_share.dart';
+
 import 'package:mythesis96/bt_bar/notiac_sc.dart';
 import 'package:mythesis96/bt_bar/porfile.dart';
 import 'package:mythesis96/bt_bar/search_sc.dart';
