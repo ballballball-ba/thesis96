@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mythesis96/bt_bar/homemain.dart';
+import 'package:mythesis96/bt_bar/notifier_con.dart';
 import 'package:mythesis96/bt_bar/notifier_share.dart';
+import 'package:mythesis96/bt_bar/porfile.dart';
 import 'package:mythesis96/feed_home.dart';
 import 'package:mythesis96/login.dart';
 import 'package:mythesis96/m/user_data.dart';
@@ -13,6 +15,16 @@ import 'bt_bar/notifier_share request.dart';
 void main() => runApp(MultiProvider(
       providers: [
        
+        ChangeNotifierProvider(
+          builder: (context) => ConNotifier(),
+        ),
+        
+        ChangeNotifierProvider(
+          builder: (context) => ConNotifier2(),
+        ),
+          ChangeNotifierProvider(
+          builder: (context) => ConNotifier3(),
+        ),
         ChangeNotifierProvider(
           builder: (context) => ShareNotifier(),
         ),
@@ -47,6 +59,9 @@ class MyApp extends StatelessWidget {
           //old ยังต้องเรียกฟังชันจากหน้า home มา
           // return Home(userId: snapshot.data.uid);
           return Home();
+        } else if(snapshot.hasData){
+           Provider.of<Userdata>(context).currentUserID = 'BeKfwcrxIfPw0BUDs7yRKYZgjcw1';
+          return Profile();
         } else {
           return Login();
         }

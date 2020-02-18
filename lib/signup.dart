@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
-import 'package:mythesis96/signup_driver.dart';
 
 class Signup extends StatefulWidget {
   static final String id = 'signup_screen';

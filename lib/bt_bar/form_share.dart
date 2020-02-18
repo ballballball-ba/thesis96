@@ -12,7 +12,6 @@ import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/car_data.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
-import 'package:mythesis96/signup_driver.dart';
 import 'package:provider/provider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';

@@ -43,32 +43,32 @@ class AuthService {
   // static void addNotireq(){
   //   String currentUserID, Share sharepost, String
   // }
-  static void signUpDriver(
-      BuildContext context, String username2, String email2, String password2) async {
-    try {
-      AuthResult authResult = await _auth.createUserWithEmailAndPassword(
-        email: email2,
-        password: password2,
-      );
-      FirebaseUser signUpDriver = authResult.user;
-      if (signUpDriver != null) {
-        _firestore.collection('/Driver').document(signUpDriver.uid).setData({
-          'email': email2,
-          'gender': '',
-          'iduser': '',
-          'username': username2,
-          'picidcardUrl': '',
-          'picprofileUrl': '',
-          'piccartex': '',
-          'piclicense': '',
-        });
-        //สมัครเสร็จให้ไปหน้าไหน
-       Navigator.pop(context);
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // static void signUpDriver(
+  //     BuildContext context, String username2, String email2, String password2) async {
+  //   try {
+  //     AuthResult authResult = await _auth.createUserWithEmailAndPassword(
+  //       email: email2,
+  //       password: password2,
+  //     );
+  //     FirebaseUser signUpDriver = authResult.user;
+  //     if (signUpDriver != null) {
+  //       _firestore.collection('/Driver').document(signUpDriver.uid).setData({
+  //         'email': email2,
+  //         'gender': '',
+  //         'iduser': '',
+  //         'username': username2,
+  //         'picidcardUrl': '',
+  //         'picprofileUrl': '',
+  //         'piccartex': '',
+  //         'piclicense': '',
+  //       });
+  //       //สมัครเสร็จให้ไปหน้าไหน
+  //      Navigator.pop(context);
+  //     }
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
  
 
