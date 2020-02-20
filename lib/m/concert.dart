@@ -12,7 +12,7 @@ class Concertview {
 
   String details;
 
-  Timestamp timestamp;
+  String timestamp;
   String authorId;
   Concertview.fromMap(Map<String, dynamic> data) {
     id = data['id'];

@@ -19,7 +19,7 @@ class Share {
   String gencar;
   String color;
   String licensecar;
-  Timestamp timestamp;
+  String timestamp;
   String authorId;
 
   Share.fromMap(Map<String, dynamic> data) {
@@ -148,7 +148,7 @@ class Sharereq {
   String licensecar;
   String reqseat1;
   String reqseat2;
-  Timestamp timestamp;
+  String timestamp;
   String authorId;
 
   Sharereq.fromMap(Map<String, dynamic> data) {
@@ -283,7 +283,7 @@ class Shareconfirm {
   String licensecar;
   String reqseat1;
   String reqseat2;
-  Timestamp timestamp;
+  String timestamp;
   String authorId;
 
   Shareconfirm.fromMap(Map<String, dynamic> data) {

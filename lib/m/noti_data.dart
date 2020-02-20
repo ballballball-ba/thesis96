@@ -19,7 +19,7 @@ final  String price;
 final  String gencar;
  final String color;
  final String licensecar;
- final Timestamp timestamp;
+ final String timestamp;
  final String authorId;
 
  Notirequest({

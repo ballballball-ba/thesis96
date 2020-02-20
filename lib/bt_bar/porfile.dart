@@ -130,15 +130,12 @@ class _ProfileState extends State<Profile> {
                               ),
                             ),
                             ListTile(
-                              leading: Icon(Icons.info),
-                              title: Text('About Us'),
-                              onTap: () {
-                                // Navigator.pushNamed(
-                                //     context,
-                                //     About.routeName
-                                // );
-                              },
-                            ),
+                                leading: Icon(Icons.info),
+                                title: Text('About Us'),
+                                onTap: () => Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => Shareform()))),
                             Expanded(
                               child: Align(
                                 alignment: Alignment.bottomLeft,
@@ -347,8 +344,8 @@ class _ProfileState extends State<Profile> {
                                                             ListTile(
                                                               leading: Icon(
                                                                   Icons.phone),
-                                                              title:
-                                                                  Text("เบอร์โทรศัพท์"),
+                                                              title: Text(
+                                                                  "เบอร์โทรศัพท์"),
                                                               subtitle: Text(
                                                                   user.phone),
                                                             ),

@@ -145,10 +145,11 @@ class _DriverregisState extends State<Driverregis> {
           builder: (_) => Shareform(),
         ),
       );
+      var now = new DateTime.now();
       Post post = Post(
         imageUrl: imageUrl,
         imageUrl1: imageUrl1,
-        likes: {},
+       
         authorId: Provider.of<Userdata>(context).currentUserID,
         timestamp: Timestamp.fromDate(DateTime.now()),
       );
@@ -212,23 +213,7 @@ class _DriverregisState extends State<Driverregis> {
           )
         ],
       ),
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   title: Text(
-      //     "สมัครคนขับ",
-      //     style: TextStyle(color: Color(0xff5A45A5)),
-      //     textAlign: TextAlign.center,
-      //   ),
-      //   actions: <Widget>[
-      //     FlatButton(
-      //       onPressed: _submit,
-      //       child: Text(
-      //         "ยืนยัน",
-      //         style: TextStyle(fontSize: 16, color: Color(0xffFF7240)),
-      //       ),
-      //     )
-      //   ],
-      // ),
+      
       body: Column(
         children: <Widget>[
           _isloading
@@ -381,59 +366,10 @@ class _DriverregisState extends State<Driverregis> {
               // ),
             ],
           ),
-          // GestureDetector(
-          //   onTap: _showSelectImageDialog3,
-          //   child: Container(
-          //       height: 200,
-          //       width: 200,
-          //       color: Colors.grey[200],
-          //       child: _image2 == null
-          //           ? Icon(
-          //               Icons.add_a_photo,
-          //               color: Colors.white70,
-          //               size: 70,
-          //             )
-          //           : Image(
-          //               image: FileImage(_image2),
-          //               fit: BoxFit.cover,
-          //             )),
-          // ),
-
-          // SizedBox(height: 20,),
-          // TextField(
-          //   controller: _captionController,
-          //   style: TextStyle(fontSize: 18),
-          //   decoration: InputDecoration(
-          //     labelText: 'อะไรสักอย่างในอนาคต'
-          //   ),
-          //   onChanged: (input) => _caption = input,
-          // ),
+        
         ],
       ),
-      // persistentFooterButtons: <Widget>[
-      //   SizedBox(
-      //       width: 200, // match_parent
-      //       child: RaisedButton(
-
-      //       ),
-      //       ),
-
-      // )
-      // FlatButton(
-
-      //   onPressed: () => Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (_) => ShareForm(),
-      //     ),
-      //   ),
-
-      //   color: Color(0xff5A45A5),
-      //   child: Text(
-      //     'สมัครคนขับ',
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      // ),
+   
       // ],
     );
   }

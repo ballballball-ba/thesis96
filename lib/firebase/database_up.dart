@@ -33,14 +33,14 @@ class DatabaseSer {
   static void sendpic(Post post) {
     postsRef.document(post.authorId).collection('DriverRegis').add({
       'PiccartaxUrl': post.imageUrl,
-      'likes': post.likes,
+      
       'PicDrivelicense': post.imageUrl1,
       'authorId': post.authorId,
       'timestamp': post.timestamp,
     });
     _firestore.collection('DriverRegis_web').add({
       'PiccartaxUrl': post.imageUrl,
-      'likes': post.likes,
+     
       'PicDrivelicense': post.imageUrl1,
       'authorId': post.authorId,
       'timestamp': post.timestamp,

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mythesis96/bt_bar/homemain.dart';
-import 'package:mythesis96/bt_bar/notiac_sc.dart';
+
 import 'package:mythesis96/bt_bar/notifier_share.dart';
 import 'package:mythesis96/bt_bar/payment.dart';
 import 'package:mythesis96/firebase/database_up.dart';
@@ -39,7 +39,7 @@ class _DetailShareState extends State<DetailShare> {
     String _startplace = shareNotifier.currentShare.startplace;
     String _endplace = shareNotifier.currentShare.endplace;
     String _price = shareNotifier.currentShare.price;
-    String _seat = shareNotifier.currentShare.seat;
+    int _seat = shareNotifier.currentShare.seat;
     String _seatyou = shareNotifier.currentShare.seatyou;
     String _seatyou2 = shareNotifier.currentShare.seatyou2;
     String _date = shareNotifier.currentShare.date;
@@ -60,7 +60,7 @@ class _DetailShareState extends State<DetailShare> {
     _submit() async {
       if (_formkey.currentState.validate()) {
         _formkey.currentState.save();
-  //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
+        //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -68,20 +68,8 @@ class _DetailShareState extends State<DetailShare> {
           ),
         );
         _showDialog();
-        // Flushbar(
-        //   message: 'ขอร่วมเดิน เรียบร้อย',
-        //   icon: Icon(
-        //     Icons.info,
-        //     size: 28.0,
-        //     color: Color(0xffF2551D),
-        //   ),
-        //   duration: Duration(seconds: 4),
-        //   //leftBarIndicatorColor: Colors.blue[300],
-        //   margin: EdgeInsets.all(8),
-        //   borderRadius: 10,
-        // )..show(context);
-        // setState(() {
-
+      
+        var now = new DateTime.now();
         Sharereq sharereq = Sharereq(
           concertname: _concertname,
           startplace: _startplace,
@@ -103,7 +91,7 @@ class _DetailShareState extends State<DetailShare> {
           color: _color,
           licensecar: _licensecar,
 
-          timestamp: Timestamp.fromDate(DateTime.now()),
+          timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
           authorId: Provider.of<Userdata>(context).currentUserID,
         );
         DatabaseSer.createSharereq(sharereq);
@@ -503,7 +491,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(shareNotifier.currentShare.seat,
+                                          Text(shareNotifier.currentShare.seat.toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -773,35 +761,7 @@ class _DetailShareState extends State<DetailShare> {
                               ),
                             ),
 
-                            // ListTile(
-                            //   leading: Icon(Icons.person),
-                            //   title: Text('username'),
-                            //  // subtitle: Text(user.email),
-                            // ),
-                            // ListTile(
-                            //   leading: Icon(Icons.music_note),
-                            //   title: Text("ชื่อคอนเสิร์ต"),
-                            //   subtitle: Text(shareNotifier.currentShare.concertname),
-                            // //  subtitle: Text(user.gender),
-                            // ),
-                            //  ListTile(
-                            //   leading: Icon(Icons.map),
-                            //   title: Text("จุดเริ่มต้น"),
-                            //   subtitle: Text(shareNotifier.currentShare.startplace),
-                            // //  subtitle: Text(user.gender),
-                            // ),
-                            //  ListTile(
-                            //   leading: Icon(Icons.map),
-                            //   title: Text("ปลายทาง"),
-                            //   subtitle: Text(shareNotifier.currentShare.endplace),
-                            // //  subtitle: Text(user.gender),
-                            // ),
-                            //  ListTile(
-                            //   leading: Icon(Icons.attach_money),
-                            //   title: Text("ราคา"),
-                            //   subtitle: Text(shareNotifier.currentShare.price),
-                            // //  subtitle: Text(user.gender),
-                            // ),
+                         
                           ],
                         ),
                       ),
@@ -828,7 +788,6 @@ class _DetailShareState extends State<DetailShare> {
                     ),
                   ),
                 ),
-               
               ],
             ),
           ),
@@ -872,12 +831,15 @@ class _DetailShareState extends State<DetailShare> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               title: new Text(
-                    "ส่งคำร้องขอเดินทาง เรียบร้อย",
-                    style: TextStyle(fontFamily: 'Kanit',fontSize: 18, color: purple2,fontWeight: FontWeight.w600),
-                  ),
+                "ส่งคำร้องขอเดินทาง เรียบร้อย",
+                style: TextStyle(
+                    fontFamily: 'Kanit',
+                    fontSize: 18,
+                    color: purple2,
+                    fontWeight: FontWeight.w600),
+              ),
               content: Column(
                 children: <Widget>[
-                 
                   Text(
                     "ตรวจสอบคำร้องได้ที่หน้า 'การแชร์ของฉัน'",
                     style: TextStyle(fontFamily: 'Kanit', color: orage1),
@@ -903,5 +865,7 @@ class _DetailShareState extends State<DetailShare> {
       },
     );
   }
+
+  DateFormat(String s) {}
 }
 //

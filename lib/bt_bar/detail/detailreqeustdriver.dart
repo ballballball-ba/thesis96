@@ -68,6 +68,7 @@ class _DetailSharedriverState extends State<DetailSharedriver> {
         );
         _showDialog();
         deleteData();
+        var now = new DateTime.now();
         Shareconfirm shareconfirm = Shareconfirm(
           concertname: _concertname,
           startplace: _startplace,
@@ -89,7 +90,7 @@ class _DetailSharedriverState extends State<DetailSharedriver> {
           color: _color,
           licensecar: _licensecar,
 
-          timestamp: Timestamp.fromDate(DateTime.now()),
+          timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
           authorId: Provider.of<Userdata>(context).currentUserID,
         );
         DatabaseSer.createShareconfirm(shareconfirm);
@@ -761,31 +762,7 @@ class _DetailSharedriverState extends State<DetailSharedriver> {
                     ),
                   ),
                 ),
-                // Container(
-                //   margin: EdgeInsets.only(top: 40),
-                //   constraints: BoxConstraints.expand(height: 55, width: 170),
-                //   child: Container(
-                //     decoration: BoxDecoration(
-                //         borderRadius: BorderRadius.circular(30),
-                //         color: Color(0xff5A45A5)),
-                //     child: FlatButton(
-                //       onPressed: () => Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (_) => Payment(),
-                //         ),
-                //       ),
-
-                //       // onPressed: _submit,
-                //       child: Text('ชำระเงิน',
-                //           style: TextStyle(
-                //             color: Colors.white,
-                //             fontFamily: 'Kanit',
-                //             fontSize: 22,
-                //           )),
-                //     ),
-                //   ),
-                // ),
+                
               ],
             ),
           ),
@@ -796,11 +773,13 @@ class _DetailSharedriverState extends State<DetailSharedriver> {
 
   final databaseReference = Firestore.instance;
   void deleteData() {
-    
-    databaseReference.collection('ShareRequest').getDocuments().then((snapshot){
-for (DocumentSnapshot ds in snapshot.documents){
-  ds.reference.delete();
-}
+    databaseReference
+        .collection('ShareRequest')
+        .getDocuments()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
+        ds.reference.delete();
+      }
     });
     // try {
     //   databaseReference.collection('ShareRequest').document('D55JNu4VVBpxsuKcwP30').delete();
@@ -887,5 +866,7 @@ for (DocumentSnapshot ds in snapshot.documents){
       },
     );
   }
+
+  DateFormat(String s) {}
 }
 //

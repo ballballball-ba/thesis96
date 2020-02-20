@@ -28,104 +28,63 @@ class _AlertreportState extends State<Alertreport> {
   String _date = '';
   String _time = '';
 
-  
- // String readTimestamp;
+  // String readTimestamp;
   //String _time = '';
 
   _submit() async {
-    
-    // final snackBar = SnackBar(
-    //   content: Text('แจ้งปัญหา/แจ้งเหตุ เรียบร้อย'),
-    //   action: SnackBarAction(
-    //     label: 'เรียบร้อย',
-    //     onPressed: () {
-    //       // Some code to undo the change.
-    //     },
-    //   ),
-    // );
-
-    // Find the Scaffold in the widget tree and use
-    // it to show a SnackBar.
-    // Scaffold.of(context).showSnackBar(snackBar);
-    //  if (_formkey.currentState.validate()) {
-    //   _formkey.currentState.save();
-    //   // Logging in the user w/ Firebase
-
-    // }
     if (_formkey.currentState.validate()) {
       _formkey.currentState.save();
       Flushbar(
-      message: 'แจ้งปัญหา/แจ้งเหตุ เรียบร้อย',
-      icon: Icon(
-        Icons.info,
-        size: 28.0,
-        color: Color(0xffF2551D),
-      ),
-      duration: Duration(seconds: 4),
-      //leftBarIndicatorColor: Colors.blue[300],
-      margin: EdgeInsets.all(8),
-      borderRadius: 10,
-    )..show(context);
-      // setState(() {
-      //   _isloading = true;
-      //       // });
-      //  if (!_isloading &&
-      //         _concertname.isNotEmpty &&
-      //         _startplace.isNotEmpty &&
-      //         _endplace.isNotEmpty &&
-      //         _price != null &&
-      //         _seat != null &&
-      //         _datetime.isNotEmpty &&
-      //         //car
-      //         _brandcar.isNotEmpty &&
-      //         _gencar.isNotEmpty &&
-      //         _color.isNotEmpty &&
-      //         _licensecar.isNotEmpty) {
-      //       setState(() {
-      //         _isloading = true;
-      //       });
-      // สร้างแชร
-String readTimestamp(int timestamp) {
-    var now = new DateTime.now();
-    var format = new DateFormat('HH:mm a');
-    var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
-    var diff = now.difference(date);
-    var time = '';
+        message: 'แจ้งปัญหา/แจ้งเหตุ เรียบร้อย',
+        icon: Icon(
+          Icons.info,
+          size: 28.0,
+          color: Colors.green,
+        ),
+        duration: Duration(seconds: 4),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 10,
+      )..show(context);
 
-    if (diff.inSeconds <= 0 ||
-        diff.inSeconds > 0 && diff.inMinutes == 0 ||
-        diff.inMinutes > 0 && diff.inHours == 0 ||
-        diff.inHours > 0 && diff.inDays == 0) {
-      time = format.format(date);
-    } else if (diff.inDays > 0 && diff.inDays < 7) {
-      if (diff.inDays == 1) {
-        time = diff.inDays.toString() + ' วันที่แล้ว';
-      } else {
-        time = diff.inDays.toString() + ' วันที่แล้ว';
-      }
-    } else {
-      if (diff.inDays == 7) {
-        time = (diff.inDays / 7).floor().toString() + ' สัปดาห์ที่แล้ว';
-      } else {
-        time = (diff.inDays / 7).floor().toString() + ' สัปดาห์ที่แล้ว';
-      }
-    }
+      String readTimestamp(int timestamp) {
+        var now = new DateTime.now();
+        var format = new DateFormat('HH:mm a');
+        var date = new DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+        var diff = now.difference(date);
+        var time = '';
 
-    return time;
-  }
+        if (diff.inSeconds <= 0 ||
+            diff.inSeconds > 0 && diff.inMinutes == 0 ||
+            diff.inMinutes > 0 && diff.inHours == 0 ||
+            diff.inHours > 0 && diff.inDays == 0) {
+          time = format.format(date);
+        } else if (diff.inDays > 0 && diff.inDays < 7) {
+          if (diff.inDays == 1) {
+            time = diff.inDays.toString() + ' วันที่แล้ว';
+          } else {
+            time = diff.inDays.toString() + ' วันที่แล้ว';
+          }
+        } else {
+          if (diff.inDays == 7) {
+            time = (diff.inDays / 7).floor().toString() + ' สัปดาห์ที่แล้ว';
+          } else {
+            time = (diff.inDays / 7).floor().toString() + ' สัปดาห์ที่แล้ว';
+          }
+        }
+
+        return time;
+      }
+
+      var now = new DateTime.now();
       Report car = Report(
         topic: _topic,
         text: _text,
         date: _date,
         time: _time,
-        // endplace: _endplace,
-        // price: _price,
-        // seat: _seat,
-        // date: _date,
-        // time: _time,
-        // DateTime.fromMillisecondsSinceEpoch(created.creationTimeMillis, isUtc: true).toString()
-        timestamp: Timestamp.fromDate(DateTime.now()
-        ),
+
+        //  timestamp: DateTime.now().toString(),
+        timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
         authorId: Provider.of<Userdata>(context).currentUserID,
       );
 
@@ -138,42 +97,29 @@ String readTimestamp(int timestamp) {
       setState(() {
         _topic = '';
         _text = '';
-       _date = '';
-       _time = '';
-        // _endplace = '';
-        // _price = '';
-        // _seat = '';
-        // _date = '';
-        // _time = '';
-        /////////////
-        // _brandcar = '';
-        // _gencar = '';
-        // _color = '';
-        // _licensecar = '';
-
-        // _isloading = false;
+        _date = '';
+        _time = '';
       });
-    }Flushbar(
-      message: 'ไม่สามารถ แจ้งปัญหา/แจ้งเหตุได้',
-      icon: Icon(
-        Icons.info,
-        size: 28.0,
-        color: Color(0xffF2551D),
-      ),
-      duration: Duration(seconds: 4),
-      //leftBarIndicatorColor: Colors.blue[300],
-      margin: EdgeInsets.all(8),
-      borderRadius: 10,
-    )..show(context);
-
-    //  _formkey.currentState.validate();
-    //  _formkey.currentState.save();
+    } else {
+      Flushbar(
+        message: 'ไม่สามารถ แจ้งปัญหา/แจ้งเหตุได้',
+        icon: Icon(
+          Icons.info,
+          size: 28.0,
+          color: Color(0xffF2551D),
+        ),
+        duration: Duration(seconds: 4),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 10,
+      )..show(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -342,13 +288,11 @@ String readTimestamp(int timestamp) {
     print(formattedTime);
     print(formattedDate);
     setState(() {
-    //  this._date = formattedDate;
-     // this._time = formattedTime;
+      //  this._date = formattedDate;
+      // this._time = formattedTime;
     });
   }
   // @override
-  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  //   super.debugFillProperties(properties);
-  //   properties.add(StringProperty('time', time));
+
   // }
 }
