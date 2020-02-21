@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mythesis96/bt_bar/homemain.dart';
-
+import 'package:intl/intl.dart';
 import 'package:mythesis96/bt_bar/notifier_share.dart';
 import 'package:mythesis96/bt_bar/payment.dart';
 import 'package:mythesis96/firebase/database_up.dart';
@@ -39,7 +40,7 @@ class _DetailShareState extends State<DetailShare> {
     String _startplace = shareNotifier.currentShare.startplace;
     String _endplace = shareNotifier.currentShare.endplace;
     String _price = shareNotifier.currentShare.price;
-    int _seat = shareNotifier.currentShare.seat;
+    String _seat = shareNotifier.currentShare.seat;
     String _seatyou = shareNotifier.currentShare.seatyou;
     String _seatyou2 = shareNotifier.currentShare.seatyou2;
     String _date = shareNotifier.currentShare.date;
@@ -57,68 +58,304 @@ class _DetailShareState extends State<DetailShare> {
     String _licensecar = shareNotifier.currentShare.licensecar;
 
     final _formkey = GlobalKey<FormState>();
-    _submit() async {
-      if (_formkey.currentState.validate()) {
+    _presubmit() async {
+      if (_formkey.currentState.validate() &&
+          _malereq == _seatyou &&
+          _femalereq == _seatyou2 &&
+          _malereq.isNotEmpty &&
+          _femalereq.isNotEmpty) {
         _formkey.currentState.save();
+        // _malereq != _seatyou && _femalereq != _seatyou2
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return Center(
+              child: Container(
+                height: 271,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  title: new Text(
+                    "รายละเอียด",
+                    style: TextStyle(
+                        fontFamily: 'Kanit',
+                        fontSize: 18,
+                        color: purple2,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  content: Column(
+                    children: <Widget>[
+                      Text(
+                        "ส่งคำร้องขอการแชร์เรียบร้อย",
+                        style: TextStyle(fontFamily: 'Kanit', color: orage1),
+                      ),
+                      Icon(FontAwesomeIcons.checkCircle, size: 40, color: Colors.green)
+                    ],
+                  ),
+                  actions: <Widget>[
+                    // FlatButton(
+                    //   child: const Text('ยกเลิก',
+                    //       style: TextStyle(
+                    //           fontFamily: 'Kanit', color: Colors.black87)),
+                    //   onPressed: () {
+                    //     Navigator.of(context).pop();
+                    //   },
+                    // ),
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                        child: new Text(
+                          "ตกลง",
+                          style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                        ),
+                        onPressed: () {
+                          if (_formkey.currentState.validate() &&
+                              _malereq == _seatyou &&
+                              _femalereq == _seatyou2) {
+                            _formkey.currentState.save();
+                            //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => Home(),
+                              ),
+                            );
+                            _showDialog();
+
+                            var now = new DateTime.now();
+                            Sharereq sharereq = Sharereq(
+                              concertname: _concertname,
+                              startplace: _startplace,
+                              endplace: _endplace,
+                              price: _price,
+                              seat: _seat,
+                              seatyou: _seatyou,
+                              seatyou2: _seatyou2,
+                              date: _date,
+                              time: _time,
+                              details: _details,
+                              picpro: _picpro,
+
+                              reqseat1: _malereq,
+                              reqseat2: _femalereq,
+                              //********************** */
+                              brandcar: _brandcar,
+                              //gencar: _gencar,
+                              color: _color,
+                              licensecar: _licensecar,
+
+                              timestamp:
+                                  DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
+                              authorId:
+                                  Provider.of<Userdata>(context).currentUserID,
+                            );
+                            DatabaseSer.createSharereq(sharereq);
+                            // DatabaseSer.createCar(car);
+
+                            // รีเซทข้อมูลให้ว่างเหมือนเดิม
+                            _maleController.clear();
+                            _femaleController.clear();
+                            setState(() {
+                              _malereq = '';
+                              _femalereq = '';
+                            });
+                          } else {
+                            Flushbar(
+                              message:
+                                  'ไม่สามารถ ขอร่วมเดินทางได้ ลองอีกครั้ง!',
+                              backgroundColor: Colors.red,
+                              icon: Icon(
+                                Icons.info,
+                                size: 28.0,
+                                color: Colors.white,
+                              ),
+                              duration: Duration(seconds: 4),
+                              //leftBarIndicatorColor: Colors.blue[300],
+                              margin: EdgeInsets.all(8),
+                              borderRadius: 10,
+                            )..show(context);
+                          }
+                        }),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      } else if (_malereq != _seatyou &&
+          _femalereq != _seatyou2 &&
+          _malereq.isNotEmpty &&
+          _femalereq.isNotEmpty) {
         //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (_) => Home(),
-          ),
-        );
-        _showDialog();
-      
-        var now = new DateTime.now();
-        Sharereq sharereq = Sharereq(
-          concertname: _concertname,
-          startplace: _startplace,
-          endplace: _endplace,
-          price: _price,
-          seat: _seat,
-          seatyou: _seatyou,
-          seatyou2: _seatyou2,
-          date: _date,
-          time: _time,
-          details: _details,
-          picpro: _picpro,
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (_) => Home(),
+        //   ),
+        // );
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return Center(
+              child: Container(
+                height: 271,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  title: new Text(
+                    "แจ้งเตือน",
+                    style: TextStyle(
+                        fontFamily: 'Kanit',
+                        fontSize: 18,
+                        color: purple2,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  content: Column(
+                    children: <Widget>[
+                      Text(
+                        "จำนวนระบุคำร้องขอการแชร์ของคุณ",
+                        style: TextStyle(
+                            fontFamily: 'Kanit', color: orage1, fontSize: 14),
+                      ),
+                      Text(
+                        "ไม่ถูกต้องกับของผู้แชร์",
+                        style: TextStyle(
+                            fontFamily: 'Kanit', color: orage1, fontSize: 14),
+                      ),
+                      Text(
+                        "ยืนยันการส่งคำร้องของคุณต่อไปหรือไม่",
+                        style: TextStyle(
+                            fontFamily: 'Kanit', color: orage1, fontSize: 14),
+                      ),
+                      // Icon(FontAwesomeIcons.spinner, size: 40, color: orage1)
+                    ],
+                  ),
+                  actions: <Widget>[
+                    FlatButton(
+                      child: const Text('ยกเลิก',
+                          style: TextStyle(
+                              fontFamily: 'Kanit', color: Colors.black87)),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                        child: new Text(
+                          "ยืนยัน",
+                          style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                        ),
+                        onPressed: () {
+                          if (_formkey.currentState.validate()) {
+                            _formkey.currentState.save();
+                            //Navigator.pushReplacement(context, MaterialPageRoute( builder: (_) => Home(), ));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => Home(),
+                              ),
+                            );
+                            _showDialog();
 
-          reqseat1: _malereq,
-          reqseat2: _femalereq,
-          //********************** */
-          brandcar: _brandcar,
-          //gencar: _gencar,
-          color: _color,
-          licensecar: _licensecar,
+                            var now = new DateTime.now();
+                            Sharereq sharereq = Sharereq(
+                              concertname: _concertname,
+                              startplace: _startplace,
+                              endplace: _endplace,
+                              price: _price,
+                              seat: _seat,
+                              seatyou: _seatyou,
+                              seatyou2: _seatyou2,
+                              date: _date,
+                              time: _time,
+                              details: _details,
+                              picpro: _picpro,
 
-          timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
-          authorId: Provider.of<Userdata>(context).currentUserID,
+                              reqseat1: _malereq,
+                              reqseat2: _femalereq,
+                              //********************** */
+                              brandcar: _brandcar,
+                              //gencar: _gencar,
+                              color: _color,
+                              licensecar: _licensecar,
+
+                              timestamp:
+                                  DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
+                              authorId:
+                                  Provider.of<Userdata>(context).currentUserID,
+                            );
+                            DatabaseSer.createSharereq(sharereq);
+                            // DatabaseSer.createCar(car);
+
+                            // รีเซทข้อมูลให้ว่างเหมือนเดิม
+                            _maleController.clear();
+                            _femaleController.clear();
+                            setState(() {
+                              _malereq = '';
+                              _femalereq = '';
+                            });
+                          } else {
+                            Flushbar(
+                              message:
+                                  'ไม่สามารถ ขอร่วมเดินทางได้ ลองอีกครั้ง!',
+                              backgroundColor: Colors.red,
+                              icon: Icon(
+                                Icons.info,
+                                size: 28.0,
+                                color: Colors.white,
+                              ),
+                              duration: Duration(seconds: 4),
+                              //leftBarIndicatorColor: Colors.blue[300],
+                              margin: EdgeInsets.all(8),
+                              borderRadius: 10,
+                            )..show(context);
+                          }
+                        }),
+                  ],
+                ),
+              ),
+            );
+          },
         );
-        DatabaseSer.createSharereq(sharereq);
+
+        // var now = new DateTime.now();
+        // Sharereq sharereq = Sharereq(
+        //   concertname: _concertname,
+        //   startplace: _startplace,
+        //   endplace: _endplace,
+        //   price: _price,
+        //   seat: _seat,
+        //   seatyou: _seatyou,
+        //   seatyou2: _seatyou2,
+        //   date: _date,
+        //   time: _time,
+        //   details: _details,
+        //   picpro: _picpro,
+
+        //   reqseat1: _malereq,
+        //   reqseat2: _femalereq,
+        //   //********************** */
+        //   brandcar: _brandcar,
+        //   //gencar: _gencar,
+        //   color: _color,
+        //   licensecar: _licensecar,
+
+        //   timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
+        //   authorId: Provider.of<Userdata>(context).currentUserID,
+        // );
+        // DatabaseSer.createSharereq(sharereq);
         // DatabaseSer.createCar(car);
 
         // รีเซทข้อมูลให้ว่างเหมือนเดิม
-        _maleController.clear();
-        _femaleController.clear();
-        setState(() {
-          _malereq = '';
-          _femalereq = '';
-        });
-      } else {
-        Flushbar(
-          message: 'ไม่สามารถ ขอร่วมเดินทางได้ ลองอีกครั้ง!',
-          backgroundColor: Colors.red,
-          icon: Icon(
-            Icons.info,
-            size: 28.0,
-            color: Colors.white,
-          ),
-          duration: Duration(seconds: 4),
-          //leftBarIndicatorColor: Colors.blue[300],
-          margin: EdgeInsets.all(8),
-          borderRadius: 10,
-        )..show(context);
+        // _maleController.clear();
+        // _femaleController.clear();
+        // setState(() {
+        //   _malereq = '';
+        //   _femalereq = '';
+        // });
       }
+      // else {
     }
 
     return Scaffold(
@@ -491,7 +728,9 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(shareNotifier.currentShare.seat.toString(),
+                                          Text(
+                                              shareNotifier.currentShare.seat
+                                                  .toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -760,8 +999,6 @@ class _DetailShareState extends State<DetailShare> {
                                 ],
                               ),
                             ),
-
-                         
                           ],
                         ),
                       ),
@@ -778,7 +1015,7 @@ class _DetailShareState extends State<DetailShare> {
                     child: FlatButton(
                       // onPressed: () {},
 
-                      onPressed: _submit,
+                      onPressed: _presubmit,
                       child: Text('ขอร่วมเดินทาง',
                           style: TextStyle(
                             color: Colors.white,
@@ -818,6 +1055,51 @@ class _DetailShareState extends State<DetailShare> {
     }
   }
 
+  void _showDialogpre() {
+    // flutter defined function
+    // showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     // return object of type Dialog
+    //     return Center(
+    //       child: Container(
+    //         height: 271,
+    //         child: AlertDialog(
+    //           shape: RoundedRectangleBorder(
+    //               borderRadius: BorderRadius.circular(10.0)),
+    //           title: new Text(
+    //             "รายละเอียด",
+    //             style: TextStyle(
+    //                 fontFamily: 'Kanit',
+    //                 fontSize: 18,
+    //                 color: purple2,
+    //                 fontWeight: FontWeight.w600),
+    //           ),
+    //           content: Column(
+    //             children: <Widget>[
+    //               Text(
+    //                 "ตรวจสอบคำร้องได้ที่หน้า 'การแชร์ของฉัน'",
+    //                 style: TextStyle(fontFamily: 'Kanit', color: orage1),
+    //               ),
+    //               Icon(FontAwesomeIcons.spinner, size: 40, color: orage1)
+    //             ],
+    //           ),
+    //           actions: <Widget>[
+    //             // usually buttons at the bottom of the dialog
+    //             new FlatButton(
+    //               child: new Text(
+    //                 "ตกลง",
+    //                 style: TextStyle(fontFamily: 'Kanit', color: purple2),
+    //               ),
+    //               onPressed: _submit
+    //             ),
+    //           ],
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
+  }
   void _showDialog() {
     // flutter defined function
     showDialog(
@@ -865,7 +1147,5 @@ class _DetailShareState extends State<DetailShare> {
       },
     );
   }
-
-  DateFormat(String s) {}
 }
 //

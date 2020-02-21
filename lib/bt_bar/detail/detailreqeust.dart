@@ -11,6 +11,7 @@ import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class DetailShareRequest extends StatefulWidget {
   final Share concertname;
@@ -789,6 +790,6 @@ var now = new DateTime.now();
               );
             }
           
-            DateFormat(String s) {}
+           
 }
 //

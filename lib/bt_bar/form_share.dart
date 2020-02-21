@@ -89,7 +89,7 @@ class _ShareformState extends State<Shareform> {
   String _startplace = '';
   String _endplace = '';
   String _price = '';
-  int _seat = 0;
+  String _seat = '';
   String _seatyou = '';
   String _seatyou2 = '';
   String _date = '';
@@ -221,7 +221,7 @@ class _ShareformState extends State<Shareform> {
         _startplace = '';
         _endplace = '';
         _price = '';
-        _seat = 0;
+        _seat ='';
         _seatyou = '';
         _seatyou2 = '';
         _date = '';
@@ -754,7 +754,7 @@ class _ShareformState extends State<Shareform> {
                                           : null,
                                       // onSaved: (input) => _password = input,
                                       // obscureText: true,
-                                      onChanged: (input) => _seat = input as int,
+                                      onChanged: (input) => _seat = input,
                                     ),
                                   ),
                                 ],
