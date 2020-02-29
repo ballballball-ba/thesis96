@@ -5,18 +5,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mythesis96/Api/api.dart';
 import 'package:mythesis96/Api/apiuse.dart';
+import 'package:mythesis96/bt_bar/notifier_share%20request.dart';
 import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/payment_data.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as Http;
 import 'dart:convert';
-
+import 'package:intl/intl.dart' as intl;
+//import 'package:intl/intl.dart';
 import 'package:mythesis96/Api/apiuse.dart';
 
 class Payment extends StatefulWidget {
   //Payment({Key key}) : super(key: key);
-
+  final String userpay;
+  const Payment({Key key, this.userpay}) : super(key: key);
   @override
   _PaymentState createState() => _PaymentState();
 }
@@ -128,6 +131,8 @@ class _PaymentState extends State<Payment> {
         margin: EdgeInsets.all(8),
         borderRadius: 10,
       )..show(context);
+      var now = new DateTime.now();
+
       PaymentM payment = PaymentM(
         cardnum: _cardnum,
         cardexp: _cardexp,
@@ -138,7 +143,9 @@ class _PaymentState extends State<Payment> {
         // seat: _seat,
         // date: _date,
         // time: _time,
-        timestamp: Timestamp.fromDate(DateTime.now()),
+        timestamp:
+            //  DateFormat("dd-MM-yyyy hh:mm").format(now),
+            DateTime.now().toIso8601String().toString(),
         authorId: Provider.of<Userdata>(context).currentUserID,
       );
 
@@ -178,7 +185,14 @@ class _PaymentState extends State<Payment> {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.of(context).viewInsets.bottom;
+    ShareNotifierrequest2 shareNotifier =
+        Provider.of<ShareNotifierrequest2>(context, listen: false);
+    var other = 5;
+        var myInt = int.parse(shareNotifier.currentShare.price.toInt().toString());
 
+    assert(myInt is int);
+    print(myInt); // 12345
+    var rtl;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
@@ -212,7 +226,7 @@ class _PaymentState extends State<Payment> {
 
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
-                          color: orange2,
+                          color: Colors.black12,
                           boxShadow: [
                             new BoxShadow(
                                 color: Colors.black12,
@@ -228,18 +242,22 @@ class _PaymentState extends State<Payment> {
                         margin: EdgeInsets.only(
                           left: 15.0,
                           right: 15.0,
-                         
                         ),
                         alignment: Alignment.topLeft,
                         child: Column(
                           children: <Widget>[
-                             Row(
-                               crossAxisAlignment: CrossAxisAlignment.center,
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               textDirection: TextDirection.rtl,
                               children: <Widget>[
-                                Icon(FontAwesomeIcons.ccVisa,color: Colors.white,size: 30),
+                                Icon(FontAwesomeIcons.ccVisa,
+                                    color: Colors.white, size: 30),
                                 Padding(padding: EdgeInsets.only(left: 10)),
-                                 Icon(FontAwesomeIcons.ccMastercard,color: Colors.white,size: 30,),
+                                Icon(
+                                  FontAwesomeIcons.ccMastercard,
+                                  color: Colors.white,
+                                  size: 30,
+                                ),
                                 // Text(
                                 //   '$_cardnum',
                                 //   style: TextStyle(
@@ -358,6 +376,7 @@ class _PaymentState extends State<Payment> {
                           left: 15.0, right: 15.0, top: 15, bottom: 20),
                       alignment: Alignment.topLeft,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
                             'ข้อมูลบัตรของคุณ',
@@ -367,6 +386,38 @@ class _PaymentState extends State<Payment> {
                               fontSize: 16,
                               color: purple2,
                             ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'จำนวนที่ต้องชำระ',
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 14,
+                                  color: purple2,
+                                ),
+                              ),
+                              Padding(padding: EdgeInsets.only(left: 10)),
+                              
+                              Text(
+                                myInt.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: purple2,
+                                ),
+                              ),
+                              Text(
+                                '/ 25% =',
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: purple2,
+                                ),
+                              ),
+                            ],
                           )
                         ],
                       ),

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mythesis96/bt_bar/alert_report.dart';
+import 'package:mythesis96/bt_bar/chat.dart';
 import 'package:mythesis96/bt_bar/homemain.dart';
 import 'package:mythesis96/bt_bar/notiac_sc.dart';
 import 'package:mythesis96/bt_bar/notifier_share%20request.dart';
@@ -13,6 +14,7 @@ import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailSharesuccess extends StatefulWidget {
   final Share concertname;
@@ -129,120 +131,174 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                       Divider(
                         color: Colors.black38,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      Wrap(
                         children: <Widget>[
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  width: 120,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 1,
-                                      
-                                        offset: Offset(
-                                          2.0, // horizontal, move right 10
-                                          2.0, // vertical, move down 10
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: <Widget>[
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.chat,
-                                          color: purple1,
-                                          size: 40,
-                                        ),
-                                        onPressed: (){
-                                          print('แชท');
-                                        },
-                                        // onPressed: () => Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (_) => Sharefeeds(),
-                                        //   ),
-                                        // ),
-                                      ),
-                                      Text(
-                                        'แชท',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: orange1,
-                                          fontFamily: 'Kanit',
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  padding: EdgeInsets.only(top: 5),
-                                ),
-                                SizedBox(
-                                  height: 4,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  width: 120,
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(20)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black26,
-                                        blurRadius: 1,
-                                        offset: Offset(
-                                          2.0, // horizontal, move right 10
-                                          2.0, // vertical, move down 10
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    children: <Widget>[
-                                      IconButton(
-                                        icon: Icon(
-                                          FontAwesomeIcons.exclamationTriangle,
-                                          color: purple1,
-                                          size: 35,
-                                        ),
-                                        onPressed: () => Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => Alertreport(),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 100,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 2.0,
+                                            offset: Offset(2, 0),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      Text(
-                                        'แจ้งปัญหา/แจ้งเหตุ',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: orange1,
-                                          fontFamily: 'Kanit',
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  padding: EdgeInsets.only(top: 5),
+                                      child: Column(
+                                        children: <Widget>[
+                                          IconButton(
+                                            icon: Icon(
+                                              Icons.chat,
+                                              color: purple1,
+                                              size: 40,
+                                            ),
+                                            onPressed: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => Chat(
+                                                  userId: shareNotifier
+                                                      .currentShare.picpro,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            'แชท',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: orange1,
+                                              fontFamily: 'Kanit',
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.only(top: 5),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(
-                                  height: 4,
+                              ),
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 100,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        // boxShadow: [
+                                        //   BoxShadow(
+                                        //     color: Colors.black26,
+                                        //     blurRadius: 1,
+                                        //     offset: Offset(
+                                        //       2.0, // horizontal, move right 10
+                                        //       2.0, // vertical, move down 10
+                                        //     ),
+                                        //   ),
+                                        // ],
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 2.0,
+                                            offset: Offset(2, 0),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          IconButton(
+                                            icon: Icon(
+                                              FontAwesomeIcons
+                                                  .exclamationTriangle,
+                                              color: purple1,
+                                              size: 35,
+                                            ),
+                                            onPressed: () => Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) => Alertreport(),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            'แจ้งปัญหา/แจ้งเหตุ',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: orange1,
+                                              fontFamily: 'Kanit',
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.only(top: 5),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      width: 100,
+                                      height: 80,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black26,
+                                            blurRadius: 2.0,
+                                            offset: Offset(2, 0),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          IconButton(
+                                            icon: Icon(
+                                              Icons.call,
+                                              color: purple1,
+                                              size: 40,
+                                            ),
+                                            onPressed: _launchURL,
+                                          ),
+                                          Text(
+                                            '191',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: orange1,
+                                              fontFamily: 'Kanit',
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      padding: EdgeInsets.only(top: 5),
+                                    ),
+                                    SizedBox(
+                                      height: 4,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -300,7 +356,7 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
-                                        Icons.music_note,
+                                        FontAwesomeIcons.mapMarked,
                                         color: orange1,
                                         size: 20,
                                       ),
@@ -339,7 +395,7 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
-                                        Icons.music_note,
+                                        FontAwesomeIcons.mapMarked,
                                         color: orange1,
                                         size: 20,
                                       ),
@@ -530,7 +586,7 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
                                       Icon(
-                                        FontAwesomeIcons.venusMars,
+                                        FontAwesomeIcons.car,
                                         color: orange1,
                                         size: 20,
                                       ),
@@ -699,10 +755,11 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                       onPressed: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => Payment(),
+                          builder: (_) => Payment(
+                            userpay: shareNotifier.currentShare.price,
+                          ),
                         ),
                       ),
-
                       // onPressed: _submit,
                       child: Text('เสร็จสิ้นการแชร์',
                           style: TextStyle(
@@ -768,6 +825,14 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
   //     Text('-');
   //   }
   // }
+  _launchURL() async {
+    const url = 'tel:191';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   void _showDialog() {
     // flutter defined function

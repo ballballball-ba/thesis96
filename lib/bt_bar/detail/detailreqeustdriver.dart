@@ -57,6 +57,7 @@ class _DetailSharedriverState extends State<DetailSharedriver> {
     // String _gencar = shareNotifier.currentShare.gencar;
     String _color = shareNotifier.currentShare.color;
     String _licensecar = shareNotifier.currentShare.licensecar;
+     String _authorshare= shareNotifier.currentShare.authorshare;
     final _formkey = GlobalKey<FormState>();
     _submit() async {
       if (1 + 1 == 2) {
@@ -90,6 +91,7 @@ class _DetailSharedriverState extends State<DetailSharedriver> {
           //gencar: _gencar,
           color: _color,
           licensecar: _licensecar,
+          authorshare:_authorshare,
 
           timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
           authorId: Provider.of<Userdata>(context).currentUserID,

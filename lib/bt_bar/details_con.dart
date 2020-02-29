@@ -44,8 +44,8 @@ class _DetailconState extends State<Detailcon> {
           borderRadius: BorderRadius.only(
             topLeft: const Radius.circular(50.0),
             topRight: const Radius.circular(50.0),
-            bottomLeft: const Radius.circular(20.0),
-            bottomRight: const Radius.circular(20.0),
+            bottomLeft: const Radius.circular(10.0),
+            bottomRight: const Radius.circular(10.0),
           ),
           boxShadow: [
             BoxShadow(
@@ -61,7 +61,7 @@ class _DetailconState extends State<Detailcon> {
         ),
         child: SingleChildScrollView(
           child: Container(
-            height: 650,
+            //height: 675,
             child: Column(
               children: <Widget>[
                 Container(

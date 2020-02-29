@@ -12,6 +12,7 @@ import 'package:mythesis96/firebase/store.dart';
 import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class Driverregis extends StatefulWidget {
   @override
@@ -151,7 +152,7 @@ class _DriverregisState extends State<Driverregis> {
         imageUrl1: imageUrl1,
        
         authorId: Provider.of<Userdata>(context).currentUserID,
-        timestamp: Timestamp.fromDate(DateTime.now()),
+        timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
       );
       DatabaseSer.sendpic(post);
 
@@ -268,6 +269,7 @@ class _DriverregisState extends State<Driverregis> {
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   margin: EdgeInsets.only(top: 20),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         'อัพโหลดรูปใบขับขี่ของคุณ',
@@ -280,7 +282,7 @@ class _DriverregisState extends State<Driverregis> {
                       ),
                       Padding(padding: EdgeInsets.only(top: 10)),
                       Text(
-                        'กรุณาอัพโหลดรูปใบขับขี่ของคุณ เพื่อที่เราจะไได้ทำการตรวจสอบ',
+                        'กรุณาอัพโหลดรูปใบขับขี่ของคุณ เพื่อยืนยัน',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontSize: 13,
@@ -339,7 +341,7 @@ class _DriverregisState extends State<Driverregis> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        'อัพโหลดรูปภาษีรถยนต์ของคุณ',
+                        'อัพโหลดรูปภาพเพื่อยืนยันในการชมคอนเสิร์ตของคุณ',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontFamily: 'Kanit',
@@ -348,7 +350,7 @@ class _DriverregisState extends State<Driverregis> {
                             fontWeight: FontWeight.bold),
                       ),Padding(padding: EdgeInsets.only(top: 10)),
                       Text(
-                        'กรุณาอัพโหลดรูปภาษีรถยนต์ของคุณ เพื่อที่เป็นหลักฐานในการตรวจสอบ',
+                        'เช่น รูปบัตรคอนเสิร์ตหรือรูปบรรยากาศคอนเสิร์ตหรืออื่นๆ',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontSize: 13,

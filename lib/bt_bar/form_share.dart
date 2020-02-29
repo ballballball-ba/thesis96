@@ -12,6 +12,7 @@ import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/car_data.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
+import 'package:mythesis96/m/user_m.dart';
 import 'package:provider/provider.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:intl/intl.dart';
@@ -45,22 +46,8 @@ class _ShareformState extends State<Shareform> {
   String dateFormate;
   DateTime pickedDate;
   TimeOfDay time;
-  // something like 2019-Jun-20
-  // DateTime now = DateTime.now();
-  // var format = DateFormat.yMd('ar');
-  //String dateString = format.format(DateTime.now());
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   pickedDate = DateTime.now();
-  //   time = TimeOfDay.now();
-  // }
-  // DateTime selectedDate = DateTime.now();
 
-  // final _formkey = GlobalKey<FormState>();
   var selectedCurrency, selectpicpro;
-  // final format = DateFormat("HH:mm");
 
   TextEditingController _startTimeController = TextEditingController();
   TextEditingController _endTimeController = TextEditingController();
@@ -82,7 +69,6 @@ class _ShareformState extends State<Shareform> {
   TextEditingController _gencarControlle = TextEditingController();
   TextEditingController _colorControlle = TextEditingController();
   TextEditingController _licensecarControlle = TextEditingController();
-  
 
   //driver
   String _concertname = '';
@@ -147,95 +133,113 @@ class _ShareformState extends State<Shareform> {
         borderRadius: 10,
       )..show(context);
       var now = new DateTime.now();
-  getpicpro() {
-    return StreamBuilder(
-      stream: Firestore.instance
-          .collection('Users')
-          .document(Provider.of<Userdata>(context).currentUserID)
-          // .collection('picprofileUrl')
-          .snapshots(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Text('wait');
-        }
-        var userDocument = snapshot.data['picprofileUrl'].toString();
-      },
-    );
-  }
-      //
-      Share sharepost = Share(
+
+      getpicpro() {
+        return StreamBuilder(
+          stream: Firestore.instance
+              .collection('Users')
+              .document(Provider.of<Userdata>(context).currentUserID)
+              // .collection('picprofileUrl')
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Text('wait');
+            }
+            var userDocument = snapshot.data['picprofileUrl'].toString();
+          },
+        );
+      }
       
-        concertname: _concertname,
-        startplace: _startplace,
-        endplace: _endplace,
-        price: _price,
-        seat: _seat,
-        seatyou: _seatyou,
-        seatyou2: _seatyou2,
-        date: _date,
-        time: _time,
-        details: _details,
-       // picpro:  '',
-        picpro: 'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=7d6c9039-4a56-4bcc-8998-c82b41557ac9',
-        //********************** */
-        brandcar: _brandcar,
-        gencar: _gencar,
-        color: _color,
-        licensecar: _licensecar,
 
-        timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
-        authorId: Provider.of<Userdata>(context).currentUserID,
-      );
-      DatabaseSer.createShare(sharepost);
-      Cardata car = Cardata(
-        brandcar: _brandcar,
-        gencar: _gencar,
-        color: _color,
-        licensecar: _licensecar,
-        timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
-        authorId: Provider.of<Userdata>(context).currentUserID,
-      );
+      // picpro() {
+      //   Scaffold(
+      //     body: FutureBuilder(
+      //         future: userRef.document(widget.userId).get(),
+      //         builder: (BuildContext context, AsyncSnapshot snapshot) {
+      //           if (!snapshot.hasData) {
+      //             return Center(
+      //               child: CircularProgressIndicator(),
+      //             );
+      //           }
+      //           User user = User.fromDoc(snapshot.data);
 
-      DatabaseSer.createCar(car);
+                Share sharepost = Share(
+                  concertname: _concertname,
+                  startplace: _startplace,
+                  endplace: _endplace,
+                  price: _price,
+                  seat: _seat,
+                  seatyou: _seatyou,
+                  seatyou2: _seatyou2,
+                  date: _date,
+                  time: _time,
+                  details: _details,
+                 //  picpro: userDocument,
+                  picpro:
+                      'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=69d57b63-4a33-4aa7-9ac7-f07222717cb0',
+                  //********************** */
+                  brandcar: _brandcar,
+                  gencar: _gencar,
+                  color: _color,
+                  licensecar: _licensecar,
 
-      // รีเซทข้อมูลให้ว่างเหมือนเดิม
-      _concertnameController.clear();
-      _startplaceController.clear();
-      _endplaceController.clear();
-      _priceController.clear();
-      _seatController.clear();
-      _seatyouController.clear();
-      _seatyou2Controller.clear();
-      _datetimeController.clear();
-      _dateController.clear();
-      _timeController.clear();
-      _detailsController.clear();
-      //car clear
-      _brandcarControlle.clear();
-      _gencarControlle.clear();
-      _colorControlle.clear();
-      _licensecarControlle.clear();
+                  timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
+                  authorId: Provider.of<Userdata>(context).currentUserID,
+                );
+                DatabaseSer.createShare(sharepost);
+                Cardata car = Cardata(
+                  brandcar: _brandcar,
+                  gencar: _gencar,
+                  color: _color,
+                  licensecar: _licensecar,
+                  timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
+                  authorId: Provider.of<Userdata>(context).currentUserID,
+                );
 
-      setState(() {
-        _concertname = '';
-        _startplace = '';
-        _endplace = '';
-        _price = '';
-        _seat ='';
-        _seatyou = '';
-        _seatyou2 = '';
-        _date = '';
-        _time = '';
-        _details = '';
-        _picpro = '';
-        /////////////
-        _brandcar = '';
-        _gencar = '';
-        _color = '';
-        _licensecar = '';
+                DatabaseSer.createCar(car);
 
-        // _isloading = false;
-      });
+                // รีเซทข้อมูลให้ว่างเหมือนเดิม
+                _concertnameController.clear();
+                _startplaceController.clear();
+                _endplaceController.clear();
+                _priceController.clear();
+                _seatController.clear();
+                _seatyouController.clear();
+                _seatyou2Controller.clear();
+                _datetimeController.clear();
+                _dateController.clear();
+                _timeController.clear();
+                _detailsController.clear();
+                //car clear
+                _brandcarControlle.clear();
+                _gencarControlle.clear();
+                _colorControlle.clear();
+                _licensecarControlle.clear();
+
+                setState(() {
+                  _concertname = '';
+                  _startplace = '';
+                  _endplace = '';
+                  _price = '';
+                  _seat = '';
+                  _seatyou = '';
+                  _seatyou2 = '';
+                  _date = '';
+                  _time = '';
+                  _details = '';
+                  _picpro = '';
+                  /////////////
+                  _brandcar = '';
+                  _gencar = '';
+                  _color = '';
+                  _licensecar = '';
+
+                  // _isloading = false;
+                });
+      //         }),
+      //   );
+      // }
+      
     } else {
       Flushbar(
         message: 'ไม่สามารถสร้างการแชร์ได้ ลองอีกครั้ง',
@@ -882,43 +886,43 @@ class _ShareformState extends State<Shareform> {
                               ),
                               Padding(padding: EdgeInsets.only(bottom: 15)),
 
-                            //   Container(
-                            //     // child: TextField(
-                            //     //   onChanged: (userDocument) {
-                            //     //     this._picpro =userDocument;
-                            //     //     print("First text field: $userDocument");
-                            //     //   },
-                            //     // ),
+                              //   Container(
+                              //     // child: TextField(
+                              //     //   onChanged: (userDocument) {
+                              //     //     this._picpro =userDocument;
+                              //     //     print("First text field: $userDocument");
+                              //     //   },
+                              //     // ),
 
-                            //    // child: getpicpro(),
-                            //     child: TextFormField(
-                            //         // controller: _detailsController,
+                              //    // child: getpicpro(),
+                              //     child: TextFormField(
+                              //         // controller: _detailsController,
 
-                            //        initialValue: userDocument =
-                            //             snapshot.data['picprofileUrl'].toString(),
-                            //         // initialValue: 'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=7d6c9039-4a56-4bcc-8998-c82b41557ac9',
-                            //         // userDocument['picprofileUrl'],
-                            //         // onSaved: (input) => _password = input,
-                            //       //  obscureText: true,
-                            //         //  value = userDocument,
-                            //         //  onChanged: (input) => _details = input,
+                              //        initialValue: userDocument =
+                              //             snapshot.data['picprofileUrl'].toString(),
+                              //         // initialValue: 'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=7d6c9039-4a56-4bcc-8998-c82b41557ac9',
+                              //         // userDocument['picprofileUrl'],
+                              //         // onSaved: (input) => _password = input,
+                              //       //  obscureText: true,
+                              //         //  value = userDocument,
+                              //         //  onChanged: (input) => _details = input,
 
-                            //         onChanged: (userDocument) => picpro = userDocument
-                            //         // {
+                              //         onChanged: (userDocument) => picpro = userDocument
+                              //         // {
 
-                            //         //   setState(() {
-                            //         //     userDocument = snapshot.data['picprofileUrl'].toString();
-                            //         //     initialValue = userDocument;
-                            //         //     this._picpro = initialValue;
-                            //         //   });
-                            //         // }
-                            //         // {
-                            //         //   setState(() {
-                            //         //     this._picpro = initialValue;
-                            //         //   });
-                            //         // }
-                            //         ),
-                            //  ),
+                              //         //   setState(() {
+                              //         //     userDocument = snapshot.data['picprofileUrl'].toString();
+                              //         //     initialValue = userDocument;
+                              //         //     this._picpro = initialValue;
+                              //         //   });
+                              //         // }
+                              //         // {
+                              //         //   setState(() {
+                              //         //     this._picpro = initialValue;
+                              //         //   });
+                              //         // }
+                              //         ),
+                              //  ),
                             ])),
                       ),
                       SizedBox(height: 20.0),
@@ -968,6 +972,7 @@ todayDate() {
   print(formattedTime);
   print(formattedDate);
 }
+
 class getpicurl extends StatefulWidget {
   @override
   _getpicurlState createState() => _getpicurlState();
@@ -975,23 +980,23 @@ class getpicurl extends StatefulWidget {
 
 class _getpicurlState extends State<getpicurl> {
   @override
-   Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     return Container(
         child: StreamBuilder(
-            stream: Firestore.instance
-                // .collection('Concert').where('Place', isEqualTo: 'ธันเดอร์โดม Thunder Dome, Muangthong Thani')
-                .collection('Users')
+      stream: Firestore.instance
+          // .collection('Concert').where('Place', isEqualTo: 'ธันเดอร์โดม Thunder Dome, Muangthong Thani')
+          .collection('Users')
           .document(Provider.of<Userdata>(context).currentUserID)
-                // .orderBy('timestamp', descending: true)
-                .snapshots(),
-           builder: (context, snapshot) {
+          // .orderBy('timestamp', descending: true)
+          .snapshots(),
+      builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return Text('wait');
         }
         return Text(snapshot.data['picprofileUrl'].toString());
         // var userDocument = snapshot.data['picprofileUrl'].toString();
       },
-            ));
+    ));
   }
 }
 // class getpicurl extends StatefulWidget {

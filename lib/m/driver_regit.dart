@@ -7,7 +7,7 @@ class Post {
   //final String id;
 
   final String authorId;
-  final Timestamp timestamp;
+  final String timestamp;
   final String testId;
 
   Post(

@@ -215,6 +215,7 @@ class DatabaseSer {
       'licensecar': sharereq.licensecar,
       'timestamp': sharereq.timestamp,
       'AuthorId': sharereq.authorId,
+      'authorshare': sharereq.authorshare,
     });
     _firestore.collection('ShareRequest').add({
       'Concertname': sharereq.concertname,
@@ -237,6 +238,7 @@ class DatabaseSer {
       'licensecar': sharereq.licensecar,
       'timestamp': sharereq.timestamp,
       'AuthorId': sharereq.authorId,
+      'authorshare': sharereq.authorshare,
     });
   }
 static void createShareconfirm(Shareconfirm shareconfirm) {
@@ -260,6 +262,7 @@ static void createShareconfirm(Shareconfirm shareconfirm) {
       'licensecar': shareconfirm.licensecar,
       'timestamp': shareconfirm.timestamp,
       'AuthorId': shareconfirm.authorId,
+      'authorshare': shareconfirm.authorshare,
     });
     _firestore.collection('Shareconfirm').add({
       'Concertname': shareconfirm.concertname,
@@ -282,6 +285,7 @@ static void createShareconfirm(Shareconfirm shareconfirm) {
       'licensecar': shareconfirm.licensecar,
       'timestamp': shareconfirm.timestamp,
       'AuthorId': shareconfirm.authorId,
+      'authorshare': shareconfirm.authorshare,
     });
   }
   static Future<List<Share>> getFeedPosts(String userId) async {

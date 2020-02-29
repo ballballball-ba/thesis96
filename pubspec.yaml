@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -46,6 +46,7 @@ dependencies:
   font_awesome_flutter: ^8.5.0 
   bubble_tab_indicator: ^0.1.4
   firebase_messaging: ^6.0.9
+  url_launcher: ^5.4.2
 datetime_picker_formfield: ^1.0.0
 intl: ^0.16.0
 

@@ -56,6 +56,7 @@ class _DetailShareState extends State<DetailShare> {
     // String _gencar = shareNotifier.currentShare.gencar;
     String _color = shareNotifier.currentShare.color;
     String _licensecar = shareNotifier.currentShare.licensecar;
+    String _authorshare = shareNotifier.currentShare.authorId;
 
     final _formkey = GlobalKey<FormState>();
     _presubmit() async {
@@ -90,7 +91,8 @@ class _DetailShareState extends State<DetailShare> {
                         "ส่งคำร้องขอการแชร์เรียบร้อย",
                         style: TextStyle(fontFamily: 'Kanit', color: orage1),
                       ),
-                      Icon(FontAwesomeIcons.checkCircle, size: 40, color: Colors.green)
+                      Icon(FontAwesomeIcons.checkCircle,
+                          size: 40, color: Colors.green)
                     ],
                   ),
                   actions: <Widget>[
@@ -143,7 +145,8 @@ class _DetailShareState extends State<DetailShare> {
                               //gencar: _gencar,
                               color: _color,
                               licensecar: _licensecar,
-
+                              
+                              authorshare: _authorshare,
                               timestamp:
                                   DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
                               authorId:
@@ -279,7 +282,7 @@ class _DetailShareState extends State<DetailShare> {
                               //gencar: _gencar,
                               color: _color,
                               licensecar: _licensecar,
-
+                              authorshare: _authorshare,
                               timestamp:
                                   DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
                               authorId:
@@ -318,42 +321,6 @@ class _DetailShareState extends State<DetailShare> {
             );
           },
         );
-
-        // var now = new DateTime.now();
-        // Sharereq sharereq = Sharereq(
-        //   concertname: _concertname,
-        //   startplace: _startplace,
-        //   endplace: _endplace,
-        //   price: _price,
-        //   seat: _seat,
-        //   seatyou: _seatyou,
-        //   seatyou2: _seatyou2,
-        //   date: _date,
-        //   time: _time,
-        //   details: _details,
-        //   picpro: _picpro,
-
-        //   reqseat1: _malereq,
-        //   reqseat2: _femalereq,
-        //   //********************** */
-        //   brandcar: _brandcar,
-        //   //gencar: _gencar,
-        //   color: _color,
-        //   licensecar: _licensecar,
-
-        //   timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
-        //   authorId: Provider.of<Userdata>(context).currentUserID,
-        // );
-        // DatabaseSer.createSharereq(sharereq);
-        // DatabaseSer.createCar(car);
-
-        // รีเซทข้อมูลให้ว่างเหมือนเดิม
-        // _maleController.clear();
-        // _femaleController.clear();
-        // setState(() {
-        //   _malereq = '';
-        //   _femalereq = '';
-        // });
       }
       // else {
     }

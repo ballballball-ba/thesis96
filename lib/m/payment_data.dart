@@ -8,7 +8,7 @@ class PaymentM {
   final String cardname;
   //final String id;
   final String authorId;
-  final Timestamp timestamp;
+  final String timestamp;
 
   PaymentM({
     this.id,

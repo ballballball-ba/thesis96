@@ -150,7 +150,7 @@ class Sharereq {
   String reqseat2;
   String timestamp;
   String authorId;
-
+  String authorshare;
   Sharereq.fromMap(Map<String, dynamic> data) {
     // id = data['id'];
     // concertname = data['name'];
@@ -181,6 +181,7 @@ class Sharereq {
     licensecar = data['licensecar'];
     timestamp = data['Timestamp'];
     authorId = data['AuthorId'];
+    authorshare = data ['authorshare'];
   }
   Map<String, dynamic> toMap() {
     return {
@@ -207,6 +208,7 @@ class Sharereq {
       'licensecar': licensecar,
       'Timestamp': timestamp,
       'AuthorId': authorId,
+      'authorshare': authorshare,
     };
   }
 
@@ -233,6 +235,7 @@ class Sharereq {
     
     this.timestamp,
     this.authorId,
+    this.authorshare,
   });
   factory Sharereq.fromDoc(DocumentSnapshot doc) {
     return Sharereq(
@@ -258,6 +261,7 @@ class Sharereq {
       details: doc['details'],
       timestamp: doc['Timestamp'],
       authorId: doc['AuthorId'],
+      authorshare: doc['authorshare'],
     );
   }
   // Share();
@@ -283,6 +287,7 @@ class Shareconfirm {
   String licensecar;
   String reqseat1;
   String reqseat2;
+  String authorshare;
   String timestamp;
   String authorId;
 
@@ -316,6 +321,7 @@ class Shareconfirm {
     licensecar = data['licensecar'];
     timestamp = data['Timestamp'];
     authorId = data['AuthorId'];
+    authorshare = data['authorshare'];
   }
   Map<String, dynamic> toMap() {
     return {
@@ -342,6 +348,7 @@ class Shareconfirm {
       'licensecar': licensecar,
       'Timestamp': timestamp,
       'AuthorId': authorId,
+      'authorshare': authorshare,
     };
   }
 
@@ -365,7 +372,7 @@ class Shareconfirm {
     this.details,
     this.reqseat1,
     this.reqseat2,
-    
+    this.authorshare,
     this.timestamp,
     this.authorId,
   });
@@ -393,6 +400,7 @@ class Shareconfirm {
       details: doc['details'],
       timestamp: doc['Timestamp'],
       authorId: doc['AuthorId'],
+      authorshare: doc['authorshare'],
     );
   }
   // Share();

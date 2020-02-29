@@ -49,8 +49,10 @@ class _HomeState extends State<Home> {
           Feedhome(currentUserID: currentUserID),
           Sharefeeds(),
 
-          Activity(),
-          Notiac(),
+          Activity(
+            userId: Provider.of<Userdata>(context).currentUserID
+          ),
+          Notiac( userId: Provider.of<Userdata>(context).currentUserID),
           //Driverregis(),
           //old
           // Profile(userId: widget.userId),
