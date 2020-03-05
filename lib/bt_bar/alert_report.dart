@@ -27,7 +27,7 @@ class _AlertreportState extends State<Alertreport> {
   String _text = '';
   String _date = '';
   String _time = '';
-
+String _bank = '';
   // String readTimestamp;
   //String _time = '';
 
@@ -184,8 +184,10 @@ class _AlertreportState extends State<Alertreport> {
                           iconSize: 30.0,
                           style: TextStyle(color: purple2),
                           items: [
-                            'แจ้งเหตุฉุกเฉิน',
-                            'แจ้งปัญหา',
+                            'แจ้งเหตุฉุกเฉิน - ตำรวจ',
+                            'แจ้งเหตุฉุกเฉิน - พยาบาล',
+                            'แจ้งเหตุฉุกเฉิน - อื่นๆ',
+                            'แจ้งปัญหาการใช้งาน',
                             'ติดต่อทีมงาน'
                           ].map(
                             (val) {
@@ -199,17 +201,86 @@ class _AlertreportState extends State<Alertreport> {
                             setState(
                               () {
                                 _dropDownValue = val;
-                                _topic = val;
+                                if (val.isEmpty) {
+                                  _topic ='แจ้งเหตุฉุกเฉิน - ตำรวจ';
+                                 
+                                } else {
+                                  _topic = val;
+                                }
+                                
                               },
                             );
                           },
                           hint: _dropDownValue == null
-                              ? Text('แจ้งเหตุฉุกเฉิน')
+                              ? Text('แจ้งเหตุฉุกเฉิน - ตำรวจ',)
                               : Text(
                                   _dropDownValue,
                                   style: TextStyle(color: purple2),
                                 ),
                         ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 15, right: 15),
+                      child: DropdownButton(
+                        underline: SizedBox(),
+                        isExpanded: true,
+                        iconSize: 30.0,
+                        style: TextStyle(color: purple2),
+                        items: [
+                          'กรุงไทย - KTB',
+                          'ไทยพาณิชย์ - SCB',
+                          'กสิกรไทย - KBANK',
+                          'กรุงเทพ - BBL',
+                          'กรุงศรีอยุธยา - BAY',
+                          'ออมสิน - GSB',
+                          'ทหารไทย - TMB',
+                          'ซีไอเอ็มบี - CIMBT',
+                          'ธนชาต - TBANK',
+                          'ซิตี้แบงค์ - CITI',
+                          'เกียรตินาคิน - KK',
+                          'สแตนดาร์ดฯ - SCBT',
+                          'ยูโอบี - UOBT',
+                          'ทิสโก้ - TISCO',
+                          'แลนด์ แอนด์ เฮ้าส์ - LHBANK',
+                          'ธ.ก.ส. - BAAC',
+                          'ธนาคารสงเคราะห์ - GHB',
+                          'เอชเอสบีซี - HSBC',
+                          'ไอซีบีซี (ไทย) - ICBCT',
+                          'อิสลาม - ISBT',
+                          'มิซูโอ - MIZUHO',
+                          'ซูมิโตโม มิตซุย - SMBC',
+                          'ไทยเครดิต - TCR',
+                        ].map(
+                          (val) {
+                            return DropdownMenuItem<String>(
+                              value: val,
+                              child: Text(val),
+                            );
+                          },
+                        ).toList(),
+                        onChanged: (val) {
+                          _dropDownValue = val;
+                          print(_dropDownValue);
+                          setState(
+                            () {
+                              _dropDownValue = val;
+                              if (val.isEmpty) {
+                                _bank = 'กรุงไทย - KTB';
+                              } else {
+                                _bank = val;
+                              }
+                            },
+                          );
+                        },
+                        hint: _dropDownValue == null
+                            ? Text(
+                                '1',
+                              )
+                            : Text(
+                                _dropDownValue,
+                                style: TextStyle(color: purple2),
+                              ),
                       ),
                     ),
                     Container(

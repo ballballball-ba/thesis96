@@ -15,6 +15,7 @@ final shareRef =  _firestore.collection('Shareposts');
 final notireqRef =  _firestore.collection('Notirequest');
 final shareconfirmRef =  _firestore.collection('shareconfirm');
 final shareRequestRef =  _firestore.collection('ShareRequest');
+final notisharetRef =  _firestore.collection('Notishare');
 // final userRef = _firestore.collection('Users').document().collection('Drivers');
 // final userRef2 = _firestore.collection('Driver');
 //final userRef2 = _firestore.collection('Users').document(uid).collection('Drivers');

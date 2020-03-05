@@ -6,7 +6,9 @@ class PaymentM {
   final String cardexp;
   final String cardcvv;
   final String cardname;
-  //final String id;
+  final String allmoney;
+  final String shareid;
+  final String status;
   final String authorId;
   final String timestamp;
 
@@ -16,6 +18,9 @@ class PaymentM {
     this.cardexp,
     this.cardcvv,
     this.cardname,
+    this.allmoney,
+    this.shareid,
+    this.status,
     this.timestamp,
     this.authorId,
   });
@@ -26,6 +31,9 @@ class PaymentM {
       cardexp: doc['CardExp'],
       cardcvv: doc['CardCvv'],
       cardname: doc['Cardname'],
+      status: doc['status'],
+      allmoney: doc['Allmoney'],
+      shareid: doc['ShareID'],
       timestamp: doc['timestamp'],
       authorId: doc['authorId'],
     );

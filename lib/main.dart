@@ -34,6 +34,7 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(
           builder: (context) => ShareNotifier3(),
         ),
+       
          ChangeNotifierProvider(
           builder: (context) => ShareNotifierrequest1(),
         ),
@@ -43,6 +44,9 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(
           builder: (context) => ShareNotifierrequest2(),
         ),
+        // ChangeNotifierProvider(
+        //   builder: (context) => Notisharedetails(),
+        // ),
       ],
       child: MyApp(),
     ));

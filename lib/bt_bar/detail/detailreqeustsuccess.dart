@@ -752,7 +752,8 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                         borderRadius: BorderRadius.circular(30),
                         color: purple1),
                     child: FlatButton(
-                      onPressed: () => Navigator.push(
+                      onPressed: () =>
+                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (_) => Payment(
@@ -760,7 +761,7 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
                           ),
                         ),
                       ),
-                      // onPressed: _submit,
+                      // onPressed: Payment(),
                       child: Text('เสร็จสิ้นการแชร์',
                           style: TextStyle(
                             color: Colors.white,

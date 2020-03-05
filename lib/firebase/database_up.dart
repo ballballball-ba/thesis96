@@ -113,34 +113,32 @@ class DatabaseSer {
     });
   }
 
-  static void createPay(PaymentM payment) {
+  static void createPay(PaymentM payment,Sharereq sharereq) {
     userRef.document(payment.authorId).collection('Payment').add({
+     
       'Cardnumber': payment.cardnum,
       'CardExp': payment.cardexp,
       'CardCvv': payment.cardcvv,
-      'CardCvv': payment.cardname,
+      'Cardname': payment.cardname,
+      'Allmoney': payment.allmoney,
+      'ShareID':payment.shareid,
+      'status': payment.status,
       // 'Seat': payment.seat,
       // 'Date': payment.date,
       // 'Time': payment.time,
       'timestamp': payment.timestamp,
       'AuthorId': payment.authorId,
     });
-    // shareRef.document(payment.id).collection('Payment').add({
-    //   'Cardnumber': payment.cardnum,
-    //   'CardExp': payment.cardexp,
-    //   'CardCvv': payment.cardcvv,
-    //   'CardCvv': payment.cardname,
-    //   // 'Seat': payment.seat,
-    //   // 'Date': payment.date,
-    //   // 'Time': payment.time,
-    //   'timestamp': payment.timestamp,
-    //   'AuthorId': payment.authorId,
-    // });
+    
     _firestore.collection('Payment').add({
+
+      'ShareID':payment.shareid,
       'Cardnumber': payment.cardnum,
       'CardExp': payment.cardexp,
       'CardCvv': payment.cardcvv,
-      'CardCvv': payment.cardname,
+      'Cardname': payment.cardname,
+      'status': payment.status,
+      'Allmoney': payment.allmoney,
       // 'Seat': sharepost.seat,
       // 'Date': sharepost.date,
       // 'Time': sharepost.time,
@@ -286,6 +284,53 @@ static void createShareconfirm(Shareconfirm shareconfirm) {
       'timestamp': shareconfirm.timestamp,
       'AuthorId': shareconfirm.authorId,
       'authorshare': shareconfirm.authorshare,
+    });
+  }
+  static void createNotisharem(Notishare notishare) {
+    userRef.document(notishare.authorId).collection('Notishare').add({
+      'Concertname': notishare.concertname,
+      'StartPlace': notishare.startplace,
+      'Endplace': notishare.endplace,
+      'Price': notishare.price,
+      'Seatyou': notishare.seatyou,
+      'Seat': notishare.seat,
+      'Seatyou2': notishare.seatyou2,
+      'Date': notishare.date,
+      'Time': notishare.time,
+      'details': notishare.details,
+      'Seatreqmale': notishare.reqseat1,
+      'Seatreqfemale': notishare.reqseat2,
+      'Brandcar': notishare.brandcar,
+      'Gencar': notishare.gencar,
+      'Color': notishare.color,
+      'picpro': notishare.picpro,
+      'licensecar': notishare.licensecar,
+      'timestamp': notishare.timestamp,
+      'AuthorId': notishare.authorId,
+      'authorshare': notishare.authorshare,
+    });
+    _firestore.collection('Notishare').add({
+      'Concertname': notishare.concertname,
+      'StartPlace': notishare.startplace,
+      'Endplace': notishare.endplace,
+      'Price': notishare.price,
+      'Seat': notishare.seat,
+      'Seatyou': notishare.seatyou,
+      'Seatyou2': notishare.seatyou2,
+      'Date': notishare.date,
+      'Time': notishare.time,
+      'details': notishare.details,
+      'Seatreqmale': notishare.reqseat1,
+      'Seatreqfemale': notishare.reqseat2,
+      'picpro': notishare.picpro,
+      //******************* */
+      'Brandcar': notishare.brandcar,
+      'Gencar': notishare.gencar,
+      'Color': notishare.color,
+      'licensecar': notishare.licensecar,
+      'timestamp': notishare.timestamp,
+      'AuthorId': notishare.authorId,
+      'authorshare': notishare.authorshare,
     });
   }
   static Future<List<Share>> getFeedPosts(String userId) async {

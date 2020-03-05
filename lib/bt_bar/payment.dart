@@ -5,9 +5,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:mythesis96/Api/api.dart';
 import 'package:mythesis96/Api/apiuse.dart';
+import 'package:mythesis96/bt_bar/detail/detailreqeustsuccess.dart';
+import 'package:mythesis96/bt_bar/homemain.dart';
 import 'package:mythesis96/bt_bar/notifier_share%20request.dart';
+import 'package:mythesis96/firebase/constance.dart';
 import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/payment_data.dart';
+import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as Http;
@@ -18,8 +22,10 @@ import 'package:mythesis96/Api/apiuse.dart';
 
 class Payment extends StatefulWidget {
   //Payment({Key key}) : super(key: key);
+  final DocumentSnapshot post;
+
   final String userpay;
-  const Payment({Key key, this.userpay}) : super(key: key);
+  const Payment({Key key, this.userpay, this.post}) : super(key: key);
   @override
   _PaymentState createState() => _PaymentState();
 }
@@ -34,7 +40,9 @@ final Color purple1 = Color(0xff5A45A5);
 final Color purple2 = Color(0xff2A1D59);
 final Color orange1 = Color(0xffF2551D);
 final Color orange2 = Color(0xffFF6D38);
+
 final _formkey = GlobalKey<FormState>();
+
 TextEditingController _cardnumController = TextEditingController();
 TextEditingController _cardexpTimeController = TextEditingController();
 TextEditingController _cardcvvTimeController = TextEditingController();
@@ -93,106 +101,187 @@ class _PaymentState extends State<Payment> {
     });
   }
 
-  _submit() async {
-    if (_formkey.currentState.validate()) {
-      _formkey.currentState.save();
+  @override
+  void initState() {
+    ShareNotifierrequest2 shareNotifier3 =
+        Provider.of<ShareNotifierrequest2>(context, listen: false);
 
-      // _showDialog();
-      // _showapipay();
-      FutureBuilder(
-          future: ApiService.paymentApi(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              Pay msg = snapshot.data;
-              print("snap = " + msg.message);
-              return Flushbar()..show(context);
-            } else {
-              return CircularProgressIndicator();
-            }
-          });
-      Flushbar(
-        flushbarStyle: FlushbarStyle.FLOATING,
-        backgroundColor: orange1,
-        boxShadows: [
-          BoxShadow(
-            color: Colors.red[800],
-            offset: Offset(0.0, 2.0),
-            blurRadius: 3.0,
-          )
-        ],
-        message: 'ชำระเงินเรียบร้อย',
-        icon: Icon(
-          Icons.info,
-          size: 28.0,
-          color: Colors.white,
-        ),
-        duration: Duration(seconds: 5),
-        //leftBarIndicatorColor: Colors.blue[300],
-        margin: EdgeInsets.all(8),
-        borderRadius: 10,
-      )..show(context);
-      var now = new DateTime.now();
+    getShare3(shareNotifier3);
 
-      PaymentM payment = PaymentM(
-        cardnum: _cardnum,
-        cardexp: _cardexp,
-        cardcvv: _cardcvv,
-        cardname: _cardname,
-        // endplace: _endplace,
-        // price: _price,
-        // seat: _seat,
-        // date: _date,
-        // time: _time,
-        timestamp:
-            //  DateFormat("dd-MM-yyyy hh:mm").format(now),
-            DateTime.now().toIso8601String().toString(),
-        authorId: Provider.of<Userdata>(context).currentUserID,
-      );
-
-      DatabaseSer.createPay(payment);
-      // DatabaseSer.createCar(car);
-
-      // รีเซทข้อมูลให้ว่างเหมือนเดิม
-      _cardnumController.clear();
-      _cardexpTimeController.clear();
-      _cardcvvTimeController.clear();
-      _cardnameTimeController.clear();
-
-      setState(() {
-        _cardnum = '';
-        _cardexp = '';
-        _cardcvv = '';
-        _cardname = '';
-        // _endplace = '';
-        // _price = '';
-        // _seat = '';
-        // _date = '';
-        // _time = '';
-        /////////////
-        // _brandcar = '';
-        // _gencar = '';
-        // _color = '';
-        // _licensecar = '';
-
-        // _isloading = false;
-      });
-    }
-
-    //  _formkey.currentState.validate();
-    //  _formkey.currentState.save();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final bottom = MediaQuery.of(context).viewInsets.bottom;
     ShareNotifierrequest2 shareNotifier =
         Provider.of<ShareNotifierrequest2>(context, listen: false);
-    var other = 5;
-        var myInt = int.parse(shareNotifier.currentShare.price.toInt().toString());
+    ShareNotifierrequest2 shareNotifier3 =
+        Provider.of<ShareNotifierrequest2>(context);
 
-    assert(myInt is int);
-    print(myInt); // 12345
-    var rtl;
+    String _concertname = shareNotifier.currentShare.concertname;
+    String _startplace = shareNotifier.currentShare.startplace;
+    String _endplace = shareNotifier.currentShare.endplace;
+    String _price = shareNotifier.currentShare.price;
+    String _seat = shareNotifier.currentShare.seat;
+    String _seatyou = shareNotifier.currentShare.seatyou;
+    String _seatyou2 = shareNotifier.currentShare.seatyou2;
+    String _date = shareNotifier.currentShare.date;
+    String _time = shareNotifier.currentShare.time;
+    String _details = shareNotifier.currentShare.details;
+    String _picpro = shareNotifier.currentShare.picpro;
+    String _malereq = shareNotifier.currentShare.reqseat1;
+    String _femalereq = shareNotifier.currentShare.reqseat2;
+    String _brandcar = shareNotifier.currentShare.brandcar;
+    // String _gencar = shareNotifier.currentShare.gencar;
+    String _color = shareNotifier.currentShare.color;
+    String _licensecar = shareNotifier.currentShare.licensecar;
+    String _authorshare = shareNotifier.currentShare.authorshare;
+    var myInt = int.parse(shareNotifier.currentShare.price);
+    var myInt2 = int.parse(shareNotifier.currentShare.reqseat1);
+    var myInt3 = int.parse(shareNotifier.currentShare.reqseat2);
+    var seat = myInt2 + myInt3;
+    var allint = myInt * (myInt2 + myInt3);
+    var myresult1 = allint * 25 / 100;
+
+    var myresult = myInt - myresult1;
+    // assert(myInt is int);
+    // print(myInt);
+
+    String _money = myresult.toString();
+    String _shareid = shareNotifier.currentShare.id;
+    _submit() async {
+      if (_formkey.currentState.validate()) {
+        _formkey.currentState.save();
+        var now = new DateTime.now();
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (BuildContext context) {
+          return Home();
+          // return Payment();
+        }));
+        
+        PaymentM payment = PaymentM(
+          cardnum: _cardnum,
+          cardexp: '',
+          cardcvv: '',
+          cardname: _cardname,
+          allmoney: _money,
+          shareid: shareNotifier.currentShare.id,
+          status: 'เสร็จสิ้นการแชร์',
+
+          // endplace: _endplace,
+          // price: _price,
+          // seat: _seat,
+          // date: _date,
+          // time: _time,
+          timestamp: intl.DateFormat("dd-MM-yyyy hh:mm").format(now),
+          // DateTime.now().toIso8601String().toString(),
+          authorId: Provider.of<Userdata>(context).currentUserID,
+        );
+
+        Sharereq sharereq = Sharereq();
+        DatabaseSer.createPay(payment, sharereq);
+        // DatabaseSer.createCar(car);
+
+        // รีเซทข้อมูลให้ว่างเหมือนเดิม
+        _cardnumController.clear();
+        _cardexpTimeController.clear();
+        _cardcvvTimeController.clear();
+        _cardnameTimeController.clear();
+
+        setState(() {
+          _cardnum = '';
+          _cardexp = '';
+          _cardcvv = '';
+          _cardname = '';
+          // _endplace = '';
+          // _price = '';
+          // _seat = '';
+          // _date = '';
+          // _time = '';
+          /////////////
+          // _brandcar = '';
+          // _gencar = '';
+          // _color = '';
+          // _licensecar = '';
+
+          // _isloading = false;
+        });
+      }
+
+      //  _formkey.currentState.validate();
+      //  _formkey.currentState.save();
+    }
+    // _formkey.currentState.validate()) {
+    //     _formkey.currentState.save();
+
+    _paydilog() async {
+      if (_formkey.currentState.validate()) {
+        _formkey.currentState.save();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return Center(
+              child: Container(
+                height: 271,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  title: new Text(
+                    "ยืนยันการชำระเงิน",
+                    style: TextStyle(
+                        fontFamily: 'Kanit',
+                        fontSize: 18,
+                        color: purple2,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  content: Column(
+                    children: <Widget>[
+                      Text(
+                        "ยืนยันการชำระเงิน",
+                        style: TextStyle(fontFamily: 'Kanit', color: orange1),
+                      ),
+                      Icon(FontAwesomeIcons.spinner, size: 40, color: orange1)
+                    ],
+                  ),
+                  actions: <Widget>[
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                      child: new Text(
+                        "ยืนยัน",
+                        style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                      ),
+                      onPressed: _submit,
+                      //           onPressed: () =>  Navigator.of(context)
+                      //     .push(MaterialPageRoute(builder: (BuildContext context) {
+
+                      //   return Home();
+                      //   // return Payment();
+                      // }
+                      // )
+                      // ),
+                    ),
+                    new FlatButton(
+                      child: new Text(
+                        "ยกเลิก",
+                        style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      } else {}
+    }
+
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+    // 12345
+    bool hide = true;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         resizeToAvoidBottomPadding: false,
@@ -378,19 +467,11 @@ class _PaymentState extends State<Payment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            'ข้อมูลบัตรของคุณ',
-                            style: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: purple2,
-                            ),
-                          ),
+                         
                           Row(
                             children: <Widget>[
                               Text(
-                                'จำนวนที่ต้องชำระ',
+                                'จำนวนที่นั่งทั้งหมด',
                                 style: TextStyle(
                                   fontFamily: 'Kanit',
                                   fontSize: 14,
@@ -398,7 +479,38 @@ class _PaymentState extends State<Payment> {
                                 ),
                               ),
                               Padding(padding: EdgeInsets.only(left: 10)),
-                              
+                              Text(
+                                seat.toString(),
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: purple2,
+                                ),
+                              ),
+                              Padding(padding: EdgeInsets.only(left: 5)),
+                              Text(
+                                'ที่นั่ง',
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: purple2,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Text(
+                                'จำนวนเงิน',
+                                style: TextStyle(
+                                  fontFamily: 'Kanit',
+                                  fontSize: 14,
+                                  color: purple2,
+                                ),
+                              ),
+                              Padding(padding: EdgeInsets.only(left: 10)),
                               Text(
                                 myInt.toString(),
                                 style: TextStyle(
@@ -408,22 +520,22 @@ class _PaymentState extends State<Payment> {
                                   color: purple2,
                                 ),
                               ),
-                              Text(
-                                '/ 25% =',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: purple2,
-                                ),
-                              ),
                             ],
-                          )
+                          ),
+                           Text(
+                            'ข้อมูลบัตรของคุณ',
+                            style: TextStyle(
+                              fontFamily: 'Kanit',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: purple2,
+                            ),
+                          ),
                         ],
                       ),
                     ),
                     Container(
-                      height: 250,
+                      height: 170,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
@@ -477,66 +589,11 @@ class _PaymentState extends State<Payment> {
                                   //  onChanged: (input) => _startplace = input,
                                 ),
                               ),
+                             
                               Row(
                                 children: <Widget>[
                                   Container(
                                     margin: EdgeInsets.only(left: 15),
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                        color: Colors.black12,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: TextFormField(
-                                      controller: _cardexpTimeController,
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [maskFormatter2],
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                        icon: Icon(Icons.date_range,
-                                            color: Colors.white),
-                                        // hintText: 'What do people call you?',
-                                        labelText: 'Exp*',
-                                      ),
-                                      onChanged: onChangeValue2,
-                                      onSaved: (String input) =>
-                                          _cardexp = input,
-                                      validator: (value) => value.trim().isEmpty
-                                          ? 'กรุณาเลือกระบุCard Number'
-                                          : null,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    width: 150,
-                                    decoration: BoxDecoration(
-                                        color: Colors.black12,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    child: TextFormField(
-                                      controller: _cardcvvTimeController,
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [maskFormatter3],
-                                      decoration: const InputDecoration(
-                                        border: InputBorder.none,
-                                        icon: Icon(Icons.credit_card,
-                                            color: Colors.white),
-                                        // hintText: 'What do people call you?',
-                                        labelText: 'CVV/CVC*',
-                                      ),
-                                      onChanged: onChangeValue3,
-                                      onSaved: (String input) =>
-                                          _cardcvv = input,
-                                      validator: (value) => value.trim().isEmpty
-                                          ? 'กรุณาเลือกระบุCard Number'
-                                          : null,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15, top: 20),
                                     width: 350,
                                     decoration: BoxDecoration(
                                         color: Colors.black12,
@@ -566,27 +623,65 @@ class _PaymentState extends State<Payment> {
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(bottom: 40),
-                      constraints:
-                          BoxConstraints.expand(height: 55, width: 380),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     shareNotifier3.currentShare =
+                    //         shareNotifier3.shareList[0];
+                    //     Navigator.of(context).push(
+                    //         MaterialPageRoute(builder: (BuildContext context) {
+                    //       // return DetailSharesuccess();
+                    //       return Payment();
+                    //     }));
+                    //   },
+                    // child:
+                    GestureDetector(
                       child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Color(0xff5A45A5)),
-                        child: FlatButton(
-                          // onPressed: () {},
+                        margin: EdgeInsets.only(bottom: 40),
+                        constraints:
+                            BoxConstraints.expand(height: 55, width: 380),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(16),
+                              color: Color(0xff5A45A5)),
+                          child: FlatButton(
+                            // onPressed: () {
+                            //   print('a');
+                            // },
 
-                          onPressed: _submit,
-                          child: Text('ชำระเงิน',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Kanit',
-                                fontSize: 22,
-                              )),
+                            onPressed: _paydilog,
+
+                            child: Text('เสร็จสิ้นการแชร์',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Kanit',
+                                  fontSize: 22,
+                                )),
+                          ),
                         ),
                       ),
                     ),
+
+                    // Opacity(
+                    //   opacity: 0.0,
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //       color: Colors.black12,
+                    //     ),
+                    //     child: TextFormField(
+                    //       controller: _cardnameTimeController,
+                    //       decoration: const InputDecoration(
+                    //         border: InputBorder.none,
+                    //         icon: Icon(Icons.person, color: Colors.white),
+                    //         //  hintText: 'What do people call you?',
+                    //         labelText: 'Card Name*',
+                    //       ),
+                    //       onSaved: (String input) => _cardname = input,
+                    //       validator: (value) => value.trim().isEmpty
+                    //           ? 'กรุณาเลือกระบุCard Number'
+                    //           : null,
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -595,21 +690,121 @@ class _PaymentState extends State<Payment> {
         ));
   }
 
-  _showDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            // title: Text(msg),
-            content: Text('sad'),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('close'))
-            ],
-          );
-        });
+  final databaseReference = Firestore.instance;
+  void _deleteData() {
+    databaseReference
+        .collection('Shareconfirm')
+        .getDocuments()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
+        ds.reference.delete();
+      }
+    });
+    // try {
+    //   databaseReference.collection('ShareRequest').document('D55JNu4VVBpxsuKcwP30').delete();
+    // } catch (e) {
+    //   print(e.toString());
+    // }
   }
+
+ 
+
+  void _showDialog2() {
+    final Color purple1 = Color(0xff5A45A5);
+    final Color purple2 = Color(0xff2A1D59);
+    final Color orange1 = Color(0xffF2551D);
+    final Color orange2 = Color(0xffFF6D38);
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Center(
+          child: Container(
+            height: 271,
+            child: AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              title: new Text(
+                "เสร็จสิ้นการแชร์",
+                style: TextStyle(
+                    fontFamily: 'Kanit',
+                    fontSize: 18,
+                    color: purple2,
+                    fontWeight: FontWeight.w600),
+              ),
+              content: Column(
+                children: <Widget>[
+                  Text(
+                    "เสร็จสิ้นการแชร์ เรียบร้อย",
+                    style: TextStyle(fontFamily: 'Kanit', color: orange1),
+                  ),
+                  Icon(FontAwesomeIcons.spinner, size: 40, color: orange1)
+                ],
+              ),
+              actions: <Widget>[
+                // usually buttons at the bottom of the dialog
+                new FlatButton(
+                  child: new Text(
+                    "ตกลง",
+                    style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                  ),
+                  // onPressed: _deleteData,
+                  onPressed: () => Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return Home();
+                    // return Payment();
+                  })),
+                ),
+                // new FlatButton(
+                //   child: new Text(
+                //     "ยกเลิก",
+                //     style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                //   ),
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //   },
+                // ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+// final databaseReference = Firestore.instance;
+// void deleteData(docId) {
+//   databaseReference
+//       .collection('Notishare')
+//       .document(docId)
+//       .delete()
+//       .catchError((e) {
+//     print(e);
+//   });
+//   //     .then((snapshot) {
+//   //   // for (DocumentSnapshot ds in snapshot.documents) {
+//   //   //   ds.reference.delete();
+//   //   // }
+//   // });
+//   // try {
+//   //   databaseReference.collection('ShareRequest').document('D55JNu4VVBpxsuKcwP30').delete();
+//   // } catch (e) {
+//   //   print(e.toString());
+//   // }
+// }
+
+getShare3(ShareNotifierrequest2 shareNotifier3) async {
+  QuerySnapshot snapshot = await Firestore.instance
+      .collection('Shareconfirm')
+      // .where('Concertname', isEqualTo: '2020 IU Tour <LOVE, POEM> In Bkk')
+      //.where('Seatyou', isGreaterThanOrEqualTo: '1')
+      .getDocuments();
+  List<Sharereq> _shareList = [];
+  snapshot.documents.forEach((document) {
+    Sharereq share = Sharereq.fromMap(document.data);
+    _shareList.add(share);
+  });
+  shareNotifier3.shareList = _shareList;
 }
