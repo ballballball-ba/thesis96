@@ -33,14 +33,12 @@ class DatabaseSer {
   static void sendpic(Post post) {
     postsRef.document(post.authorId).collection('DriverRegis').add({
       'PiccartaxUrl': post.imageUrl,
-      
       'PicDrivelicense': post.imageUrl1,
       'authorId': post.authorId,
       'timestamp': post.timestamp,
     });
     _firestore.collection('DriverRegis_web').add({
       'PiccartaxUrl': post.imageUrl,
-     
       'PicDrivelicense': post.imageUrl1,
       'authorId': post.authorId,
       'timestamp': post.timestamp,
@@ -113,37 +111,63 @@ class DatabaseSer {
     });
   }
 
-  static void createPay(PaymentM payment,Sharereq sharereq) {
+  static void createPay(PaymentM payment, Sharereq sharereq) {
     userRef.document(payment.authorId).collection('Payment').add({
-     
       'Cardnumber': payment.cardnum,
       'CardExp': payment.cardexp,
       'CardCvv': payment.cardcvv,
       'Cardname': payment.cardname,
       'Allmoney': payment.allmoney,
-      'ShareID':payment.shareid,
+      'ShareID': payment.shareid,
       'status': payment.status,
-      // 'Seat': payment.seat,
-      // 'Date': payment.date,
-      // 'Time': payment.time,
       'timestamp': payment.timestamp,
       'AuthorId': payment.authorId,
     });
-    
-    _firestore.collection('Payment').add({
 
-      'ShareID':payment.shareid,
+    _firestore.collection('Payment').add({
+      'ShareID': payment.shareid,
       'Cardnumber': payment.cardnum,
       'CardExp': payment.cardexp,
       'CardCvv': payment.cardcvv,
       'Cardname': payment.cardname,
       'status': payment.status,
       'Allmoney': payment.allmoney,
-      // 'Seat': sharepost.seat,
-      // 'Date': sharepost.date,
-      // 'Time': sharepost.time,
       'timestamp': payment.timestamp,
       'AuthorId': payment.authorId,
+    });
+  }
+
+  static void createPaycheck(
+    Paymentcheck paymentcheck,
+  ) {
+    userRef.document(paymentcheck.authorId).collection('historycheck').add({
+      'Cardnumber': paymentcheck.cardnum,
+      'Cardname': paymentcheck.cardname,
+      'Allmoney': paymentcheck.allmoney,
+      'ShareID': paymentcheck.shareid,
+      'concert': paymentcheck.concert,
+      'from': paymentcheck.from,
+      'to': paymentcheck.to,
+      'licensecar': paymentcheck.licensecar,
+      'allpeople': paymentcheck.allpeople,
+      'status': paymentcheck.status,
+      'timestamp': paymentcheck.timestamp,
+      'AuthorId': paymentcheck.authorId,
+    });
+
+    _firestore.collection('historycheck').add({
+      'Cardnumber': paymentcheck.cardnum,
+      'Cardname': paymentcheck.cardname,
+      'Allmoney': paymentcheck.allmoney,
+      'ShareID': paymentcheck.shareid,
+      'concert': paymentcheck.concert,
+      'from': paymentcheck.from,
+      'to': paymentcheck.to,
+      'licensecar': paymentcheck.licensecar,
+      'allpeople': paymentcheck.allpeople,
+      'status': paymentcheck.status,
+      'timestamp': paymentcheck.timestamp,
+      'AuthorId': paymentcheck.authorId,
     });
   }
 
@@ -153,6 +177,8 @@ class DatabaseSer {
       'Text': report.text,
       'Date': report.date,
       'Time': report.time,
+      'Latitude': report.location1,
+      'Longtitude': report.location2,
       'AuthorId': report.authorId,
       //'licensecar': car.licensecar,
       'Timestamp': report.timestamp,
@@ -239,7 +265,8 @@ class DatabaseSer {
       'authorshare': sharereq.authorshare,
     });
   }
-static void createShareconfirm(Shareconfirm shareconfirm) {
+
+  static void createShareconfirm(Shareconfirm shareconfirm) {
     userRef.document(shareconfirm.authorId).collection('Shareconfirm').add({
       'Concertname': shareconfirm.concertname,
       'StartPlace': shareconfirm.startplace,
@@ -286,6 +313,7 @@ static void createShareconfirm(Shareconfirm shareconfirm) {
       'authorshare': shareconfirm.authorshare,
     });
   }
+
   static void createNotisharem(Notishare notishare) {
     userRef.document(notishare.authorId).collection('Notishare').add({
       'Concertname': notishare.concertname,
@@ -333,6 +361,7 @@ static void createShareconfirm(Shareconfirm shareconfirm) {
       'authorshare': notishare.authorshare,
     });
   }
+
   static Future<List<Share>> getFeedPosts(String userId) async {
     QuerySnapshot feedshare = await userRef
         .document(userId)
@@ -353,9 +382,10 @@ static void createShareconfirm(Shareconfirm shareconfirm) {
     return User();
   }
 
-  static Future<QuerySnapshot> searchCon(String name){
-    Future<QuerySnapshot> shares = shareRef.where('Concertname', isGreaterThanOrEqualTo: name).getDocuments();
+  static Future<QuerySnapshot> searchCon(String name) {
+    Future<QuerySnapshot> shares = shareRef
+        .where('Concertname', isGreaterThanOrEqualTo: name)
+        .getDocuments();
     return shares;
-
   }
 }

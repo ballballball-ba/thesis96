@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mythesis96/Api/googlemap.dart';
 import 'package:mythesis96/Api/omise.dart';
 import 'package:mythesis96/Firebasemessaging/FirebaseMessaging.dart';
 import 'package:mythesis96/bt_bar/activity_sc.dart';
@@ -53,7 +54,7 @@ class _HomeState extends State<Home> {
           Activity(
             userId: Provider.of<Userdata>(context).currentUserID
           ),
-          Notiac(),
+          Notiac(userId: Provider.of<Userdata>(context).currentUserID,),
           //Driverregis(),
           //old
           // Profile(userId: widget.userId),

@@ -11,6 +11,7 @@ final postsRef = _firestore.collection('Drivers');
 final carRef = _firestore.collection('Car');
 final reportRef = _firestore.collection('Report');
 final paymentRef = _firestore.collection('Payment');
+final paymentcheckRef = _firestore.collection('historycheck');
 final shareRef =  _firestore.collection('Shareposts');
 final notireqRef =  _firestore.collection('Notirequest');
 final shareconfirmRef =  _firestore.collection('shareconfirm');

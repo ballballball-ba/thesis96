@@ -57,7 +57,7 @@ class _ChatState extends State<Chat> {
     // }
 
     if (messageController.text.length > 0) {
-      await _firestore.collection('messages').add({
+      await _firestore.collection('chat').add({
         'text': messageController.text,
         'from': Provider.of<Userdata>(context).currentUserID,
         'date': DateTime.now().toIso8601String().toString(),
@@ -101,7 +101,7 @@ class _ChatState extends State<Chat> {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: _firestore
-                    .collection('messages')
+                    .collection('chat')
                     .orderBy('date')
                     .snapshots(),
                 builder: (context, snapshot) {

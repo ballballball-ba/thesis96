@@ -118,37 +118,41 @@ class _PaymentState extends State<Payment> {
     ShareNotifierrequest2 shareNotifier3 =
         Provider.of<ShareNotifierrequest2>(context);
 
-    String _concertname = shareNotifier.currentShare.concertname;
-    String _startplace = shareNotifier.currentShare.startplace;
-    String _endplace = shareNotifier.currentShare.endplace;
-    String _price = shareNotifier.currentShare.price;
-    String _seat = shareNotifier.currentShare.seat;
-    String _seatyou = shareNotifier.currentShare.seatyou;
-    String _seatyou2 = shareNotifier.currentShare.seatyou2;
-    String _date = shareNotifier.currentShare.date;
-    String _time = shareNotifier.currentShare.time;
-    String _details = shareNotifier.currentShare.details;
-    String _picpro = shareNotifier.currentShare.picpro;
-    String _malereq = shareNotifier.currentShare.reqseat1;
-    String _femalereq = shareNotifier.currentShare.reqseat2;
-    String _brandcar = shareNotifier.currentShare.brandcar;
-    // String _gencar = shareNotifier.currentShare.gencar;
-    String _color = shareNotifier.currentShare.color;
-    String _licensecar = shareNotifier.currentShare.licensecar;
-    String _authorshare = shareNotifier.currentShare.authorshare;
-    var myInt = int.parse(shareNotifier.currentShare.price);
-    var myInt2 = int.parse(shareNotifier.currentShare.reqseat1);
-    var myInt3 = int.parse(shareNotifier.currentShare.reqseat2);
+    String _concertname = widget.post.data['Concertname'];
+    String _startplace = widget.post.data['StartPlace'];
+    String _endplace = widget.post.data['Endplace'];
+    String _price = widget.post.data['Price'];
+    String _seat = widget.post.data['Seat'];
+    String _seatyou = widget.post.data['Seatyou'];
+    String _seatyou2 = widget.post.data['Seatyou2'];
+    String _date = widget.post.data['Date'];
+    String _time = widget.post.data['Time'];
+    String _details = widget.post.data['details'];
+    String _picpro = widget.post.data['picpro'];
+    String _malereq = widget.post.data['Seatreqmale'];
+    String _femalereq = widget.post.data['Seatreqfemale'];
+    String _brandcar = widget.post.data['Brandcar'];
+    String _gencar = widget.post.data['Gencar'];
+    String _color = widget.post.data['Color'];
+    String _licensecar = widget.post.data['licensecar'];
+    String _authorshare = widget.post.data['authorshare'];
+    var myInt = int.parse(widget.post.data['Price']);
+    var myInt2 = int.parse(widget.post.data['Seatreqmale']);
+    var myInt3 = int.parse(widget.post.data['Seatreqfemale']);
+    var myInt4 = int.parse(widget.post.data['Seatyou']);
+    var myInt5 = int.parse(widget.post.data['Seatyou2']);
     var seat = myInt2 + myInt3;
     var allint = myInt * (myInt2 + myInt3);
     var myresult1 = allint * 25 / 100;
 
+    var allpeople = myInt2 + myInt3 + myInt4 + myInt5;
     var myresult = myInt - myresult1;
     // assert(myInt is int);
     // print(myInt);
-
+    String _shareid = widget.post.documentID;
     String _money = myresult.toString();
-    String _shareid = shareNotifier.currentShare.id;
+    String _allpeople = allpeople.toString();
+    //String _shareid = shareNotifier.currentShare.id;
     _submit() async {
       if (_formkey.currentState.validate()) {
         _formkey.currentState.save();
@@ -158,28 +162,48 @@ class _PaymentState extends State<Payment> {
           return Home();
           // return Payment();
         }));
-        
-        PaymentM payment = PaymentM(
+        _deleteData();
+        // PaymentM payment = PaymentM(
+        //   cardnum: _cardnum,
+        //   cardexp: '',
+        //   cardcvv: '',
+        //   cardname: _cardname,
+        //   allmoney: _money,
+        //   shareid: _shareid,
+        //   status: 'เสร็จสิ้นการแชร์',
+
+        //   // endplace: _endplace,
+        //   // price: _price,
+        //   // seat: _seat,
+        //   // date: _date,
+        //   // time: _time,
+        //   timestamp: intl.DateFormat("dd-MM-yyyy hh:mm").format(now),
+        //   // DateTime.now().toIso8601String().toString(),
+        //   authorId: Provider.of<Userdata>(context).currentUserID,
+        // );
+        Paymentcheck paymentcheck = Paymentcheck(
           cardnum: _cardnum,
-          cardexp: '',
-          cardcvv: '',
+
           cardname: _cardname,
           allmoney: _money,
-          shareid: shareNotifier.currentShare.id,
+          shareid: _shareid,
           status: 'เสร็จสิ้นการแชร์',
-
-          // endplace: _endplace,
-          // price: _price,
-          // seat: _seat,
-          // date: _date,
-          // time: _time,
+          concert: _concertname,
+          from: _startplace,
+          to: _endplace,
+          licensecar: _licensecar,
+          allpeople: _allpeople,
+// 'concert': paymentcheck.concert,
+//       'from': paymentcheck.from,
+//       'to': paymentcheck.to,
+//       'licensecar': paymentcheck.licensecar,
+//       'allpeople': paymentcheck.allpeople,
           timestamp: intl.DateFormat("dd-MM-yyyy hh:mm").format(now),
           // DateTime.now().toIso8601String().toString(),
           authorId: Provider.of<Userdata>(context).currentUserID,
         );
 
-        Sharereq sharereq = Sharereq();
-        DatabaseSer.createPay(payment, sharereq);
+        DatabaseSer.createPaycheck(paymentcheck);
         // DatabaseSer.createCar(car);
 
         // รีเซทข้อมูลให้ว่างเหมือนเดิม
@@ -193,18 +217,6 @@ class _PaymentState extends State<Payment> {
           _cardexp = '';
           _cardcvv = '';
           _cardname = '';
-          // _endplace = '';
-          // _price = '';
-          // _seat = '';
-          // _date = '';
-          // _time = '';
-          /////////////
-          // _brandcar = '';
-          // _gencar = '';
-          // _color = '';
-          // _licensecar = '';
-
-          // _isloading = false;
         });
       }
 
@@ -228,7 +240,7 @@ class _PaymentState extends State<Payment> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   title: new Text(
-                    "ยืนยันการชำระเงิน",
+                    "ยืนยันข้อมูล",
                     style: TextStyle(
                         fontFamily: 'Kanit',
                         fontSize: 18,
@@ -238,7 +250,7 @@ class _PaymentState extends State<Payment> {
                   content: Column(
                     children: <Widget>[
                       Text(
-                        "ยืนยันการชำระเงิน",
+                        "ยืนยันข้อมูล",
                         style: TextStyle(fontFamily: 'Kanit', color: orange1),
                       ),
                       Icon(FontAwesomeIcons.spinner, size: 40, color: orange1)
@@ -467,7 +479,6 @@ class _PaymentState extends State<Payment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                         
                           Row(
                             children: <Widget>[
                               Text(
@@ -500,29 +511,32 @@ class _PaymentState extends State<Payment> {
                               ),
                             ],
                           ),
-                          Row(
-                            children: <Widget>[
-                              Text(
-                                'จำนวนเงิน',
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 14,
-                                  color: purple2,
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.only(left: 10)),
-                              Text(
-                                myInt.toString(),
-                                style: TextStyle(
-                                  fontFamily: 'Kanit',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 14,
-                                  color: purple2,
-                                ),
-                              ),
-                            ],
-                          ),
-                           Text(
+                          // Row(
+                          //   children: <Widget>[
+                          //     Text(
+                          //       'จำนวนเงิน',
+                          //       style: TextStyle(
+                          //         fontFamily: 'Kanit',
+                          //         fontSize: 14,
+                          //         color: purple2,
+                          //       ),
+
+
+                          
+                          //     ),
+                          //     Padding(padding: EdgeInsets.only(left: 10)),
+                          //     Text(
+                          //       allint.toString(),
+                          //       style: TextStyle(
+                          //         fontFamily: 'Kanit',
+                          //         fontWeight: FontWeight.w600,
+                          //         fontSize: 14,
+                          //         color: purple2,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          Text(
                             'ข้อมูลบัตรของคุณ',
                             style: TextStyle(
                               fontFamily: 'Kanit',
@@ -589,7 +603,6 @@ class _PaymentState extends State<Payment> {
                                   //  onChanged: (input) => _startplace = input,
                                 ),
                               ),
-                             
                               Row(
                                 children: <Widget>[
                                   Container(
@@ -650,7 +663,7 @@ class _PaymentState extends State<Payment> {
 
                             onPressed: _paydilog,
 
-                            child: Text('เสร็จสิ้นการแชร์',
+                            child: Text('ยืนยันข้อมูล',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Kanit',
@@ -692,10 +705,7 @@ class _PaymentState extends State<Payment> {
 
   final databaseReference = Firestore.instance;
   void _deleteData() {
-    databaseReference
-        .collection('Shareconfirm')
-        .getDocuments()
-        .then((snapshot) {
+    databaseReference.collection('Notishare').getDocuments().then((snapshot) {
       for (DocumentSnapshot ds in snapshot.documents) {
         ds.reference.delete();
       }
@@ -706,8 +716,6 @@ class _PaymentState extends State<Payment> {
     //   print(e.toString());
     // }
   }
-
- 
 
   void _showDialog2() {
     final Color purple1 = Color(0xff5A45A5);

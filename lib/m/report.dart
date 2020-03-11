@@ -6,6 +6,8 @@ class Report {
   final String text;
   final String date;
   final String time;
+  final String location1;
+  final String location2;
   //final String id;
   final String authorId;
   final String timestamp;
@@ -16,6 +18,8 @@ class Report {
     this.text,
     this.date,
     this.time,
+    this.location1,
+    this.location2,
     this.timestamp,
     this.authorId,
   });
@@ -26,6 +30,8 @@ class Report {
       text: doc['Text'],
       date: doc['Date'],
       time: doc['Time'],
+      location1: doc['Latitude'],
+      location2: doc['Longtitude'],
       timestamp: doc['timestamp'],
       authorId: doc['authorId'],
     );

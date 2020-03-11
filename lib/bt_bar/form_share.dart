@@ -149,7 +149,6 @@ class _ShareformState extends State<Shareform> {
           },
         );
       }
-      
 
       // picpro() {
       //   Scaffold(
@@ -163,83 +162,83 @@ class _ShareformState extends State<Shareform> {
       //           }
       //           User user = User.fromDoc(snapshot.data);
 
-                Share sharepost = Share(
-                  concertname: _concertname,
-                  startplace: _startplace,
-                  endplace: _endplace,
-                  price: _price,
-                  seat: _seat,
-                  seatyou: _seatyou,
-                  seatyou2: _seatyou2,
-                  date: _date,
-                  time: _time,
-                  details: _details,
-                 //  picpro: userDocument,
-                  picpro:
-                      'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=69d57b63-4a33-4aa7-9ac7-f07222717cb0',
-                  //********************** */
-                  brandcar: _brandcar,
-                  gencar: _gencar,
-                  color: _color,
-                  licensecar: _licensecar,
+      Share sharepost = Share(
+        concertname: _concertname,
+        startplace: _startplace,
+        endplace: _endplace,
+        price: _price,
+        seat: _seat,
+        seatyou: _seatyou,
+        seatyou2: _seatyou2,
+        date: _date,
+        time: _time,
+        details: _details,
+        //  picpro: userDocument,
+        picpro:
+            'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=69d57b63-4a33-4aa7-9ac7-f07222717cb0',
+        //********************** */
+        brandcar: _brandcar,
+        gencar: _gencar,
+        color: _color,
+        licensecar: _licensecar,
 
-                  timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
-                  authorId: Provider.of<Userdata>(context).currentUserID,
-                );
-                DatabaseSer.createShare(sharepost);
-                Cardata car = Cardata(
-                  brandcar: _brandcar,
-                  gencar: _gencar,
-                  color: _color,
-                  licensecar: _licensecar,
-                  timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
-                  authorId: Provider.of<Userdata>(context).currentUserID,
-                );
+        timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
+        authorId: Provider.of<Userdata>(context).currentUserID,
+      );
+      DatabaseSer.createShare(sharepost);
+      Cardata car = Cardata(
+        brandcar: _brandcar,
+        gencar: _gencar,
+        color: _color,
+        licensecar: _licensecar,
+        timestamp: DateFormat("dd-MM-yyyy hh:mm").format(now),
+        authorId: Provider.of<Userdata>(context).currentUserID,
+      );
 
-                DatabaseSer.createCar(car);
+      DatabaseSer.createCar(car);
 
-                // รีเซทข้อมูลให้ว่างเหมือนเดิม
-                _concertnameController.clear();
-                _startplaceController.clear();
-                _endplaceController.clear();
-                _priceController.clear();
-                _seatController.clear();
-                _seatyouController.clear();
-                _seatyou2Controller.clear();
-                _datetimeController.clear();
-                _dateController.clear();
-                _timeController.clear();
-                _detailsController.clear();
-                //car clear
-                _brandcarControlle.clear();
-                _gencarControlle.clear();
-                _colorControlle.clear();
-                _licensecarControlle.clear();
+      // รีเซทข้อมูลให้ว่างเหมือนเดิม
+      _concertnameController.clear();
+      _startplaceController.clear();
+      _endplaceController.clear();
+      _priceController.clear();
+      _seatController.clear();
+      _seatyouController.clear();
+      _seatyou2Controller.clear();
+      _datetimeController.clear();
+      _dateController.clear();
+      _timeController.clear();
+      _detailsController.clear();
+      //car clear
+      _brandcarControlle.clear();
+      _gencarControlle.clear();
+      _colorControlle.clear();
+      _licensecarControlle.clear();
 
-                setState(() {
-                  _concertname = '';
-                  _startplace = '';
-                  _endplace = '';
-                  _price = '';
-                  _seat = '';
-                  _seatyou = '';
-                  _seatyou2 = '';
-                  _date = '';
-                  _time = '';
-                  _details = '';
-                  _picpro = '';
-                  /////////////
-                  _brandcar = '';
-                  _gencar = '';
-                  _color = '';
-                  _licensecar = '';
+      setState(() {
+        _concertname = '';
+        _startplace = '';
+        _endplace = '';
+        _price = '';
+        _seat = '';
+        _seatyou = '';
+        _seatyou2 = '';
+        _date = '';
+        _time = '';
+        _details = '';
+        _picpro = '';
+        /////////////
+        _brandcar = '';
+        _gencar = '';
+        _color = '';
+        _licensecar = '';
 
-                  // _isloading = false;
-                });
+        // _isloading = false;
+      });
       //         }),
       //   );
       // }
-      
+
     } else {
       Flushbar(
         message: 'ไม่สามารถสร้างการแชร์ได้ ลองอีกครั้ง',
@@ -263,8 +262,7 @@ class _ShareformState extends State<Shareform> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomPadding: false,
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: true,
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -283,676 +281,713 @@ class _ShareformState extends State<Shareform> {
       ),
 
       ///แก้ button float
-      body: StreamBuilder(
-          stream: Firestore.instance
-              .collection('Users')
-              .document(Provider.of<Userdata>(context).currentUserID)
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Text('is somthing worg about database.....');
-            }
-            // else if(snapshot.data['picprofileUrl'].toString().isNotEmpty){
-            //  //  var userDocument = snapshot.data['picprofileUrl'].toString();
-            // }
-            if (snapshot.data['picprofileUrl'].toString() != null) {
-              var userDocument = snapshot.data['picprofileUrl'].toString();
-              return SingleChildScrollView(
-                child: Container(
-                  //กำกับความสูง
-                  //   height: MediaQuery.of(context).size.height,
-                  ///แก้ button float
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      _isloading
-                          ? Padding(
-                              padding: EdgeInsets.only(bottom: 1.0),
-                              child: LinearProgressIndicator(
-                                backgroundColor: Colors.blue[200],
-                                valueColor: AlwaysStoppedAnimation(Colors.blue),
-                              ),
-                            )
-                          : SizedBox.shrink(),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: purple3,
-                            boxShadow: [
-                              new BoxShadow(
-                                  color: Colors.black12,
-                                  offset: new Offset(3.0, 3.0),
-                                  blurRadius: 15.0,
-                                  spreadRadius: 10.0),
-                            ]),
-                        margin: EdgeInsets.only(
-                            left: 32.0, right: 32.0, top: 40, bottom: 20),
-                        child: Form(
-                            key: _formkey,
-                            child: Column(children: <Widget>[
-                              Container(
-                                //
-                                //
-                                //
-                                //
-                                //
-                                //////////////////////////neweeeeeeeeeeeeeeeeeeeeeeeeeeee
-                                child: StreamBuilder<QuerySnapshot>(
-                                    stream: Firestore.instance
-                                        .collection("Concert")
-                                        .snapshots(),
-                                    builder: (context, snapshot) {
-                                      if (!snapshot.hasData)
-                                        const Text("Loading.....");
-                                      else {
-                                        List<DropdownMenuItem> currencyItems =
-                                            [];
-                                        for (int i = 0;
-                                            i < snapshot.data.documents.length;
-                                            i++) {
-                                          DocumentSnapshot snap =
-                                              snapshot.data.documents[i];
-                                          currencyItems.add(
-                                            DropdownMenuItem(
-                                              child: Container(
-                                                margin:
-                                                    EdgeInsets.only(left: 5),
-                                                child: Text(
-                                                  snap.data['nameconshort'],
-                                                  style: TextStyle(
-                                                    color: orage1,
-                                                    fontSize: 14,
-                                                    fontFamily: 'Kanit',
+      body: SingleChildScrollView(
+        child: StreamBuilder(
+            stream: Firestore.instance
+                .collection('Users')
+                .document(Provider.of<Userdata>(context).currentUserID)
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Text('is somthing worg about database.....');
+              }
+              // else if(snapshot.data['picprofileUrl'].toString().isNotEmpty){
+              //  //  var userDocument = snapshot.data['picprofileUrl'].toString();
+              // }
+              if (snapshot.data['picprofileUrl'].toString() != null) {
+                var userDocument = snapshot.data['picprofileUrl'].toString();
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Container(
+                      //กำกับความสูง
+                      //   height: MediaQuery.of(context).size.height,
+                      ///แก้ button float
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          _isloading
+                              ? Padding(
+                                  padding: EdgeInsets.only(bottom: 1.0),
+                                  child: LinearProgressIndicator(
+                                    backgroundColor: Colors.blue[200],
+                                    valueColor:
+                                        AlwaysStoppedAnimation(Colors.blue),
+                                  ),
+                                )
+                              : SizedBox.shrink(),
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                color: purple3,
+                                boxShadow: [
+                                  new BoxShadow(
+                                      color: Colors.black12,
+                                      offset: new Offset(3.0, 3.0),
+                                      blurRadius: 15.0,
+                                      spreadRadius: 10.0),
+                                ]),
+                            margin: EdgeInsets.only(
+                                left: 32.0, right: 32.0, top: 40, bottom: 20),
+                            child: Form(
+                                key: _formkey,
+                                child: Column(children: <Widget>[
+                                  Container(
+                                    child: StreamBuilder<QuerySnapshot>(
+                                        stream: Firestore.instance
+                                            .collection("Concert")
+                                            .snapshots(),
+                                        builder: (context, snapshot) {
+                                          if (!snapshot.hasData)
+                                            const Text("Loading.....");
+                                          else {
+                                            List<DropdownMenuItem>
+                                                currencyItems = [];
+                                            for (int i = 0;
+                                                i <
+                                                    snapshot
+                                                        .data.documents.length;
+                                                i++) {
+                                              DocumentSnapshot snap =
+                                                  snapshot.data.documents[i];
+                                              currencyItems.add(
+                                                DropdownMenuItem(
+                                                  child: Container(
+                                                    width: 286,
+                                                    margin: EdgeInsets.only(
+                                                        left: 5),
+                                                    child: Text(
+                                                      snap.data['nameconshort'],
+                                                      style: TextStyle(
+                                                        color: orage1,
+                                                        fontSize: 14,
+                                                        fontFamily: 'Kanit',
+                                                      ),
+                                                    ),
                                                   ),
+                                                  value:
+                                                      "${snap.data['nameconshort']}",
                                                 ),
-                                              ),
-                                              value:
-                                                  "${snap.data['nameconshort']}",
-                                            ),
-                                          );
-                                        }
-                                        return Row(
-                                          children: <Widget>[
-                                            //  SizedBox(width: 50.0),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: purple4,
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                              ),
-                                              margin: EdgeInsets.only(
-                                                  left: 15.0,
-                                                  right: 15.0,
-                                                  top: 10,
-                                                  bottom: 10),
-                                              child: DropdownButton(
-                                                underline: SizedBox(),
-                                                items: currencyItems,
-                                                icon: Icon(
-                                                    Icons.arrow_drop_down,
-                                                    size: 25.0,
-                                                    color: orage1),
-                                                // onChanged:((input)  => _concertname = input),
-                                                onChanged: (input) {
-                                                  this._concertname = input;
-                                                  print('$input');
+                                              );
+                                            }
+                                            return Row(
+                                              children: <Widget>[
+                                                //  SizedBox(width: 50.0),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    color: purple4,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  margin: EdgeInsets.only(
+                                                      left: 15.0,
+                                                      right: 15.0,
+                                                      top: 10,
+                                                      bottom: 10),
+                                                  child: DropdownButton(
+                                                    underline: SizedBox(),
+                                                    items: currencyItems,
+                                                    icon: Icon(
+                                                        Icons.arrow_drop_down,
+                                                        size: 25.0,
+                                                        color: orage1),
+                                                    // onChanged:((input)  => _concertname = input),
+                                                    onChanged: (input) {
+                                                      this._concertname = input;
+                                                      print('$input');
 
-                                                  setState(() {
-                                                    // this._concertname = input;
-                                                    selectedCurrency = input;
-                                                  });
-                                                },
-                                                value: selectedCurrency,
+                                                      setState(() {
+                                                        // this._concertname = input;
+                                                        selectedCurrency =
+                                                            input;
+                                                      });
+                                                    },
+                                                    value: selectedCurrency,
 
-                                                isExpanded: false,
+                                                    isExpanded: false,
 
-                                                hint: Container(
-                                                  margin:
-                                                      EdgeInsets.only(left: 10),
-                                                  child: new Text(
-                                                    "เลือกคอนเสิร์ต",
-                                                    style: TextStyle(
-                                                      color: orage1,
-                                                      fontFamily: 'Kanit',
+                                                    hint: Container(
+                                                      margin: EdgeInsets.only(
+                                                          left: 10),
+                                                      child: new Text(
+                                                        "เลือกคอนเสิร์ต",
+                                                        style: TextStyle(
+                                                          color: orage1,
+                                                          fontFamily: 'Kanit',
+                                                        ),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
+                                                SizedBox(
+                                                  height: 100.0,
+                                                ),
+                                              ],
+                                            );
+                                          }
+                                        }),
+
+                                    /////////////////////////////////
+                                  ),
+
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: purple4,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    margin: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: 10,
+                                        bottom: 20),
+                                    child: TextFormField(
+                                      autofocus: true,
+                                      controller: _startplaceController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(Icons.place,
+                                            color: Colors.white),
+                                        hintText: 'จุดเริ่มต้น',
+                                        hintStyle: TextStyle(
+                                          color: Colors.white70,
+                                          fontFamily: 'Kanit',
+                                          // fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      validator: (input) => input.trim().isEmpty
+                                          ? 'กรุณาเลือกจุดเริ่มต้น'
+                                          : null,
+                                      onChanged: (input) => _startplace = input,
+
+                                      // onSaved: (input) => _email = input,
+                                    ),
+                                  ),
+                                  //  Opacity(child: Container(child:getpicpro(),)),
+
+                                  Container(
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: purple4,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    margin: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15.0,
+                                        top: 10,
+                                        bottom: 20),
+                                    child: TextFormField(
+                                      autofocus: true,
+
+                                      controller: _endplaceController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(Icons.place,
+                                            color: Colors.white),
+                                        hintText: 'ปลายทาง',
+                                        hintStyle: TextStyle(
+                                          color: Colors.white70,
+                                          fontFamily: 'Kanit',
+                                          // fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      validator: (input) => input.trim().isEmpty
+                                          ? 'กรุณากำหนดปลายทาง'
+                                          : null,
+                                      // onSaved: (input) => _password = input,
+                                      // obscureText: true,
+                                      onChanged: (input) => _endplace = input,
+                                    ),
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    margin: EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 200.0,
+                                        top: 10,
+                                        bottom: 20),
+                                    decoration: BoxDecoration(
+                                        color: purple4,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: TextFormField(
+                                      autofocus: true,
+                                      inputFormatters: [
+                                        LengthLimitingTextInputFormatter(3),
+                                      ],
+                                      controller: _priceController,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(Icons.attach_money,
+                                            color: Colors.white),
+                                        hintText: 'ราคา/ที่นั่ง',
+                                        hintStyle: TextStyle(
+                                          color: Colors.white70,
+                                          fontFamily: 'Kanit',
+                                          // fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      validator: (input) => input.trim().isEmpty
+                                          ? 'กรุณากำหนดราคา'
+                                          : null,
+                                      onChanged: (input) => _price = input,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        height: 50,
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        // margin: EdgeInsets.only(
+                                        //     left: 15.0, right: 150, top: 10, bottom: 20),
+
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [dateFormatter],
+
+                                          controller: _dateController,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(Icons.date_range,
+                                                color: Colors.white),
+                                            hintText: 'วันที่ ดด/วว/ปปปป',
+                                            hintStyle: TextStyle(
+                                                color: Colors.white70,
+                                                fontFamily: 'Kanit',
+                                                fontSize: 14
+                                                // fontWeight: FontWeight.w600,
+                                                ),
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบุวันที่'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) => _date = input,
+                                        ),
+                                      ),
+                                      Container(
+                                        margin: EdgeInsets.only(left: 15),
+                                        height: 50,
+                                        width: 140,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        // margin: EdgeInsets.only(
+                                        //     left: 15.0, right: 150, top: 10, bottom: 20),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          keyboardType: TextInputType.number,
+                                          inputFormatters: [timeFormatter],
+                                          controller: _timeController,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(Icons.access_time,
+                                                color: Colors.white),
+                                            hintText: 'เวลา 18:00',
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontFamily: 'Kanit',
+                                              // fontWeight: FontWeight.w600,
                                             ),
-                                            SizedBox(
-                                              height: 100.0,
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบุระบุเวลา'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) => _time = input,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  //
+
+                                  Padding(padding: EdgeInsets.only(bottom: 15)),
+                                  Divider(
+                                    color: Colors.black38,
+                                  ),
+                                  Padding(padding: EdgeInsets.only(top: 15)),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 50,
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(left: 15.0),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _brandcarControlle,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(
+                                                Icons.directions_car,
+                                                color: Colors.white),
+                                            hintText: 'ยี่ห้อรถ',
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontFamily: 'Kanit',
+                                              // fontWeight: FontWeight.w600,
                                             ),
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบุยี่ห้อรถ'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) =>
+                                              _brandcar = input,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        width: 140,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(
+                                          left: 15.0,
+                                        ),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _colorControlle,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(Icons.color_lens,
+                                                color: Colors.white),
+                                            hintText: 'สีรถ',
+                                            hintStyle: TextStyle(
+                                                color: Colors.white70,
+                                                fontFamily: 'Kanit'
+                                                // fontWeight: FontWeight.w600,
+                                                ),
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบุสี'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) => _color = input,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 50,
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(
+                                            left: 15.0, top: 30, bottom: 20),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _licensecarControlle,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(
+                                                Icons.format_list_numbered,
+                                                color: Colors.white),
+                                            hintText: 'เลขะเบียน',
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontFamily: 'Kanit',
+                                              // fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบุเลขทะเบียน'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) =>
+                                              _licensecar = input,
+                                        ),
+                                      ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'เราจะไม่บอกเลขทะเบียน',
+                                            style: TextStyle(
+                                                color: Colors.white70,
+                                                fontFamily: 'Kanit',
+                                                fontSize: 13),
+                                          ),
+                                          Text(
+                                            '   ก่อนจะมีการตอบรับคำร้อง',
+                                            style: TextStyle(
+                                                color: Colors.white70,
+                                                fontFamily: 'Kanit',
+                                                fontSize: 13),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+
+                                  //   ],
+                                  // ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 50,
+                                        width: 160,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(
+                                            top: 10, left: 15, bottom: 20),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          controller: _seatController,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(Icons.event_seat,
+                                                color: Colors.white),
+                                            hintText: 'ที่นั่งว่าง',
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontFamily: 'Kanit',
+                                              // fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบบที่นั่งว่าง'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) => _seat = input,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Container(
+                                        height: 50,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(
+                                            top: 10, left: 15, bottom: 20),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2),
                                           ],
-                                        );
-                                      }
-                                    }),
-
-                                /////////////////////////////////
-                              ),
-
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: purple4,
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin: EdgeInsets.only(
-                                    left: 15.0,
-                                    right: 15.0,
-                                    top: 10,
-                                    bottom: 20),
-                                child: TextFormField(
-                                  controller: _startplaceController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon:
-                                        Icon(Icons.place, color: Colors.white),
-                                    hintText: 'จุดเริ่มต้น',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white70,
-                                      fontFamily: 'Kanit',
-                                      // fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  validator: (input) => input.trim().isEmpty
-                                      ? 'กรุณาเลือกจุดเริ่มต้น'
-                                      : null,
-                                  onChanged: (input) => _startplace = input,
-
-                                  // onSaved: (input) => _email = input,
-                                ),
-                              ),
-                              //  Opacity(child: Container(child:getpicpro(),)),
-
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: purple4,
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin: EdgeInsets.only(
-                                    left: 15.0,
-                                    right: 15.0,
-                                    top: 10,
-                                    bottom: 20),
-                                child: TextFormField(
-                                  controller: _endplaceController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon:
-                                        Icon(Icons.place, color: Colors.white),
-                                    hintText: 'ปลายทาง',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white70,
-                                      fontFamily: 'Kanit',
-                                      // fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  validator: (input) => input.trim().isEmpty
-                                      ? 'กรุณากำหนดปลายทาง'
-                                      : null,
-                                  // onSaved: (input) => _password = input,
-                                  // obscureText: true,
-                                  onChanged: (input) => _endplace = input,
-                                ),
-                              ),
-                              Container(
-                                height: 50,
-                                margin: EdgeInsets.only(
-                                    left: 15.0,
-                                    right: 200.0,
-                                    top: 10,
-                                    bottom: 20),
-                                decoration: BoxDecoration(
-                                    color: purple4,
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: TextFormField(
-                                  inputFormatters: [
-                                    LengthLimitingTextInputFormatter(3),
-                                  ],
-                                  controller: _priceController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon: Icon(Icons.attach_money,
-                                        color: Colors.white),
-                                    hintText: 'ราคา/ที่นั่ง',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white70,
-                                      fontFamily: 'Kanit',
-                                      // fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  validator: (input) => input.trim().isEmpty
-                                      ? 'กรุณากำหนดราคา'
-                                      : null,
-                                  onChanged: (input) => _price = input,
-                                ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    height: 50,
-                                    width: 160,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    // margin: EdgeInsets.only(
-                                    //     left: 15.0, right: 150, top: 10, bottom: 20),
-
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [dateFormatter],
-
-                                      controller: _dateController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(Icons.date_range,
-                                            color: Colors.white),
-                                        hintText: 'วันที่ ดด/วว/ปปปป',
-                                        hintStyle: TextStyle(
-                                            color: Colors.white70,
-                                            fontFamily: 'Kanit',
-                                            fontSize: 14
-                                            // fontWeight: FontWeight.w600,
+                                          controller: _seatyouController,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(
+                                                FontAwesomeIcons.male,
+                                                color: Colors.white),
+                                            hintText: 'ช',
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontFamily: 'Kanit',
+                                              // fontWeight: FontWeight.w600,
                                             ),
-                                      ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบุวันที่'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _date = input,
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 15),
-                                    height: 50,
-                                    width: 140,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    // margin: EdgeInsets.only(
-                                    //     left: 15.0, right: 150, top: 10, bottom: 20),
-                                    child: TextFormField(
-                                      keyboardType: TextInputType.number,
-                                      inputFormatters: [timeFormatter],
-                                      controller: _timeController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(Icons.access_time,
-                                            color: Colors.white),
-                                        hintText: 'เวลา 18:00',
-                                        hintStyle: TextStyle(
-                                          color: Colors.white70,
-                                          fontFamily: 'Kanit',
-                                          // fontWeight: FontWeight.w600,
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบบที่นั่งว่าง'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) =>
+                                              _seatyou = input,
                                         ),
                                       ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบุระบุเวลา'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _time = input,
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              //
-
-                              Padding(padding: EdgeInsets.only(bottom: 15)),
-                              Divider(
-                                color: Colors.black38,
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 15)),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 50,
-                                    width: 160,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    margin: EdgeInsets.only(left: 15.0),
-                                    child: TextFormField(
-                                      controller: _brandcarControlle,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(Icons.directions_car,
-                                            color: Colors.white),
-                                        hintText: 'ยี่ห้อรถ',
-                                        hintStyle: TextStyle(
-                                          color: Colors.white70,
-                                          fontFamily: 'Kanit',
-                                          // fontWeight: FontWeight.w600,
+                                      Container(
+                                        height: 50,
+                                        width: 70,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(
+                                            top: 10, left: 15, bottom: 20),
+                                        child: TextFormField(
+                                          autofocus: true,
+                                          inputFormatters: [
+                                            LengthLimitingTextInputFormatter(2),
+                                          ],
+                                          controller: _seatyou2Controller,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(
+                                                FontAwesomeIcons.female,
+                                                color: Colors.white),
+                                            hintText: 'ญ',
+                                            hintStyle: TextStyle(
+                                              color: Colors.white70,
+                                              fontFamily: 'Kanit',
+                                              // fontWeight: FontWeight.w600,
+                                            ),
+                                          ),
+                                          validator: (input) =>
+                                              input.trim().isEmpty
+                                                  ? 'กรุณาระบบที่นั่งว่าง'
+                                                  : null,
+                                          // onSaved: (input) => _password = input,
+                                          // obscureText: true,
+                                          onChanged: (input) =>
+                                              _seatyou2 = input,
                                         ),
                                       ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบุยี่ห้อรถ'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _brandcar = input,
-                                    ),
+                                      Column(
+                                        children: <Widget>[
+                                          Text(
+                                            'กรุณาระบุจำนวน',
+                                            style: TextStyle(
+                                                color: Colors.white70,
+                                                fontFamily: 'Kanit',
+                                                fontSize: 13),
+                                          ),
+                                          Text(
+                                            '   คนภายในรถของคุณ',
+                                            style: TextStyle(
+                                                color: Colors.white70,
+                                                fontFamily: 'Kanit',
+                                                fontSize: 13),
+                                          )
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                   Container(
-                                    height: 50,
-                                    width: 140,
+                                    height: 80,
                                     decoration: BoxDecoration(
                                         color: purple4,
                                         borderRadius:
                                             BorderRadius.circular(10)),
                                     margin: EdgeInsets.only(
                                       left: 15.0,
+                                      right: 15.0,
+                                      top: 10,
                                     ),
                                     child: TextFormField(
-                                      controller: _colorControlle,
+                                      autofocus: true,
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
+                                      controller: _detailsController,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
-                                        prefixIcon: Icon(Icons.color_lens,
+                                        prefixIcon: Icon(Icons.info,
                                             color: Colors.white),
-                                        hintText: 'สีรถ',
-                                        hintStyle: TextStyle(
-                                            color: Colors.white70,
-                                            fontFamily: 'Kanit'
-                                            // fontWeight: FontWeight.w600,
-                                            ),
-                                      ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบุสี'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _color = input,
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 50,
-                                    width: 160,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    margin: EdgeInsets.only(
-                                        left: 15.0, top: 30, bottom: 20),
-                                    child: TextFormField(
-                                      controller: _licensecarControlle,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(
-                                            Icons.format_list_numbered,
-                                            color: Colors.white),
-                                        hintText: 'เลขะเบียน',
+                                        hintText:
+                                            'รายละเอียดเพิ่มติม เช่น ขึ้นทางด่วน',
                                         hintStyle: TextStyle(
                                           color: Colors.white70,
                                           fontFamily: 'Kanit',
                                           // fontWeight: FontWeight.w600,
                                         ),
                                       ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบุเลขทะเบียน'
-                                          : null,
+
                                       // onSaved: (input) => _password = input,
                                       // obscureText: true,
-                                      onChanged: (input) => _licensecar = input,
+                                      onChanged: (input) => _details = input,
                                     ),
                                   ),
-                                  Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'เราจะไม่บอกเลขทะเบียน',
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontFamily: 'Kanit',
-                                            fontSize: 13),
-                                      ),
-                                      Text(
-                                        '   ก่อนจะมีการตอบรับคำร้อง',
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontFamily: 'Kanit',
-                                            fontSize: 13),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                  Padding(padding: EdgeInsets.only(bottom: 15)),
 
-                              //   ],
-                              // ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 50,
-                                    width: 160,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    margin: EdgeInsets.only(
-                                        top: 10, left: 15, bottom: 20),
-                                    child: TextFormField(
-                                      controller: _seatController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(Icons.event_seat,
-                                            color: Colors.white),
-                                        hintText: 'ที่นั่งว่าง',
-                                        hintStyle: TextStyle(
-                                          color: Colors.white70,
-                                          fontFamily: 'Kanit',
-                                          // fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบบที่นั่งว่าง'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _seat = input,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    height: 50,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    margin: EdgeInsets.only(
-                                        top: 10, left: 15, bottom: 20),
-                                    child: TextFormField(
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(2),
-                                      ],
-                                      controller: _seatyouController,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(FontAwesomeIcons.male,
-                                            color: Colors.white),
-                                        hintText: 'ช',
-                                        hintStyle: TextStyle(
-                                          color: Colors.white70,
-                                          fontFamily: 'Kanit',
-                                          // fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบบที่นั่งว่าง'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _seatyou = input,
-                                    ),
-                                  ),
-                                  Container(
-                                    height: 50,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        color: purple4,
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
-                                    margin: EdgeInsets.only(
-                                        top: 10, left: 15, bottom: 20),
-                                    child: TextFormField(
-                                      inputFormatters: [
-                                        LengthLimitingTextInputFormatter(2),
-                                      ],
-                                      controller: _seatyou2Controller,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        prefixIcon: Icon(
-                                            FontAwesomeIcons.female,
-                                            color: Colors.white),
-                                        hintText: 'ญ',
-                                        hintStyle: TextStyle(
-                                          color: Colors.white70,
-                                          fontFamily: 'Kanit',
-                                          // fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'กรุณาระบบที่นั่งว่าง'
-                                          : null,
-                                      // onSaved: (input) => _password = input,
-                                      // obscureText: true,
-                                      onChanged: (input) => _seatyou2 = input,
-                                    ),
-                                  ),
-                                  Column(
-                                    children: <Widget>[
-                                      Text(
-                                        'กรุณาระบุจำนวน',
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontFamily: 'Kanit',
-                                            fontSize: 13),
-                                      ),
-                                      Text(
-                                        '   คนภายในรถของคุณ',
-                                        style: TextStyle(
-                                            color: Colors.white70,
-                                            fontFamily: 'Kanit',
-                                            fontSize: 13),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                height: 80,
-                                decoration: BoxDecoration(
-                                    color: purple4,
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin: EdgeInsets.only(
-                                  left: 15.0,
-                                  right: 15.0,
-                                  top: 10,
-                                ),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: null,
-                                  controller: _detailsController,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    prefixIcon:
-                                        Icon(Icons.info, color: Colors.white),
-                                    hintText:
-                                        'รายละเอียดเพิ่มติม เช่น ขึ้นทางด่วน',
-                                    hintStyle: TextStyle(
-                                      color: Colors.white70,
-                                      fontFamily: 'Kanit',
-                                      // fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
+                                  //   Container(
+                                  //     // child: TextField(
+                                  //     //   onChanged: (userDocument) {
+                                  //     //     this._picpro =userDocument;
+                                  //     //     print("First text field: $userDocument");
+                                  //     //   },
+                                  //     // ),
 
-                                  // onSaved: (input) => _password = input,
-                                  // obscureText: true,
-                                  onChanged: (input) => _details = input,
-                                ),
-                              ),
-                              Padding(padding: EdgeInsets.only(bottom: 15)),
+                                  //    // child: getpicpro(),
+                                  //     child: TextFormField(
+                                  //         // controller: _detailsController,
 
-                              //   Container(
-                              //     // child: TextField(
-                              //     //   onChanged: (userDocument) {
-                              //     //     this._picpro =userDocument;
-                              //     //     print("First text field: $userDocument");
-                              //     //   },
-                              //     // ),
+                                  //        initialValue: userDocument =
+                                  //             snapshot.data['picprofileUrl'].toString(),
+                                  //         // initialValue: 'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=7d6c9039-4a56-4bcc-8998-c82b41557ac9',
+                                  //         // userDocument['picprofileUrl'],
+                                  //         // onSaved: (input) => _password = input,
+                                  //       //  obscureText: true,
+                                  //         //  value = userDocument,
+                                  //         //  onChanged: (input) => _details = input,
 
-                              //    // child: getpicpro(),
-                              //     child: TextFormField(
-                              //         // controller: _detailsController,
+                                  //         onChanged: (userDocument) => picpro = userDocument
+                                  //         // {
 
-                              //        initialValue: userDocument =
-                              //             snapshot.data['picprofileUrl'].toString(),
-                              //         // initialValue: 'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=7d6c9039-4a56-4bcc-8998-c82b41557ac9',
-                              //         // userDocument['picprofileUrl'],
-                              //         // onSaved: (input) => _password = input,
-                              //       //  obscureText: true,
-                              //         //  value = userDocument,
-                              //         //  onChanged: (input) => _details = input,
-
-                              //         onChanged: (userDocument) => picpro = userDocument
-                              //         // {
-
-                              //         //   setState(() {
-                              //         //     userDocument = snapshot.data['picprofileUrl'].toString();
-                              //         //     initialValue = userDocument;
-                              //         //     this._picpro = initialValue;
-                              //         //   });
-                              //         // }
-                              //         // {
-                              //         //   setState(() {
-                              //         //     this._picpro = initialValue;
-                              //         //   });
-                              //         // }
-                              //         ),
-                              //  ),
-                            ])),
-                      ),
-                      SizedBox(height: 20.0),
-                      Container(
-                        margin: EdgeInsets.only(bottom: 40),
-                        constraints:
-                            BoxConstraints.expand(height: 55, width: 340),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16),
-                              color: Color(0xff5A45A5)),
-                          child: FlatButton(
-                            onPressed: _submit,
-
-                            // onPressed: _submit,
-                            child: Text('ยืนยัน',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Kanit',
-                                  fontSize: 22,
-                                )),
+                                  //         //   setState(() {
+                                  //         //     userDocument = snapshot.data['picprofileUrl'].toString();
+                                  //         //     initialValue = userDocument;
+                                  //         //     this._picpro = initialValue;
+                                  //         //   });
+                                  //         // }
+                                  //         // {
+                                  //         //   setState(() {
+                                  //         //     this._picpro = initialValue;
+                                  //         //   });
+                                  //         // }
+                                  //         ),
+                                  //  ),
+                                ])),
                           ),
-                        ),
+                          SizedBox(height: 20.0),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 40),
+                            constraints:
+                                BoxConstraints.expand(height: 55, width: 340),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Color(0xff5A45A5)),
+                              child: FlatButton(
+                                onPressed: _submit,
+
+                                // onPressed: _submit,
+                                child: Text('ยืนยัน',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Kanit',
+                                      fontSize: 22,
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              );
-            }
-          }),
+                );
+              }
+            }),
+      ),
     );
   }
 }

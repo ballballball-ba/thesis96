@@ -153,6 +153,7 @@ class _ListPage2State extends State<ListPage2> {
                                                     .data['picpro']),
                                           ),
                                         ),
+                                        
                                         Row(
                                           children: <Widget>[
                                             Text(

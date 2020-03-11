@@ -848,7 +848,7 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),
               title: new Text(
-                "ยืนยันการร่วมเดินทาง",
+                "ยืนยันการแชร์การเดินทาง เสร็จสิ้น",
                 style: TextStyle(
                     fontFamily: 'Kanit',
                     fontSize: 18,
@@ -858,7 +858,7 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
               content: Column(
                 children: <Widget>[
                   Text(
-                    "ตรวจสอบรายละเอียดได้ที่ 'การแชร์ของฉัน'",
+                    "การแชร์การเดินทาง เสร็จสิ้น",
                     style: TextStyle(fontFamily: 'Kanit', color: orage1),
                   ),
                   Icon(FontAwesomeIcons.spinner, size: 40, color: orage1)

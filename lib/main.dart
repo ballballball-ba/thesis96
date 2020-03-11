@@ -7,6 +7,7 @@ import 'package:mythesis96/bt_bar/porfile.dart';
 import 'package:mythesis96/feed_home.dart';
 import 'package:mythesis96/login.dart';
 import 'package:mythesis96/m/user_data.dart';
+import 'package:mythesis96/m/userlocation.dart';
 import 'package:mythesis96/signup.dart';
 import 'package:provider/provider.dart';
 
@@ -44,9 +45,7 @@ void main() => runApp(MultiProvider(
         ChangeNotifierProvider(
           builder: (context) => ShareNotifierrequest2(),
         ),
-        // ChangeNotifierProvider(
-        //   builder: (context) => Notisharedetails(),
-        // ),
+        
       ],
       child: MyApp(),
     ));
@@ -59,6 +58,7 @@ class MyApp extends StatelessWidget {
         if (snapshot.hasData) {
           //เมื่อเข้าแอพมาก็จะเรียก provider มาใช้
           Provider.of<Userdata>(context).currentUserID = snapshot.data.uid;
+          
           // Provider.of<Paydata>(context).currentPayID = snapshot.data.uid;
           //old ยังต้องเรียกฟังชันจากหน้า home มา
           // return Home(userId: snapshot.data.uid);

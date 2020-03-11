@@ -341,7 +341,7 @@ class _DriverregisState extends State<Driverregis> {
                   child: Column(
                     children: <Widget>[
                       Text(
-                        'อัพโหลดรูปภาพเพื่อยืนยันในการชมคอนเสิร์ตของคุณ',
+                        'อัพโหลดรูปภาพเพื่อยืนยัน',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                           fontFamily: 'Kanit',
@@ -350,7 +350,7 @@ class _DriverregisState extends State<Driverregis> {
                             fontWeight: FontWeight.bold),
                       ),Padding(padding: EdgeInsets.only(top: 10)),
                       Text(
-                        'เช่น รูปบัตรคอนเสิร์ตหรือรูปบรรยากาศคอนเสิร์ตหรืออื่นๆ',
+                        'เช่น รูปบัตรคอนเสิร์ตหรือรูปบรรยากาศคอนเสิร์ต/ ป้ายภาษีรถยนต์ของคุณ หรืออื่น ๆ',
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontSize: 13,

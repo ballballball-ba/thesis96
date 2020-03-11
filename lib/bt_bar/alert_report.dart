@@ -5,6 +5,7 @@ import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/report.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
+import 'package:mythesis96/m/userlocation.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -20,6 +21,7 @@ class _AlertreportState extends State<Alertreport> {
   final Color purple2 = Color(0xff2A1D59);
   final Color orange1 = Color(0xffF2551D);
   String _dropDownValue;
+
   final _formkey = GlobalKey<FormState>();
   TextEditingController _textController = TextEditingController();
   TextEditingController _endTimeController = TextEditingController();
@@ -27,9 +29,17 @@ class _AlertreportState extends State<Alertreport> {
   String _text = '';
   String _date = '';
   String _time = '';
-String _bank = '';
-  // String readTimestamp;
-  //String _time = '';
+  String _bank = '';
+  String _location = '';
+  //  @override
+  // Widget build2(BuildContext context) {
+  //   var userlocation = Provider.of<UserLocation>(context);
+  //   return Center(
+  //     child: Container(
+  //       child: Text('==== ${userlocation.latitude},==== ${userlocation.longtitude}'),
+  //     ),
+  //   );
+  // }
 
   _submit() async {
     if (_formkey.currentState.validate()) {
@@ -82,6 +92,8 @@ String _bank = '';
         text: _text,
         date: _date,
         time: _time,
+        location1: Provider.of<UserLocation>(context).latitude.toString(),
+        location2: Provider.of<UserLocation>(context).longtitude.toString(),
 
         //  timestamp: DateTime.now().toString(),
         timestamp: DateFormat("dd-MM-yyyy hh:mm:ss").format(now),
@@ -118,6 +130,7 @@ String _bank = '';
 
   @override
   Widget build(BuildContext context) {
+ 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
@@ -202,17 +215,17 @@ String _bank = '';
                               () {
                                 _dropDownValue = val;
                                 if (val.isEmpty) {
-                                  _topic ='แจ้งเหตุฉุกเฉิน - ตำรวจ';
-                                 
+                                  _topic = 'แจ้งเหตุฉุกเฉิน - ตำรวจ';
                                 } else {
                                   _topic = val;
                                 }
-                                
                               },
                             );
                           },
                           hint: _dropDownValue == null
-                              ? Text('แจ้งเหตุฉุกเฉิน - ตำรวจ',)
+                              ? Text(
+                                  'แจ้งเหตุฉุกเฉิน - ตำรวจ',
+                                )
                               : Text(
                                   _dropDownValue,
                                   style: TextStyle(color: purple2),
@@ -220,69 +233,69 @@ String _bank = '';
                         ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(left: 15, right: 15),
-                      child: DropdownButton(
-                        underline: SizedBox(),
-                        isExpanded: true,
-                        iconSize: 30.0,
-                        style: TextStyle(color: purple2),
-                        items: [
-                          'กรุงไทย - KTB',
-                          'ไทยพาณิชย์ - SCB',
-                          'กสิกรไทย - KBANK',
-                          'กรุงเทพ - BBL',
-                          'กรุงศรีอยุธยา - BAY',
-                          'ออมสิน - GSB',
-                          'ทหารไทย - TMB',
-                          'ซีไอเอ็มบี - CIMBT',
-                          'ธนชาต - TBANK',
-                          'ซิตี้แบงค์ - CITI',
-                          'เกียรตินาคิน - KK',
-                          'สแตนดาร์ดฯ - SCBT',
-                          'ยูโอบี - UOBT',
-                          'ทิสโก้ - TISCO',
-                          'แลนด์ แอนด์ เฮ้าส์ - LHBANK',
-                          'ธ.ก.ส. - BAAC',
-                          'ธนาคารสงเคราะห์ - GHB',
-                          'เอชเอสบีซี - HSBC',
-                          'ไอซีบีซี (ไทย) - ICBCT',
-                          'อิสลาม - ISBT',
-                          'มิซูโอ - MIZUHO',
-                          'ซูมิโตโม มิตซุย - SMBC',
-                          'ไทยเครดิต - TCR',
-                        ].map(
-                          (val) {
-                            return DropdownMenuItem<String>(
-                              value: val,
-                              child: Text(val),
-                            );
-                          },
-                        ).toList(),
-                        onChanged: (val) {
-                          _dropDownValue = val;
-                          print(_dropDownValue);
-                          setState(
-                            () {
-                              _dropDownValue = val;
-                              if (val.isEmpty) {
-                                _bank = 'กรุงไทย - KTB';
-                              } else {
-                                _bank = val;
-                              }
-                            },
-                          );
-                        },
-                        hint: _dropDownValue == null
-                            ? Text(
-                                '1',
-                              )
-                            : Text(
-                                _dropDownValue,
-                                style: TextStyle(color: purple2),
-                              ),
-                      ),
-                    ),
+                    // Container(
+                    //   margin: EdgeInsets.only(left: 15, right: 15),
+                    //   child: DropdownButton(
+                    //     underline: SizedBox(),
+                    //     isExpanded: true,
+                    //     iconSize: 30.0,
+                    //     style: TextStyle(color: purple2),
+                    //     items: [
+                    //       'กรุงไทย - KTB',
+                    //       'ไทยพาณิชย์ - SCB',
+                    //       'กสิกรไทย - KBANK',
+                    //       'กรุงเทพ - BBL',
+                    //       'กรุงศรีอยุธยา - BAY',
+                    //       'ออมสิน - GSB',
+                    //       'ทหารไทย - TMB',
+                    //       'ซีไอเอ็มบี - CIMBT',
+                    //       'ธนชาต - TBANK',
+                    //       'ซิตี้แบงค์ - CITI',
+                    //       'เกียรตินาคิน - KK',
+                    //       'สแตนดาร์ดฯ - SCBT',
+                    //       'ยูโอบี - UOBT',
+                    //       'ทิสโก้ - TISCO',
+                    //       'แลนด์ แอนด์ เฮ้าส์ - LHBANK',
+                    //       'ธ.ก.ส. - BAAC',
+                    //       'ธนาคารสงเคราะห์ - GHB',
+                    //       'เอชเอสบีซี - HSBC',
+                    //       'ไอซีบีซี (ไทย) - ICBCT',
+                    //       'อิสลาม - ISBT',
+                    //       'มิซูโอ - MIZUHO',
+                    //       'ซูมิโตโม มิตซุย - SMBC',
+                    //       'ไทยเครดิต - TCR',
+                    //     ].map(
+                    //       (val) {
+                    //         return DropdownMenuItem<String>(
+                    //           value: val,
+                    //           child: Text(val),
+                    //         );
+                    //       },
+                    //     ).toList(),
+                    //     onChanged: (val) {
+                    //       _dropDownValue = val;
+                    //       print(_dropDownValue);
+                    //       setState(
+                    //         () {
+                    //           _dropDownValue = val;
+                    //           if (val.isEmpty) {
+                    //             _bank = 'กรุงไทย - KTB';
+                    //           } else {
+                    //             _bank = val;
+                    //           }
+                    //         },
+                    //       );
+                    //     },
+                    //     hint: _dropDownValue == null
+                    //         ? Text(
+                    //             '1',
+                    //           )
+                    //         : Text(
+                    //             _dropDownValue,
+                    //             style: TextStyle(color: purple2),
+                    //           ),
+                    //   ),
+                    // ),
                     Container(
                       height: 150,
                       decoration: BoxDecoration(
@@ -306,7 +319,7 @@ String _bank = '';
                         controller: _textController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
-                          prefixIcon: Icon(Icons.place, color: orange1),
+                          prefixIcon: Icon(Icons.textsms, color: orange1),
                           hintText: 'ข้อความ',
                           hintStyle: TextStyle(
                             color: orange1, fontFamily: 'Kanit',

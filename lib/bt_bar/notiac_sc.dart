@@ -352,6 +352,16 @@ class _NotiacState extends State<Notiac> {
     final List<DocumentSnapshot> documents = result.documents;
     return documents.length == 1;
   }
+  Future<bool> doesNameAlreadyExist2(String name) async {
+    final QuerySnapshot result = await Firestore.instance
+        .collection('Notishare')
+        .where('AuthorId', isEqualTo: 'FXqc0t1icbcTDGTgPs5maJkUiOn1')
+        .limit(1)
+        .getDocuments();
+    final List<DocumentSnapshot> documents = result.documents;
+    return documents.length == 1;
+  }
+
 
   //  future: doesNameAlreadyExist('1'),
   //       builder: (context, AsyncSnapshot<bool> result) {
@@ -427,6 +437,87 @@ class _NotiacState extends State<Notiac> {
                         centerTitle: true,
                       ),
                       body: ListPage1(),
+                    );
+                  return Scaffold(
+                    resizeToAvoidBottomPadding: false,
+                    backgroundColor: Colors.white,
+                    appBar: AppBar(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      // leading: new IconButton(
+                      //  // icon: new Icon(Icons.arrow_back_ios, color: purple2),
+                      //   onPressed: () => Navigator.of(context).pop(),
+                      // ),
+                      title: Text("แจ้งเตือน",
+                          style: TextStyle(
+                            fontFamily: 'Kanit',
+                            fontWeight: FontWeight.w600,
+                            color: purple2,
+                          )),
+                      centerTitle: true,
+                    ),
+                    body: Center(
+                      child: Text('ไม่มีการแจ้งเตือน',
+                          style: TextStyle(
+                            fontFamily: 'Kanit',
+                            color: purple2,
+                          )),
+                    ),
+                  );
+                });
+                //*********************คนชับ***************************** */
+          } else if (Provider.of<Userdata>(context).currentUserID ==
+              'A2jLoXTYDMRTyJTaTfKWhHQfRAS2') {
+            return FutureBuilder(
+                future: doesNameAlreadyExist2('1'),
+                builder: (context, AsyncSnapshot<bool> result) {
+                  if (!result.hasData)
+                    return Scaffold(
+                      resizeToAvoidBottomPadding: false,
+                      backgroundColor: Colors.white,
+                      appBar: AppBar(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        // leading: new IconButton(
+                        //  // icon: new Icon(Icons.arrow_back_ios, color: purple2),
+                        //   onPressed: () => Navigator.of(context).pop(),
+                        // ),
+                        title: Text("แจ้งเตือน",
+                            style: TextStyle(
+                              fontFamily: 'Kanit',
+                              fontWeight: FontWeight.w600,
+                              color: purple2,
+                            )),
+                        centerTitle: true,
+                      ),
+                      body: Center(
+                        child: Text('ไม่มีการแจ้งเตือน',
+                            style: TextStyle(
+                              fontFamily: 'Kanit',
+                              color: purple2,
+                            )),
+                      ),
+                    );
+                  if (result.data)
+                    return Scaffold(
+                      resizeToAvoidBottomPadding: false,
+                      backgroundColor: Colors.white,
+                      appBar: AppBar(
+                        backgroundColor: Colors.transparent,
+                        elevation: 0,
+                        // leading: new IconButton(
+                        //  // icon: new Icon(Icons.arrow_back_ios, color: purple2),
+                        //   onPressed: () => Navigator.of(context).pop(),
+                        // ),
+                        title: Text("แจ้งเตือน",
+                            style: TextStyle(
+                              fontFamily: 'Kanit',
+                              fontWeight: FontWeight.w600,
+                              color: purple2,
+                            )),
+                        centerTitle: true,
+                      ),
+                      body: ListPage2pay(),
                     );
                   return Scaffold(
                     resizeToAvoidBottomPadding: false,
@@ -598,7 +689,119 @@ class _ListPage1State extends State<ListPage1> {
     );
   }
 }
+//************************list 22222222222222222222222222 */
+class ListPage2pay extends StatefulWidget {
+  @override
+  _ListPage2payState createState() => _ListPage2payState();
+}
 
+class _ListPage2payState extends State<ListPage2pay> {
+  Future _data;
+
+  Future getPosts() async {
+    var firestore = Firestore.instance;
+
+    QuerySnapshot qn = await firestore
+        .collection('Notishare')
+        // .where('Topic', isEqualTo: 'แจ้งเหตุฉุกเฉิน')
+        .getDocuments();
+    return qn.documents;
+  }
+
+  navigatorToDetail(DocumentSnapshot post) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Payment(
+                  post: post,
+                )));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _data = getPosts();
+  }
+
+  final Color purple1 = Color(0xff5A45A5);
+  final Color purple2 = Color(0xff2A1D59);
+  final Color purple3 = Color(0xffBDAEF2);
+  final Color orage1 = Color(0xffF2551D);
+  final Color purple4 = Color(0xffA99CD9);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FutureBuilder(
+          future: _data,
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Text('กำลังโหลดข้อมูล'),
+              );
+            } else if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (_, index) {
+                    return GestureDetector(
+                        onTap: () => navigatorToDetail(snapshot.data[index]),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                          width: 400,
+                          height: 65,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.white,
+                          ),
+                          child: Container(
+                              child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              //  Text('User',
+                              //     style: TextStyle(
+                              //         fontFamily: 'Kanit',
+                              //         fontSize: 14,
+                              //         color: orage1)),
+                              Text('แจ้งเตือน',
+                                  style: TextStyle(
+                                      fontFamily: 'Kanit',
+                                      fontSize: 14,
+                                      color: Colors.black38)),
+                              Text('เสร็จสิ้นการแชร์ (กรุณากรอกขอมูลเพื่อรับเงิน)',
+                                  style: TextStyle(
+                                      fontFamily: 'Kanit',
+                                      fontSize: 16,
+                                      color: Color(0xff5A45A5))),
+                              Text(
+                                  'กรุณากรอกขอมูลเพื่อรับเงินสำหรับการแชร์ของคุณ',
+                                  style: TextStyle(
+                                      fontFamily: 'Kanit',
+                                      fontSize: 12,
+                                      color: Colors.black38)),
+                            ],
+                          )),
+                        ));
+                    // ListTile(
+                    //   title: Text(snapshot.data[index].data['Topic']),
+                    //   onTap: () => navigatorToDetail(snapshot.data[index]),
+                    // );
+                  });
+            } else {
+              return Center(
+                child: Text(
+                  'ไม่มีเหตุฉุกเฉิน',
+                  style: TextStyle(
+                    fontFamily: 'Kanit',
+                    color: purple2,
+                  ),
+                ),
+              );
+            }
+          }),
+    );
+  }
+}
+//**************************************************************** */
 class DetailPage extends StatefulWidget {
   final DocumentSnapshot post;
   final String userpay;
@@ -718,7 +921,7 @@ class _DetailPageState extends State<DetailPage> {
     var allint = myInt * (myInt2 + myInt3);
     var myresult = allint * 25 / 100;
 
-    String _money = myresult.toString();
+    String _money = allint.toString();
     String _shareid = widget.post.documentID;
     _submit() async {
       if (_formkey.currentState.validate()) {
@@ -728,7 +931,7 @@ class _DetailPageState extends State<DetailPage> {
           return Home();
           // return Payment();
         }));
-
+_deleteData();
         // _showDialog();
         // _showapipay();
         FutureBuilder(
@@ -742,27 +945,7 @@ class _DetailPageState extends State<DetailPage> {
                 return CircularProgressIndicator();
               }
             });
-        // Flushbar(
-        //   flushbarStyle: FlushbarStyle.FLOATING,
-        //   backgroundColor: orange1,
-        //   boxShadows: [
-        //     BoxShadow(
-        //       color: Colors.red[800],
-        //       offset: Offset(0.0, 2.0),
-        //       blurRadius: 3.0,
-        //     )
-        //   ],
-        //   message: 'ชำระเงินเรียบร้อย',
-        //   icon: Icon(
-        //     Icons.info,
-        //     size: 28.0,
-        //     color: Colors.white,
-        //   ),
-        //   duration: Duration(seconds: 5),
-        //   //leftBarIndicatorColor: Colors.blue[300],
-        //   margin: EdgeInsets.all(8),
-        //   borderRadius: 10,
-        // )..show(context);
+       
         var now = new DateTime.now();
 
         PaymentM payment = PaymentM(
@@ -772,6 +955,7 @@ class _DetailPageState extends State<DetailPage> {
           cardname: _cardname,
           allmoney: _money,
           shareid: _shareid,
+          
           status: 'ชำระเงินเรียบร้อย',
           // endplace: _endplace,
           // price: _price,
@@ -843,6 +1027,7 @@ class _DetailPageState extends State<DetailPage> {
       //  _formkey.currentState.save();
     }
 
+
     _paydilog() async {
       if (_formkey.currentState.validate()) {
         _formkey.currentState.save();
@@ -868,6 +1053,71 @@ class _DetailPageState extends State<DetailPage> {
                     children: <Widget>[
                       Text(
                         "ยืนยันการชำระเงิน",
+                        style: TextStyle(fontFamily: 'Kanit', color: orange1),
+                      ),
+                      Icon(FontAwesomeIcons.spinner, size: 40, color: orange1)
+                    ],
+                  ),
+                  actions: <Widget>[
+                    // usually buttons at the bottom of the dialog
+                    new FlatButton(
+                      child: new Text(
+                        "ยืนยัน",
+                        style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                      ),
+                      onPressed: _submit,
+                      // onPressed: () => {print('s')},
+                      //           onPressed: () =>  Navigator.of(context)
+                      //     .push(MaterialPageRoute(builder: (BuildContext context) {
+
+                      //   return Home();
+                      //   // return Payment();
+                      // }
+                      // )
+                      // ),
+                    ),
+                    new FlatButton(
+                      child: new Text(
+                        "ยกเลิก",
+                        style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                      ),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      } else {}
+    }
+_paydilog2() async {
+      if (_formkey.currentState.validate()) {
+        _formkey.currentState.save();
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            // return object of type Dialog
+            return Center(
+              child: Container(
+                height: 271,
+                child: AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0)),
+                  title: new Text(
+                    "ยืนยันข้อมูล",
+                    style: TextStyle(
+                        fontFamily: 'Kanit',
+                        fontSize: 18,
+                        color: purple2,
+                        fontWeight: FontWeight.w600),
+                  ),
+                  content: Column(
+                    children: <Widget>[
+                      Text(
+                        "ยืนยันข้อมูล",
                         style: TextStyle(fontFamily: 'Kanit', color: orange1),
                       ),
                       Icon(FontAwesomeIcons.spinner, size: 40, color: orange1)
@@ -1134,7 +1384,6 @@ class _DetailPageState extends State<DetailPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          
                           Row(
                             children: <Widget>[
                               Text(
@@ -1179,7 +1428,7 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                               Padding(padding: EdgeInsets.only(left: 10)),
                               Text(
-                                myInt.toString(),
+                                allint.toString(),
                                 style: TextStyle(
                                   fontFamily: 'Kanit',
                                   fontWeight: FontWeight.w600,
@@ -1189,7 +1438,7 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                             ],
                           ),
-                           Text(
+                          Text(
                             'ข้อมูลบัตรของคุณ',
                             style: TextStyle(
                               fontFamily: 'Kanit',
@@ -1403,7 +1652,8 @@ class _DetailPageState extends State<DetailPage> {
               ),
             ),
           ),
-        ));
+        )
+        );
   }
 
   final databaseReference = Firestore.instance;
