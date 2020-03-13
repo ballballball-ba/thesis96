@@ -20,7 +20,8 @@ import 'package:provider/provider.dart';
 import 'package:mythesis96/firebase/database_up.dart';
 
 class Sharefeeds extends StatefulWidget {
-  Sharefeeds({Key key}) : super(key: key);
+  final String userId;
+  Sharefeeds({Key key,this.userId}) : super(key: key);
 
   @override
   _SharefeedsState createState() => _SharefeedsState();
@@ -164,7 +165,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[0],
@@ -179,7 +180,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[1],
@@ -194,7 +195,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[2],
@@ -209,7 +210,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[3],
@@ -224,7 +225,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[4],
@@ -239,7 +240,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[5],
@@ -254,7 +255,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[6],
@@ -269,7 +270,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[7],
@@ -284,7 +285,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[8],
@@ -299,7 +300,7 @@ class _SharefeedsState extends State<Sharefeeds>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Tab(
-                          icon: Icon(FontAwesomeIcons.music),
+                          icon: Icon(FontAwesomeIcons.car),
                         ),
                         Padding(padding: EdgeInsets.only(left: 10)),
                         Text(connamebar[9],

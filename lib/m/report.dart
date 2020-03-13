@@ -27,7 +27,7 @@ class Report {
     return Report(
       id2: doc.documentID,
       topic: doc['Topic'],
-      text: doc['Text'],
+      text: doc['message'],
       date: doc['Date'],
       time: doc['Time'],
       location1: doc['Latitude'],

@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,23 +10,370 @@ import 'package:mythesis96/bt_bar/homemain.dart';
 import 'package:intl/intl.dart';
 import 'package:mythesis96/bt_bar/notifier_share.dart';
 import 'package:mythesis96/bt_bar/payment.dart';
-import 'package:mythesis96/firebase/constance.dart';
 import 'package:mythesis96/firebase/database_up.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:mythesis96/m/user_data.dart';
-import 'package:mythesis96/m/user_m.dart';
 import 'package:provider/provider.dart';
 
-class DetailShare extends StatefulWidget {
-  final Share concertname;
-  final String userId;
-  // DetailShare({Key key}) : super(key: key);
-  DetailShare({this.concertname, this.userId});
+class ListPagedetailpage2 extends StatefulWidget {
   @override
-  _DetailShareState createState() => _DetailShareState();
+  _ListPagedetailpage2State createState() => _ListPagedetailpage2State();
 }
 
-class _DetailShareState extends State<DetailShare> {
+class _ListPagedetailpage2State extends State<ListPagedetailpage2> {
+  Future _data;
+
+  Future getPosts() async {
+    var firestore = Firestore.instance;
+
+    QuerySnapshot qn = await firestore
+        .collection('Shareposts')
+        .where('Seatyou', isGreaterThanOrEqualTo: '1')
+        .getDocuments();
+    return qn.documents;
+  }
+
+  navigatorToDetail(DocumentSnapshot post) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DetailShare1(
+                  post: post,
+                )));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _data = getPosts();
+  }
+
+  final Color purple1 = Color(0xff5A45A5);
+  final Color purple2 = Color(0xff2A1D59);
+  final Color purple3 = Color(0xffBDAEF2);
+  final Color orange1 = Color(0xffF2551D);
+  final Color purple4 = Color(0xffA99CD9);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: FutureBuilder(
+          future: _data,
+          builder: (_, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: Text('กำลังโหลดข้อมูล'),
+              );
+            } else if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (_, index) {
+                    return GestureDetector(
+                      onTap: () => navigatorToDetail(snapshot.data[index]),
+                      child: Container(
+                        height: 155,
+                        margin: EdgeInsets.only(top: 20, left: 15, right: 15),
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black26,
+                                blurRadius: 4,
+                                spreadRadius: 2,
+                                offset: Offset(1, 3))
+                          ],
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                        ),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(width: 1, color: purple1),
+                                      borderRadius: BorderRadius.circular(60)),
+                                  child: CircleAvatar(
+                                    radius: 60,
+                                    backgroundColor: Colors.grey,
+                                    backgroundImage: snapshot
+                                            .data[index].data['picpro'].isEmpty
+                                        ? AssetImage(
+                                            'assets/images/user_placeholder.jpg')
+                                        : NetworkImage(snapshot
+                                            .data[index].data['picpro']),
+                                  ),
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 10)),
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      'หญิง',
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: orange1,
+                                      ),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(left: 5)),
+                                    Text(
+                                      snapshot.data[index].data['Seatyou2'],
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Text(
+                                      'ชาย',
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: orange1,
+                                      ),
+                                    ),
+                                    Padding(padding: EdgeInsets.only(left: 5)),
+                                    Text(
+                                      snapshot.data[index].data['Seatyou'],
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Padding(padding: EdgeInsets.only(left: 5)),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.music_note,
+                                        color: orange1,
+                                        size: 20,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          snapshot
+                                              .data[index].data['Concertname'],
+                                          style: TextStyle(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: purple2,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.place,
+                                        color: orange1,
+                                        size: 20,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                      ),
+                                      Text(
+                                        'จาก',
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          color: purple2,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 3),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].data['StartPlace'],
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          color: purple2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.map,
+                                        color: orange1,
+                                        size: 20,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                      ),
+                                      Text(
+                                        'ถึง',
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          color: purple2,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 3),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].data['Endplace'],
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          color: purple2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: <Widget>[
+                                      Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.airline_seat_legroom_normal,
+                                            color: orange1,
+                                            size: 20,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 5),
+                                          ),
+                                          Text(
+                                            snapshot.data[index].data['Seat'],
+                                            style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              color: purple2,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 15),
+                                          ),
+                                          Icon(
+                                            Icons.attach_money,
+                                            color: orange1,
+                                            size: 20,
+                                          ),
+                                          Text(
+                                            snapshot.data[index].data['Price'],
+                                            style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              color: purple2,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.date_range,
+                                        color: orange1,
+                                        size: 20,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                      ),
+                                      Text(
+                                        snapshot.data[index].data['Date'],
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          color: purple2,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 20),
+                                      ),
+                                      Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.access_time,
+                                            color: orange1,
+                                            size: 20,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 5),
+                                          ),
+                                          Text(
+                                            snapshot.data[index].data['Time'],
+                                            style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              color: purple2,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        FontAwesomeIcons.venusMars,
+                                        color: orange1,
+                                        size: 20,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                      ),
+                                      Text(
+                                        'ต้องการเพศ : ' +
+                                            snapshot.data[index].data['gender'],
+                                        style: TextStyle(
+                                          fontFamily: 'Kanit',
+                                          color: purple2,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                    // ListTile(
+                    //   title: Text(snapshot.data[index].data['Topic']),
+                    //   onTap: () => navigatorToDetail(snapshot.data[index]),
+                    // );
+                  });
+            } else {
+              return Center(
+                child: Text(
+                  'ไม่มีเหตุฉุกเฉิน',
+                  style: TextStyle(
+                    fontFamily: 'Kanit',
+                    color: purple2,
+                  ),
+                ),
+              );
+            }
+          }),
+    );
+  }
+}
+
+class DetailShare1 extends StatefulWidget {
+  final Share concertname;
+  final DocumentSnapshot post;
+  // DetailShare1({Key key}) : super(key: key);
+  DetailShare1({this.concertname, this.post});
+  @override
+  _DetailShare1State createState() => _DetailShare1State();
+}
+
+class _DetailShare1State extends State<DetailShare1> {
   final Color purple1 = Color(0xff5A45A5);
   final Color purple2 = Color(0xff2A1D59);
   final Color purple3 = Color(0xffBDAEF2);
@@ -34,42 +383,39 @@ class _DetailShareState extends State<DetailShare> {
   TextEditingController _maleController = TextEditingController();
   TextEditingController _femaleController = TextEditingController();
 //driver
-  String _dropDownValue = '0';
-  String _dropDownValue2 = '0';
-  String _dropDownValue3 = '0';
-  String _dropDownValue4 = '0';
+  String _dropDownValue;
+  String _dropDownValue2;
+  String _dropDownValue3;
+  String _dropDownValue4;
   String _dropDownValue5;
-
   @override
   Widget build(BuildContext context) {
-    ShareNotifier shareNotifier =
-        Provider.of<ShareNotifier>(context, listen: false);
-    String _concertname = shareNotifier.currentShare.concertname;
-    String _startplace = shareNotifier.currentShare.startplace;
-    String _endplace = shareNotifier.currentShare.endplace;
-    String _price = shareNotifier.currentShare.price;
-    String _seat = shareNotifier.currentShare.seat;
-    String _seatyou = shareNotifier.currentShare.seatyou;
-    String _seatyou2 = shareNotifier.currentShare.seatyou2;
-    String _date = shareNotifier.currentShare.date;
-    String _time = shareNotifier.currentShare.time;
-    String _details = shareNotifier.currentShare.details;
-    String _picpro = shareNotifier.currentShare.picpro;
+    String _concertname = widget.post.data['Concertname'];
+    String _startplace = widget.post.data['StartPlace'];
+    String _endplace = widget.post.data['Endplace'];
+    String _price = widget.post.data['Price'];
+    String _seat = widget.post.data['Seat'];
+    String _seatyou = widget.post.data['Seatyou'];
+    String _seatyou2 = widget.post.data['Seatyou2'];
+    String _date = widget.post.data['Date'];
+    String _time = widget.post.data['Time'];
+    String _details = widget.post.data['details'];
+    String _picpro = widget.post.data['picpro'];
 
     String _malereq = '0';
     String _femalereq = '0';
 
     ///car
-    String _brandcar = shareNotifier.currentShare.brandcar;
+    String _brandcar = widget.post.data['Brandcar'];
     // String _gencar = shareNotifier.currentShare.gencar;
-    String _color = shareNotifier.currentShare.color;
-    String _licensecar = shareNotifier.currentShare.licensecar;
-    String _authorshare = shareNotifier.currentShare.authorId;
+    String _color = widget.post.data['Color'];
+    String _licensecar = widget.post.data['licensecar'];
+    String _authorshare = widget.post.data['authorshare'];
 
     final _formkey = GlobalKey<FormState>();
 
     check() {
-      if (shareNotifier.currentShare.gender == 'ชาย') {
+      if (widget.post.data['gender'] == 'ชาย') {
         return Form(
           key: _formkey,
           child: Row(
@@ -107,7 +453,7 @@ class _DetailShareState extends State<DetailShare> {
             ],
           ),
         );
-      } else if (shareNotifier.currentShare.gender == 'หญิง') {
+      } else if (widget.post.data['gender'] == 'หญิง') {
         return Form(
           key: _formkey,
           child: Row(
@@ -252,24 +598,6 @@ class _DetailShareState extends State<DetailShare> {
       }
     }
 
-//  final databaseReference = Firestore.instance;
-//     databaseReference
-//         .collection("Users")
-//         .getDocuments()
-//         .then((QuerySnapshot snapshot) {
-//       snapshot.documents.forEach((f) => print('${f.data['NameCon']}}'));
-//       //snapshot.documents
-//       //     for (var index = 0; index < da.length; ++index) {
-//       // final value = values[index];
-//       // }
-//     });
-    final snapShot =
-        Firestore.instance.collection('Users').document().snapshots();
-    // if (snapShot.) {
-// Provider.of<User>(context).gender
-    // } else {
-    // }
-    var allreq = int.parse(_malereq) + int.parse(_femalereq);
     _presubmit() async {
       if (_formkey.currentState.validate()
           // &&  allreq > 0 && allreq <= 8
@@ -562,9 +890,7 @@ class _DetailShareState extends State<DetailShare> {
                                       Padding(
                                         padding: EdgeInsets.only(left: 30),
                                       ),
-                                      Text(
-                                          shareNotifier
-                                              .currentShare.concertname,
+                                      Text(widget.post.data['Concertname'],
                                           style: TextStyle(
                                             fontFamily: 'Kanit',
                                             color: purple1,
@@ -599,9 +925,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(
-                                              shareNotifier
-                                                  .currentShare.startplace,
+                                          Text(widget.post.data['StartPlace'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -638,9 +962,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(
-                                              shareNotifier
-                                                  .currentShare.endplace,
+                                          Text(widget.post.data['Endplace'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -679,17 +1001,13 @@ class _DetailShareState extends State<DetailShare> {
                                           ),
                                           Row(
                                             children: <Widget>[
-                                              Text(
-                                                  shareNotifier
-                                                      .currentShare.date,
+                                              Text(widget.post.data['Date'],
                                                   style: TextStyle(
                                                     fontFamily: 'Kanit',
                                                     color: purple1,
                                                   )),
                                               Text(' - '),
-                                              Text(
-                                                  shareNotifier
-                                                      .currentShare.time,
+                                              Text(widget.post.data['Time'],
                                                   style: TextStyle(
                                                     fontFamily: 'Kanit',
                                                     color: purple1,
@@ -728,7 +1046,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(shareNotifier.currentShare.price,
+                                          Text(widget.post.data['Price'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -765,9 +1083,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(
-                                              shareNotifier
-                                                  .currentShare.seatyou,
+                                          Text(widget.post.data['Seatyou'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -790,9 +1106,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(
-                                              shareNotifier
-                                                  .currentShare.seatyou2,
+                                          Text(widget.post.data['Seatyou2'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -830,7 +1144,7 @@ class _DetailShareState extends State<DetailShare> {
                                             ),
                                           ),
                                           Text(
-                                              shareNotifier.currentShare.seat
+                                              widget.post.data['Seat']
                                                   .toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
@@ -855,7 +1169,7 @@ class _DetailShareState extends State<DetailShare> {
                                             ),
                                           ),
                                           Text(
-                                              shareNotifier.currentShare.gender
+                                              widget.post.data['gender']
                                                   .toString(),
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
@@ -893,9 +1207,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(
-                                              shareNotifier
-                                                  .currentShare.brandcar,
+                                          Text(widget.post.data['Brandcar'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -917,9 +1229,7 @@ class _DetailShareState extends State<DetailShare> {
                                                 color: purple2,
                                               ),
                                             ),
-                                            Text(
-                                                shareNotifier
-                                                    .currentShare.color,
+                                            Text(widget.post.data['Color'],
                                                 style: TextStyle(
                                                   fontFamily: 'Kanit',
                                                   color: purple1,
@@ -990,9 +1300,7 @@ class _DetailShareState extends State<DetailShare> {
                                               color: purple2,
                                             ),
                                           ),
-                                          Text(
-                                              shareNotifier
-                                                  .currentShare.details,
+                                          Text(widget.post.data['details'],
                                               style: TextStyle(
                                                 fontFamily: 'Kanit',
                                                 color: purple1,
@@ -1013,9 +1321,7 @@ class _DetailShareState extends State<DetailShare> {
                                               fontWeight: FontWeight.w600)),
                                     ],
                                   ),
-
                                   check(),
-
                                   Divider()
                                   // Row(
                                   //   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1064,9 +1370,7 @@ class _DetailShareState extends State<DetailShare> {
   }
 
   license() {
-    ShareNotifier shareNotifier =
-        Provider.of<ShareNotifier>(context, listen: false);
-    if (shareNotifier.currentShare.licensecar != null) {
+    if (widget.post.data['licensecar'] != null) {
       return Row(
         children: <Widget>[
           Text('xxxxx',
@@ -1133,4 +1437,3 @@ class _DetailShareState extends State<DetailShare> {
     );
   }
 }
-//

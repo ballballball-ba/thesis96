@@ -80,6 +80,7 @@ class DatabaseSer {
       'StartPlace': sharepost.startplace,
       'Endplace': sharepost.endplace,
       'Price': sharepost.price,
+      'gender': sharepost.gender,
       'Seatyou': sharepost.seatyou,
       'Seat': sharepost.seat,
       'Seatyou2': sharepost.seatyou2,
@@ -95,6 +96,7 @@ class DatabaseSer {
       'Endplace': sharepost.endplace,
       'Price': sharepost.price,
       'Seat': sharepost.seat,
+      'gender': sharepost.gender,
       'Seatyou': sharepost.seatyou,
       'Seatyou2': sharepost.seatyou2,
       'Date': sharepost.date,
@@ -174,7 +176,7 @@ class DatabaseSer {
   static void createReport(Report report) {
     _firestore.collection('Report').add({
       'Topic': report.topic,
-      'Text': report.text,
+      'message': report.text,
       'Date': report.date,
       'Time': report.time,
       'Latitude': report.location1,

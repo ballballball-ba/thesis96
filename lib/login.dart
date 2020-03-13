@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mythesis96/Firebasemessaging/FirebaseMessaging.dart';
 import 'package:mythesis96/phone_auth.dart';
 import 'package:mythesis96/signup.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
@@ -13,14 +14,16 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formkey = GlobalKey<FormState>();
   String _email, _password;
-
-  _submit() {
+  // final PushNotificationService _pushNotificationService =
+  //     locator<PushNotificationService>();
+  _submit() async {
     if (_formkey.currentState.validate()) {
       _formkey.currentState.save();
       // Logging in the user w/ Firebase
       AuthService.login(_email, _password);
       /* print(_email);
       print(_password);*/
+      ;
     }
   }
 

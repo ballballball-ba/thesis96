@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 
 class Userdata extends ChangeNotifier{
   String currentUserID;
+   String gender;
 
 }
 

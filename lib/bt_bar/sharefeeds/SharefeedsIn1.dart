@@ -378,10 +378,11 @@ void getData() {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                     Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -400,6 +401,28 @@ void getData() {
                                     )
                                   ],
                                 ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              
                               ],
                             ),
                           ),
@@ -651,10 +674,11 @@ void getData() {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                 Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -665,7 +689,28 @@ void getData() {
                                       padding: EdgeInsets.only(left: 5),
                                     ),
                                     Text(
-                                      shareNotifier2.shareList[index].time,
+                                      shareNotifier.shareList[index].time,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
                                       style: TextStyle(
                                         fontFamily: 'Kanit',
                                         color: purple2,
@@ -925,10 +970,11 @@ void getData() {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -939,7 +985,28 @@ void getData() {
                                       padding: EdgeInsets.only(left: 5),
                                     ),
                                     Text(
-                                      shareNotifier3.shareList[index].time,
+                                      shareNotifier.shareList[index].time,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
                                       style: TextStyle(
                                         fontFamily: 'Kanit',
                                         color: purple2,
@@ -1025,7 +1092,7 @@ getShare3(ShareNotifier3 shareNotifier3) async {
   QuerySnapshot snapshot = await Firestore.instance
       .collection('Shareposts')
      // .where('Concertname', isEqualTo: '2020 IU Tour <LOVE, POEM> In Bkk')
-      
+      .where('Seatyou', isGreaterThanOrEqualTo: '1')
      .where('Date', isGreaterThanOrEqualTo: '03/01/2020')
       .where('Date', isLessThanOrEqualTo: '03/31/2020')
 //.where('Seatyou', isGreaterThanOrEqualTo: '1' == 'Date', isLessThanOrEqualTo: '03/31/2020' == 'Date' isGreaterThan: '03/01/2020')

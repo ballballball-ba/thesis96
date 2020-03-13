@@ -352,6 +352,7 @@ class _NotiacState extends State<Notiac> {
     final List<DocumentSnapshot> documents = result.documents;
     return documents.length == 1;
   }
+
   Future<bool> doesNameAlreadyExist2(String name) async {
     final QuerySnapshot result = await Firestore.instance
         .collection('Notishare')
@@ -361,7 +362,6 @@ class _NotiacState extends State<Notiac> {
     final List<DocumentSnapshot> documents = result.documents;
     return documents.length == 1;
   }
-
 
   //  future: doesNameAlreadyExist('1'),
   //       builder: (context, AsyncSnapshot<bool> result) {
@@ -465,7 +465,7 @@ class _NotiacState extends State<Notiac> {
                     ),
                   );
                 });
-                //*********************คนชับ***************************** */
+            //*********************คนชับ***************************** */
           } else if (Provider.of<Userdata>(context).currentUserID ==
               'A2jLoXTYDMRTyJTaTfKWhHQfRAS2') {
             return FutureBuilder(
@@ -661,7 +661,7 @@ class _ListPage1State extends State<ListPage1> {
                                       fontSize: 16,
                                       color: Color(0xff5A45A5))),
                               Text(
-                                  'ชำระเงินเพื่อแสดงรายละเอียดเพิ่มเติมสำหรับการเดินทาง',
+                                  'ชำระเงินเพื่อแสดงรายละเอียดเพิ่มเติมสำหรับการเดินทาง (กดเพื่อดูรายละเอียด)',
                                   style: TextStyle(
                                       fontFamily: 'Kanit',
                                       fontSize: 12,
@@ -689,6 +689,7 @@ class _ListPage1State extends State<ListPage1> {
     );
   }
 }
+
 //************************list 22222222222222222222222222 */
 class ListPage2pay extends StatefulWidget {
   @override
@@ -767,13 +768,14 @@ class _ListPage2payState extends State<ListPage2pay> {
                                       fontFamily: 'Kanit',
                                       fontSize: 14,
                                       color: Colors.black38)),
-                              Text('เสร็จสิ้นการแชร์ (กรุณากรอกขอมูลเพื่อรับเงิน)',
+                              Text(
+                                  'เสร็จสิ้นการแชร์ (กรุณากรอกขอมูลเพื่อรับเงิน)',
                                   style: TextStyle(
                                       fontFamily: 'Kanit',
                                       fontSize: 16,
                                       color: Color(0xff5A45A5))),
                               Text(
-                                  'กรุณากรอกขอมูลเพื่อรับเงินสำหรับการแชร์ของคุณ',
+                                  'กรุณากรอกขอมูลเพื่อรับเงินสำหรับการแชร์ของคุณ (กดเพื่อดูรายละเอียด)',
                                   style: TextStyle(
                                       fontFamily: 'Kanit',
                                       fontSize: 12,
@@ -801,6 +803,7 @@ class _ListPage2payState extends State<ListPage2pay> {
     );
   }
 }
+
 //**************************************************************** */
 class DetailPage extends StatefulWidget {
   final DocumentSnapshot post;
@@ -931,7 +934,7 @@ class _DetailPageState extends State<DetailPage> {
           return Home();
           // return Payment();
         }));
-_deleteData();
+        _deleteData();
         // _showDialog();
         // _showapipay();
         FutureBuilder(
@@ -945,7 +948,7 @@ _deleteData();
                 return CircularProgressIndicator();
               }
             });
-       
+
         var now = new DateTime.now();
 
         PaymentM payment = PaymentM(
@@ -955,7 +958,7 @@ _deleteData();
           cardname: _cardname,
           allmoney: _money,
           shareid: _shareid,
-          
+
           status: 'ชำระเงินเรียบร้อย',
           // endplace: _endplace,
           // price: _price,
@@ -1027,7 +1030,6 @@ _deleteData();
       //  _formkey.currentState.save();
     }
 
-
     _paydilog() async {
       if (_formkey.currentState.validate()) {
         _formkey.currentState.save();
@@ -1093,7 +1095,8 @@ _deleteData();
         );
       } else {}
     }
-_paydilog2() async {
+
+    _paydilog2() async {
       if (_formkey.currentState.validate()) {
         _formkey.currentState.save();
         showDialog(
@@ -1652,8 +1655,7 @@ _paydilog2() async {
               ),
             ),
           ),
-        )
-        );
+        ));
   }
 
   final databaseReference = Firestore.instance;

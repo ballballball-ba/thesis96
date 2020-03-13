@@ -49,7 +49,8 @@ class Feedhome extends StatefulWidget {
   static final String id = 'feed_home';
   final String currentUserID;
   final String userId;
-  Feedhome({this.currentUserID, this.userId});
+  final String gender;
+  Feedhome({this.currentUserID, this.userId,this.gender});
 
   @override
   _FeedhomeState createState() => _FeedhomeState();

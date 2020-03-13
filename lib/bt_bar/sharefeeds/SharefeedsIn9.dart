@@ -393,10 +393,11 @@ class _SharefeedsIn9State extends State<SharefeedsIn9> {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                 Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -408,6 +409,27 @@ class _SharefeedsIn9State extends State<SharefeedsIn9> {
                                     ),
                                     Text(
                                       shareNotifier.shareList[index].time,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
                                       style: TextStyle(
                                         fontFamily: 'Kanit',
                                         color: purple2,
@@ -659,10 +681,11 @@ class _SharefeedsIn9State extends State<SharefeedsIn9> {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                  Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -673,7 +696,28 @@ class _SharefeedsIn9State extends State<SharefeedsIn9> {
                                       padding: EdgeInsets.only(left: 5),
                                     ),
                                     Text(
-                                      shareNotifier2.shareList[index].time,
+                                      shareNotifier.shareList[index].time,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
                                       style: TextStyle(
                                         fontFamily: 'Kanit',
                                         color: purple2,
@@ -926,10 +970,11 @@ class _SharefeedsIn9State extends State<SharefeedsIn9> {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                 Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -940,7 +985,28 @@ class _SharefeedsIn9State extends State<SharefeedsIn9> {
                                       padding: EdgeInsets.only(left: 5),
                                     ),
                                     Text(
-                                      shareNotifier3.shareList[index].time,
+                                      shareNotifier.shareList[index].time,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
                                       style: TextStyle(
                                         fontFamily: 'Kanit',
                                         color: purple2,

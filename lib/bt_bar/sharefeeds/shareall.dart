@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mythesis96/bt_bar/detail_share.dart';
 import 'package:mythesis96/bt_bar/notifier_share.dart';
+import 'package:mythesis96/bt_bar/sharefeeds/details1.dart';
+import 'package:mythesis96/bt_bar/sharefeeds/details2.dart';
 import 'package:mythesis96/m/share_posts.dart';
 import 'package:provider/provider.dart';
 import 'package:mythesis96/firebase/database_up.dart';
@@ -394,10 +396,11 @@ class _ShareallState extends State<Shareall> {
                                         fontFamily: 'Kanit',
                                         color: purple2,
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Row(
+                                    ),
+                                     Padding(
+                                      padding: EdgeInsets.only(left: 20),
+                                    ),
+                                     Row(
                                   children: <Widget>[
                                     Icon(
                                       Icons.access_time,
@@ -409,6 +412,27 @@ class _ShareallState extends State<Shareall> {
                                     ),
                                     Text(
                                       shareNotifier.shareList[index].time,
+                                      style: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        color: purple2,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                  ],
+                                ),
+                               Row(
+                                  children: <Widget>[
+                                    Icon(
+                                      FontAwesomeIcons.venusMars,
+                                      color: orange1,
+                                      size: 20,
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                    ),
+                                    Text(
+                                      'ต้องการเพศ : '+shareNotifier.shareList[index].gender,
                                       style: TextStyle(
                                         fontFamily: 'Kanit',
                                         color: purple2,
@@ -433,551 +457,282 @@ class _ShareallState extends State<Shareall> {
               ),
               //  allshare(),
               //*****************2222222222222222222***************************************************** */
-              ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      shareNotifier2.currentShare =
-                          shareNotifier2.shareList[index];
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return DetailShare();
-                      }));
-                    },
-                    child: Container(
-                      height: 155,
-                      margin: EdgeInsets.only(top: 20, left: 15, right: 15),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 4,
-                              spreadRadius: 2,
-                              offset: Offset(1, 3))
-                        ],
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                               Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(width: 1, color: purple1),
-                                    borderRadius: BorderRadius.circular(60)),
-                                child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundColor: Colors.grey,
-                                  backgroundImage: shareNotifier2
-                                          .shareList[index].picpro.isEmpty
-                                      ? AssetImage(
-                                          'assets/images/user_placeholder.jpg')
-                                      : NetworkImage(shareNotifier2
-                                          .shareList[index].picpro),
-                                ),
-                               
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 10)),
-                              Row(
-                                children: <Widget>[
-                                  Text(
-                                    'หญิง',
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: orange1,
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 5)),
-                                  Text(
-                                    shareNotifier2.shareList[index].seatyou2,
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: purple2,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Text(
-                                    'ชาย',
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: orange1,
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 5)),
-                                  Text(
-                                    shareNotifier2.shareList[index].seatyou,
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: purple2,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 5)),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.music_note,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                        shareNotifier2
-                                            .shareList[index].concertname,
-                                        style: TextStyle(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: purple2,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.place,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      'จาก',
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 3),
-                                    ),
-                                    Text(
-                                      shareNotifier2
-                                          .shareList[index].startplace,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.map,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      'ถึง',
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 3),
-                                    ),
-                                    Text(
-                                      shareNotifier2.shareList[index].endplace,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.airline_seat_legroom_normal,
-                                          color: orange1,
-                                          size: 20,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 5),
-                                        ),
-                                        Text(
-                                          shareNotifier2.shareList[index].seat,
-                                          style: TextStyle(
-                                            fontFamily: 'Kanit',
-                                            color: purple2,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 15),
-                                        ),
-                                        Icon(
-                                          Icons.attach_money,
-                                          color: orange1,
-                                          size: 20,
-                                        ),
-                                        Text(
-                                          shareNotifier2.shareList[index].price,
-                                          style: TextStyle(
-                                            fontFamily: 'Kanit',
-                                            color: purple2,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.date_range,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      shareNotifier2.shareList[index].date,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.access_time,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      shareNotifier2.shareList[index].time,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                itemCount: shareNotifier2.shareList.length,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider(
-                    color: Colors.white,
-                  );
-                },
-              ),
+              ListPagedetail1(),
 
               ///*************333333333333333333333333333333333333333333333 */
+              ListPagedetailpage2()
               // Icon(Icons.ac_unit)
-              ListView.separated(
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      shareNotifier3.currentShare =
-                          shareNotifier3.shareList[index];
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return DetailShare();
-                      }));
-                    },
-                    child: Container(
-                      height: 155,
-                      margin: EdgeInsets.only(top: 20, left: 15, right: 15),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 4,
-                              spreadRadius: 2,
-                              offset: Offset(1, 3))
-                        ],
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                      ),
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                          Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(width: 1, color: purple1),
-                                    borderRadius: BorderRadius.circular(60)),
-                                child: CircleAvatar(
-                                  radius: 60,
-                                  backgroundColor: Colors.grey,
-                                  backgroundImage: shareNotifier3
-                                          .shareList[index].picpro.isEmpty
-                                      ? AssetImage(
-                                          'assets/images/user_placeholder.jpg')
-                                      : NetworkImage(shareNotifier3
-                                          .shareList[index].picpro),
-                                ),
+              // ListView.separated(
+              //   itemBuilder: (BuildContext context, int index) {
+              //     return GestureDetector(
+              //       onTap: () {
+              //         shareNotifier3.currentShare =
+              //             shareNotifier3.shareList[index];
+              //         Navigator.of(context).push(
+              //             MaterialPageRoute(builder: (BuildContext context) {
+              //           return DetailShare();
+              //         }));
+              //       },
+              //       child: Container(
+              //         height: 155,
+              //         margin: EdgeInsets.only(top: 20, left: 15, right: 15),
+              //         decoration: BoxDecoration(
+              //           boxShadow: [
+              //             BoxShadow(
+              //                 color: Colors.black26,
+              //                 blurRadius: 4,
+              //                 spreadRadius: 2,
+              //                 offset: Offset(1, 3))
+              //           ],
+              //           borderRadius: BorderRadius.circular(20),
+              //           color: Colors.white,
+              //         ),
+              //         padding:
+              //             EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+              //         child: Row(
+              //           crossAxisAlignment: CrossAxisAlignment.start,
+              //           children: <Widget>[
+              //             Column(
+              //               children: <Widget>[
+              //             Container(
+              //                   width: 80,
+              //                   height: 80,
+              //                   decoration: BoxDecoration(
+              //                       border:
+              //                           Border.all(width: 1, color: purple1),
+              //                       borderRadius: BorderRadius.circular(60)),
+              //                   child: CircleAvatar(
+              //                     radius: 60,
+              //                     backgroundColor: Colors.grey,
+              //                     backgroundImage: shareNotifier3
+              //                             .shareList[index].picpro.isEmpty
+              //                         ? AssetImage(
+              //                             'assets/images/user_placeholder.jpg')
+              //                         : NetworkImage(shareNotifier3
+              //                             .shareList[index].picpro),
+              //                   ),
                                
-                              ),
-                              Padding(padding: EdgeInsets.only(top: 10)),
-                              Row(
-                                children: <Widget>[
-                                  Text(
-                                    'หญิง',
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: orange1,
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 5)),
-                                  Text(
-                                    shareNotifier3.shareList[index].seatyou2,
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: purple2,
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Text(
-                                    'ชาย',
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: orange1,
-                                    ),
-                                  ),
-                                  Padding(padding: EdgeInsets.only(left: 5)),
-                                  Text(
-                                    shareNotifier3.shareList[index].seatyou,
-                                    style: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      color: purple2,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Padding(padding: EdgeInsets.only(left: 5)),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.music_note,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Flexible(
-                                      child: Text(
-                                        shareNotifier3
-                                            .shareList[index].concertname,
-                                        style: TextStyle(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: purple2,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.place,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      'จาก',
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 3),
-                                    ),
-                                    Text(
-                                      shareNotifier3
-                                          .shareList[index].startplace,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.map,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      'ถึง',
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 3),
-                                    ),
-                                    Text(
-                                      shareNotifier3.shareList[index].endplace,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Column(
-                                  children: <Widget>[
-                                    Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.airline_seat_legroom_normal,
-                                          color: orange1,
-                                          size: 20,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 5),
-                                        ),
-                                        Text(
-                                          shareNotifier3.shareList[index].seat,
-                                          style: TextStyle(
-                                            fontFamily: 'Kanit',
-                                            color: purple2,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 15),
-                                        ),
-                                        Icon(
-                                          Icons.attach_money,
-                                          color: orange1,
-                                          size: 20,
-                                        ),
-                                        Text(
-                                          shareNotifier3.shareList[index].price,
-                                          style: TextStyle(
-                                            fontFamily: 'Kanit',
-                                            color: purple2,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.date_range,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      shareNotifier3.shareList[index].date,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.access_time,
-                                      color: orange1,
-                                      size: 20,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsets.only(left: 5),
-                                    ),
-                                    Text(
-                                      shareNotifier3.shareList[index].time,
-                                      style: TextStyle(
-                                        fontFamily: 'Kanit',
-                                        color: purple2,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                itemCount: shareNotifier3.shareList.length,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider(
-                    color: Colors.white,
-                  );
-                },
-              ),
+              //                 ),
+              //                 Padding(padding: EdgeInsets.only(top: 10)),
+              //                 Row(
+              //                   children: <Widget>[
+              //                     Text(
+              //                       'หญิง',
+              //                       style: TextStyle(
+              //                         fontFamily: 'Kanit',
+              //                         color: orange1,
+              //                       ),
+              //                     ),
+              //                     Padding(padding: EdgeInsets.only(left: 5)),
+              //                     Text(
+              //                       shareNotifier3.shareList[index].seatyou2,
+              //                       style: TextStyle(
+              //                         fontFamily: 'Kanit',
+              //                         color: purple2,
+              //                       ),
+              //                     )
+              //                   ],
+              //                 ),
+              //                 Row(
+              //                   children: <Widget>[
+              //                     Text(
+              //                       'ชาย',
+              //                       style: TextStyle(
+              //                         fontFamily: 'Kanit',
+              //                         color: orange1,
+              //                       ),
+              //                     ),
+              //                     Padding(padding: EdgeInsets.only(left: 5)),
+              //                     Text(
+              //                       shareNotifier3.shareList[index].seatyou,
+              //                       style: TextStyle(
+              //                         fontFamily: 'Kanit',
+              //                         color: purple2,
+              //                       ),
+              //                     )
+              //                   ],
+              //                 ),
+              //               ],
+              //             ),
+              //             Padding(padding: EdgeInsets.only(left: 5)),
+              //             Expanded(
+              //               child: Column(
+              //                 crossAxisAlignment: CrossAxisAlignment.start,
+              //                 children: <Widget>[
+              //                   Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.music_note,
+              //                         color: orange1,
+              //                         size: 20,
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 5),
+              //                       ),
+              //                       Flexible(
+              //                         child: Text(
+              //                           shareNotifier3
+              //                               .shareList[index].concertname,
+              //                           style: TextStyle(
+              //                             fontFamily: 'Kanit',
+              //                             fontSize: 14,
+              //                             fontWeight: FontWeight.w600,
+              //                             color: purple2,
+              //                           ),
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                   Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.place,
+              //                         color: orange1,
+              //                         size: 20,
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 5),
+              //                       ),
+              //                       Text(
+              //                         'จาก',
+              //                         style: TextStyle(
+              //                           fontFamily: 'Kanit',
+              //                           color: purple2,
+              //                         ),
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 3),
+              //                       ),
+              //                       Text(
+              //                         shareNotifier3
+              //                             .shareList[index].startplace,
+              //                         style: TextStyle(
+              //                           fontFamily: 'Kanit',
+              //                           color: purple2,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                   Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.map,
+              //                         color: orange1,
+              //                         size: 20,
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 5),
+              //                       ),
+              //                       Text(
+              //                         'ถึง',
+              //                         style: TextStyle(
+              //                           fontFamily: 'Kanit',
+              //                           color: purple2,
+              //                         ),
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 3),
+              //                       ),
+              //                       Text(
+              //                         shareNotifier3.shareList[index].endplace,
+              //                         style: TextStyle(
+              //                           fontFamily: 'Kanit',
+              //                           color: purple2,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                   Column(
+              //                     children: <Widget>[
+              //                       Row(
+              //                         children: <Widget>[
+              //                           Icon(
+              //                             Icons.airline_seat_legroom_normal,
+              //                             color: orange1,
+              //                             size: 20,
+              //                           ),
+              //                           Padding(
+              //                             padding: EdgeInsets.only(left: 5),
+              //                           ),
+              //                           Text(
+              //                             shareNotifier3.shareList[index].seat,
+              //                             style: TextStyle(
+              //                               fontFamily: 'Kanit',
+              //                               color: purple2,
+              //                             ),
+              //                           ),
+              //                           Padding(
+              //                             padding: EdgeInsets.only(left: 15),
+              //                           ),
+              //                           Icon(
+              //                             Icons.attach_money,
+              //                             color: orange1,
+              //                             size: 20,
+              //                           ),
+              //                           Text(
+              //                             shareNotifier3.shareList[index].price,
+              //                             style: TextStyle(
+              //                               fontFamily: 'Kanit',
+              //                               color: purple2,
+              //                             ),
+              //                           )
+              //                         ],
+              //                       ),
+              //                     ],
+              //                   ),
+              //                   Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.date_range,
+              //                         color: orange1,
+              //                         size: 20,
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 5),
+              //                       ),
+              //                       Text(
+              //                         shareNotifier3.shareList[index].date,
+              //                         style: TextStyle(
+              //                           fontFamily: 'Kanit',
+              //                           color: purple2,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                   Row(
+              //                     children: <Widget>[
+              //                       Icon(
+              //                         Icons.access_time,
+              //                         color: orange1,
+              //                         size: 20,
+              //                       ),
+              //                       Padding(
+              //                         padding: EdgeInsets.only(left: 5),
+              //                       ),
+              //                       Text(
+              //                         shareNotifier3.shareList[index].time,
+              //                         style: TextStyle(
+              //                           fontFamily: 'Kanit',
+              //                           color: purple2,
+              //                         ),
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     );
+              //   },
+              //   itemCount: shareNotifier3.shareList.length,
+              //   separatorBuilder: (BuildContext context, int index) {
+              //     return Divider(
+              //       color: Colors.white,
+              //     );
+              //   },
+              // ),
             ],
           )
 

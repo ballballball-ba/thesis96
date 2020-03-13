@@ -7,11 +7,12 @@ import 'package:mythesis96/bt_bar/activity_sc.dart';
 
 import 'package:mythesis96/bt_bar/notiac_sc.dart';
 import 'package:mythesis96/bt_bar/porfile.dart';
-import 'package:mythesis96/bt_bar/search_sc.dart';
+
 import 'package:mythesis96/bt_bar/driver_regis.dart';
 import 'package:mythesis96/bt_bar/sharefeeds.dart';
 import 'package:mythesis96/feed_home.dart';
 import 'package:mythesis96/m/user_data.dart';
+import 'package:mythesis96/m/user_m.dart';
 import 'package:mythesis96/phone_auth.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     //ไว้เช็ค id user
     final String currentUserID = Provider.of<Userdata>(context).currentUserID;
-
+//     final String gender = Provider.of<Userdata>(context).gender;
+// //  Provider.of<Userdata>(context).gender;
     // print(Provider.of<Userdata>(context).currentUserID);
     return Scaffold(
       body: PageView(
@@ -51,10 +53,10 @@ class _HomeState extends State<Home> {
           Feedhome(currentUserID: currentUserID),
           Sharefeeds(),
 
-          Activity(
-            userId: Provider.of<Userdata>(context).currentUserID
+          Activity(userId: Provider.of<Userdata>(context).currentUserID),
+          Notiac(
+            userId: Provider.of<Userdata>(context).currentUserID,
           ),
-          Notiac(userId: Provider.of<Userdata>(context).currentUserID,),
           //Driverregis(),
           //old
           // Profile(userId: widget.userId),

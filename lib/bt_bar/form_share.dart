@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:mythesis96/bt_bar/homemain.dart';
 import 'package:mythesis96/firebase/constance.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/firebase/database_up.dart';
@@ -46,6 +47,11 @@ class _ShareformState extends State<Shareform> {
   String dateFormate;
   DateTime pickedDate;
   TimeOfDay time;
+  String _dropDownValue;
+  String _dropDownValue2;
+  String _dropDownValue3;
+  String _dropDownValue4;
+  String _dropDownValue5;
 
   var selectedCurrency, selectpicpro;
 
@@ -82,6 +88,7 @@ class _ShareformState extends State<Shareform> {
   String _time = '';
   String _details = '';
   String _picpro = '';
+  String _gender = '';
 
   ///car
   String _brandcar = '';
@@ -118,6 +125,12 @@ class _ShareformState extends State<Shareform> {
     // }
     if (_formkey.currentState.validate()) {
       _formkey.currentState.save();
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => Home(),
+        ),
+      );
 
       Flushbar(
         message: 'สร้างการแชร์เรียบร้อย เรียบร้อย',
@@ -173,9 +186,9 @@ class _ShareformState extends State<Shareform> {
         date: _date,
         time: _time,
         details: _details,
+        gender: _gender,
         //  picpro: userDocument,
-        picpro:
-            'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_91050f0d-96bb-4fa8-824a-f4c46f550f49.jpg?alt=media&token=69d57b63-4a33-4aa7-9ac7-f07222717cb0',
+        picpro: 'https://firebasestorage.googleapis.com/v0/b/thesis96-a41c0.appspot.com/o/images%2Fusers%2FuserProfile_00d4f1e1-cbbf-4efb-81fe-3dab782788d5.jpg?alt=media&token=4739e9c2-40b4-4709-809a-010e50eaa799',
         //********************** */
         brandcar: _brandcar,
         gencar: _gencar,
@@ -257,6 +270,19 @@ class _ShareformState extends State<Shareform> {
 
     //  _formkey.currentState.validate();
     //  _formkey.currentState.save();
+  }
+
+  DateTime selectedDate = DateTime.now();
+  Future<Null> _selectDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
   }
 
   @override
@@ -519,6 +545,7 @@ class _ShareformState extends State<Shareform> {
                                         LengthLimitingTextInputFormatter(3),
                                       ],
                                       controller: _priceController,
+                                      keyboardType: TextInputType.number,
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         prefixIcon: Icon(Icons.attach_money,
@@ -576,39 +603,136 @@ class _ShareformState extends State<Shareform> {
                                           onChanged: (input) => _date = input,
                                         ),
                                       ),
+                                      // Container(
+                                      //   margin: EdgeInsets.only(
+                                      //       top: 80.0, left: 28.0),
+                                      //   child: Icon(
+                                      //     Icons.person,
+                                      //     color: Colors.redAccent,
+                                      //     size: 20.0,
+                                      //   ),
+                                      // ),
                                       Container(
                                         margin: EdgeInsets.only(left: 15),
                                         height: 50,
                                         width: 140,
+
                                         decoration: BoxDecoration(
                                             color: purple4,
                                             borderRadius:
                                                 BorderRadius.circular(10)),
+
                                         // margin: EdgeInsets.only(
                                         //     left: 15.0, right: 150, top: 10, bottom: 20),
-                                        child: TextFormField(
-                                          autofocus: true,
-                                          keyboardType: TextInputType.number,
-                                          inputFormatters: [timeFormatter],
-                                          controller: _timeController,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            prefixIcon: Icon(Icons.access_time,
-                                                color: Colors.white),
-                                            hintText: 'เวลา 18:00',
-                                            hintStyle: TextStyle(
-                                              color: Colors.white70,
-                                              fontFamily: 'Kanit',
-                                              // fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          validator: (input) =>
-                                              input.trim().isEmpty
-                                                  ? 'กรุณาระบุระบุเวลา'
-                                                  : null,
-                                          // onSaved: (input) => _password = input,
-                                          // obscureText: true,
-                                          onChanged: (input) => _time = input,
+                                        // child: TextFormField(
+                                        //   autofocus: true,
+                                        //   keyboardType: TextInputType.number,
+                                        //   inputFormatters: [timeFormatter],
+                                        //   controller: _timeController,
+                                        //   decoration: InputDecoration(
+                                        //     border: InputBorder.none,
+                                        //     prefixIcon: Icon(Icons.access_time,
+                                        //         color: Colors.white),
+                                        //     hintText: 'เวลา 18:00',
+                                        //     hintStyle: TextStyle(
+                                        //       color: Colors.white70,
+                                        //       fontFamily: 'Kanit',
+                                        //       // fontWeight: FontWeight.w600,
+                                        //     ),
+                                        //   ),
+                                        //   validator: (input) =>
+                                        //       input.trim().isEmpty
+                                        //           ? 'กรุณาระบุระบุเวลา'
+                                        //           : null,
+                                        //   // onSaved: (input) => _password = input,
+                                        //   // obscureText: true,
+                                        //   onChanged: (input) => _time = input,
+                                        // ),
+                                        child: DropdownButton(
+                                          iconEnabledColor: Colors.white,
+                                          iconDisabledColor: Colors.white,
+                                          underline: SizedBox(),
+                                          isExpanded: true,
+                                          iconSize: 30.0,
+                                          style: TextStyle(color: purple2),
+                                          items: [
+                                            '00:00 น.',
+                                            '00:30 น.',
+                                            '01:00 น.',
+                                            '01:30 น.',
+                                            '09:00 น.',
+                                            '09:30 น.',
+                                            '10:00 น.',
+                                            '10:30 น.',
+                                            '11:00 น.',
+                                            '11:30 น.',
+                                            '12:00 น.',
+                                            '12:30 น.',
+                                            '13:00 น.',
+                                            '13:30 น.',
+                                            '14:00 น.',
+                                            '14:30 น.',
+                                            '15:00 น.',
+                                            '15:30 น.',
+                                            '16:00 น.',
+                                            '16:30 น.',
+                                            '17:00 น.',
+                                            '17:30 น.',
+                                            '18:00 น.',
+                                            '18:30 น.',
+                                            '19:00 น.',
+                                            '19:30 น.',
+                                            '20:00 น.',
+                                            '20:30 น.',
+                                            '21:00 น.',
+                                            '21:30 น.',
+                                            '22:00 น.',
+                                            '22:30 น.',
+                                            '23:00 น.',
+                                            '23:30 น.',
+                                          ].map(
+                                            (val) {
+                                              return DropdownMenuItem<String>(
+                                                value: val,
+                                                child: Text(val),
+                                              );
+                                            },
+                                          ).toList(),
+                                          onChanged: (val) {
+                                            _dropDownValue = val;
+                                            print(_dropDownValue);
+                                            setState(
+                                              () {
+                                                _dropDownValue = val;
+                                                if (val.isEmpty) {
+                                                  _time = val;
+                                                } else {
+                                                  _time = val;
+                                                }
+                                              },
+                                            );
+                                          },
+                                          hint: _dropDownValue == null
+                                              ? Center(
+                                                  child: Text(
+                                                    'กรุณาระบุเวลา',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    _dropDownValue,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     ],
@@ -735,14 +859,14 @@ class _ShareformState extends State<Shareform> {
                                             style: TextStyle(
                                                 color: Colors.white70,
                                                 fontFamily: 'Kanit',
-                                                fontSize: 13),
+                                                fontSize: 14),
                                           ),
                                           Text(
                                             '   ก่อนจะมีการตอบรับคำร้อง',
                                             style: TextStyle(
                                                 color: Colors.white70,
                                                 fontFamily: 'Kanit',
-                                                fontSize: 13),
+                                                fontSize: 14),
                                           )
                                         ],
                                       ),
@@ -762,27 +886,135 @@ class _ShareformState extends State<Shareform> {
                                                 BorderRadius.circular(10)),
                                         margin: EdgeInsets.only(
                                             top: 10, left: 15, bottom: 20),
-                                        child: TextFormField(
-                                          autofocus: true,
-                                          controller: _seatController,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            prefixIcon: Icon(Icons.event_seat,
-                                                color: Colors.white),
-                                            hintText: 'ที่นั่งว่าง',
-                                            hintStyle: TextStyle(
-                                              color: Colors.white70,
-                                              fontFamily: 'Kanit',
-                                              // fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          validator: (input) =>
-                                              input.trim().isEmpty
-                                                  ? 'กรุณาระบบที่นั่งว่าง'
-                                                  : null,
-                                          // onSaved: (input) => _password = input,
-                                          // obscureText: true,
-                                          onChanged: (input) => _seat = input,
+                                        child: DropdownButton(
+                                          iconEnabledColor: Colors.white,
+                                          iconDisabledColor: Colors.white,
+                                          underline: SizedBox(),
+                                          isExpanded: true,
+                                          iconSize: 30.0,
+                                          style: TextStyle(color: purple2),
+                                          items: [
+                                            '1',
+                                            '2',
+                                            '3',
+                                            '4',
+                                            '5',
+                                            '6',
+                                            '7',
+                                            '8',
+                                            '9',
+                                            '10',
+                                            '11',
+                                            '12',
+                                            '13',
+                                          ].map(
+                                            (val) {
+                                              return DropdownMenuItem<String>(
+                                                value: val,
+                                                child: Text(val),
+                                              );
+                                            },
+                                          ).toList(),
+                                          onChanged: (val) {
+                                            _dropDownValue2 = val;
+                                            print(_dropDownValue2);
+                                            setState(
+                                              () {
+                                                _dropDownValue2 = val;
+                                                if (val.isEmpty) {
+                                                  _seat = val;
+                                                } else {
+                                                  _seat = val;
+                                                }
+                                              },
+                                            );
+                                          },
+                                          hint: _dropDownValue2 == null
+                                              ? Center(
+                                                  child: Text(
+                                                    'ระบุจำนวนที่ต้องการ',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    _dropDownValue2,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 50,
+                                        width: 140,
+                                        decoration: BoxDecoration(
+                                            color: purple4,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        margin: EdgeInsets.only(
+                                            top: 10, left: 15, bottom: 20),
+                                        child: DropdownButton(
+                                          iconEnabledColor: Colors.white,
+                                          iconDisabledColor: Colors.white,
+                                          underline: SizedBox(),
+                                          isExpanded: true,
+                                          iconSize: 30.0,
+                                          style: TextStyle(color: purple2),
+                                          items: [
+                                            'ทั้งหมด',
+                                            'ชาย',
+                                            'หญิง',
+                                          ].map(
+                                            (val) {
+                                              return DropdownMenuItem<String>(
+                                                value: val,
+                                                child: Text(val),
+                                              );
+                                            },
+                                          ).toList(),
+                                          onChanged: (val) {
+                                            _dropDownValue3 = val;
+                                            print(_dropDownValue3);
+                                            setState(
+                                              () {
+                                                _dropDownValue3 = val;
+                                                if (val.isEmpty) {
+                                                  _gender = val;
+                                                } else {
+                                                  _gender = val;
+                                                }
+                                              },
+                                            );
+                                          },
+                                          hint: _dropDownValue3 == null
+                                              ? Center(
+                                                  child: Text(
+                                                    'ระบุเพศที่ต้องการ',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    _dropDownValue3,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                     ],
@@ -798,32 +1030,71 @@ class _ShareformState extends State<Shareform> {
                                                 BorderRadius.circular(10)),
                                         margin: EdgeInsets.only(
                                             top: 10, left: 15, bottom: 20),
-                                        child: TextFormField(
-                                          autofocus: true,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(2),
-                                          ],
-                                          controller: _seatyouController,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            prefixIcon: Icon(
-                                                FontAwesomeIcons.male,
-                                                color: Colors.white),
-                                            hintText: 'ช',
-                                            hintStyle: TextStyle(
-                                              color: Colors.white70,
-                                              fontFamily: 'Kanit',
-                                              // fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          validator: (input) =>
-                                              input.trim().isEmpty
-                                                  ? 'กรุณาระบบที่นั่งว่าง'
-                                                  : null,
-                                          // onSaved: (input) => _password = input,
-                                          // obscureText: true,
-                                          onChanged: (input) =>
-                                              _seatyou = input,
+                                        child: DropdownButton(
+                                          iconEnabledColor: Colors.white,
+                                          iconDisabledColor: Colors.white,
+                                          underline: SizedBox(),
+                                          isExpanded: true,
+                                          iconSize: 30.0,
+                                          style: TextStyle(color: purple2),
+                                          items: [
+                                            '0',
+                                            '1',
+                                            '2',
+                                            '3',
+                                            '4',
+                                            '5',
+                                            '6',
+                                            '7',
+                                            '8',
+                                            '9',
+                                            '10',
+                                            '11',
+                                            '12',
+                                            '13',
+                                          ].map(
+                                            (val) {
+                                              return DropdownMenuItem<String>(
+                                                value: val,
+                                                child: Text(val),
+                                              );
+                                            },
+                                          ).toList(),
+                                          onChanged: (val) {
+                                            _dropDownValue4 = val;
+                                            print(_dropDownValue4);
+                                            setState(
+                                              () {
+                                                _dropDownValue4 = val;
+                                                if (val.isEmpty) {
+                                                  _seatyou = val;
+                                                } else {
+                                                  _seatyou = val;
+                                                }
+                                              },
+                                            );
+                                          },
+                                          hint: _dropDownValue4 == null
+                                              ? Center(
+                                                  child: Text(
+                                                    'ชาย',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    _dropDownValue4,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                       Container(
@@ -835,32 +1106,71 @@ class _ShareformState extends State<Shareform> {
                                                 BorderRadius.circular(10)),
                                         margin: EdgeInsets.only(
                                             top: 10, left: 15, bottom: 20),
-                                        child: TextFormField(
-                                          autofocus: true,
-                                          inputFormatters: [
-                                            LengthLimitingTextInputFormatter(2),
-                                          ],
-                                          controller: _seatyou2Controller,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            prefixIcon: Icon(
-                                                FontAwesomeIcons.female,
-                                                color: Colors.white),
-                                            hintText: 'ญ',
-                                            hintStyle: TextStyle(
-                                              color: Colors.white70,
-                                              fontFamily: 'Kanit',
-                                              // fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                          validator: (input) =>
-                                              input.trim().isEmpty
-                                                  ? 'กรุณาระบบที่นั่งว่าง'
-                                                  : null,
-                                          // onSaved: (input) => _password = input,
-                                          // obscureText: true,
-                                          onChanged: (input) =>
-                                              _seatyou2 = input,
+                                        child: DropdownButton(
+                                          iconEnabledColor: Colors.white,
+                                          iconDisabledColor: Colors.white,
+                                          underline: SizedBox(),
+                                          isExpanded: true,
+                                          iconSize: 30.0,
+                                          style: TextStyle(color: purple2),
+                                          items: [
+                                            '0',
+                                            '1',
+                                            '2',
+                                            '3',
+                                            '4',
+                                            '5',
+                                            '6',
+                                            '7',
+                                            '8',
+                                            '9',
+                                            '10',
+                                            '11',
+                                            '12',
+                                            '13',
+                                          ].map(
+                                            (val) {
+                                              return DropdownMenuItem<String>(
+                                                value: val,
+                                                child: Text(val),
+                                              );
+                                            },
+                                          ).toList(),
+                                          onChanged: (val) {
+                                            _dropDownValue5 = val;
+                                            print(_dropDownValue5);
+                                            setState(
+                                              () {
+                                                _dropDownValue5 = val;
+                                                if (val.isEmpty) {
+                                                  _seatyou2 = val;
+                                                } else {
+                                                  _seatyou2 = val;
+                                                }
+                                              },
+                                            );
+                                          },
+                                          hint: _dropDownValue5 == null
+                                              ? Center(
+                                                  child: Text(
+                                                    'หญิง',
+                                                    style: TextStyle(
+                                                      color: Colors.white70,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Center(
+                                                  child: Text(
+                                                    _dropDownValue5,
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontFamily: 'Kanit',
+                                                      // fontWeight: FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                ),
                                         ),
                                       ),
                                       Column(
@@ -870,14 +1180,14 @@ class _ShareformState extends State<Shareform> {
                                             style: TextStyle(
                                                 color: Colors.white70,
                                                 fontFamily: 'Kanit',
-                                                fontSize: 13),
+                                                fontSize: 14),
                                           ),
                                           Text(
                                             '   คนภายในรถของคุณ',
                                             style: TextStyle(
                                                 color: Colors.white70,
                                                 fontFamily: 'Kanit',
-                                                fontSize: 13),
+                                                fontSize: 14),
                                           )
                                         ],
                                       ),

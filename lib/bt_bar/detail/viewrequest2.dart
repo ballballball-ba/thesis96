@@ -330,6 +330,7 @@ class _DetailShareconfirmState extends State<DetailShareconfirm> {
         );
         _showDialog();
         deleteData();
+        deleteData2();
         var now = new DateTime.now();
         Notishare notishare = Notishare(
           concertname: _concertname,
@@ -1240,11 +1241,18 @@ class _DetailShareconfirmState extends State<DetailShareconfirm> {
         ds.reference.delete();
       }
     });
-    // try {
-    //   databaseReference.collection('ShareRequest').document('D55JNu4VVBpxsuKcwP30').delete();
-    // } catch (e) {
-    //   print(e.toString());
-    // }
+    
+  }
+  void deleteData2() {
+    databaseReference
+        .collection('chat')
+        .getDocuments()
+        .then((snapshot) {
+      for (DocumentSnapshot ds in snapshot.documents) {
+        ds.reference.delete();
+      }
+    });
+    
   }
  _launchURL() async {
     const url = 'tel:191';

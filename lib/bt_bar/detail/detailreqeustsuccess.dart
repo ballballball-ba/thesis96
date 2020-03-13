@@ -866,18 +866,19 @@ class _DetailSharesuccessState extends State<DetailSharesuccess> {
               ),
               actions: <Widget>[
                 // usually buttons at the bottom of the dialog
+               
                 new FlatButton(
                   child: new Text(
-                    "ยืนยัน",
+                    "ยกเลิก",
                     style: TextStyle(fontFamily: 'Kanit', color: purple2),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
                 ),
-                new FlatButton(
+                 new FlatButton(
                   child: new Text(
-                    "ยกเลิก",
+                    "ยืนยัน",
                     style: TextStyle(fontFamily: 'Kanit', color: purple2),
                   ),
                   onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:mythesis96/Firebasemessaging/FirebaseMessaging.dart';
 import 'package:mythesis96/bt_bar/alert_report.dart';
 import 'package:mythesis96/bt_bar/edit_profile.dart';
 import 'package:mythesis96/bt_bar/driver_regis.dart';
@@ -7,7 +8,6 @@ import 'package:mythesis96/bt_bar/form_share.dart';
 import 'package:mythesis96/firebase/auth_service.dart';
 import 'package:mythesis96/m/driver_regit.dart';
 import 'package:mythesis96/m/srervices.dart';
-import 'package:mythesis96/m/testlo.dart';
 import 'package:mythesis96/m/user_m.dart';
 import 'package:mythesis96/firebase/constance.dart';
 import 'package:mythesis96/m/userlocation.dart';
@@ -108,7 +108,8 @@ class _ProfileState extends State<Profile> {
                                 leading: Icon(Icons.report_problem),
                                 title: Text('แจ้งปัญหา/แจ้งเหตุ'),
                                 
-                                onTap: () => Navigator.push(
+                                onTap: () => 
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => Alertreport(),
@@ -116,13 +117,13 @@ class _ProfileState extends State<Profile> {
                                 ),
                                
                               ),
-                              ListTile(
-                                  leading: Icon(Icons.info),
-                                  title: Text('About Us'),
-                                  onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => Shareform()))),
+                              // ListTile(
+                              //     leading: Icon(Icons.info),
+                              //     title: Text('About Us'),
+                              //     onTap: () => Navigator.push(
+                              //         context,
+                              //         MaterialPageRoute(
+                              //             builder: (_) => FirebaseMessagingdemo()))),
                               Expanded(
                                 child: Align(
                                   alignment: Alignment.bottomLeft,

@@ -142,11 +142,11 @@ class _PaymentState extends State<Payment> {
     var myInt4 = int.parse(widget.post.data['Seatyou']);
     var myInt5 = int.parse(widget.post.data['Seatyou2']);
     var seat = myInt2 + myInt3;
-    var allint = myInt * (myInt2 + myInt3);
-    var myresult1 = allint * 25 / 100;
-
+    var allint = myInt * seat;
+    var myresult1 = (allint * 25) / 100;
+    
     var allpeople = myInt2 + myInt3 + myInt4 + myInt5;
-    var myresult = myInt - myresult1;
+    var myresult = allint - myresult1;
     // assert(myInt is int);
     // print(myInt);
     String _shareid = widget.post.documentID;
@@ -163,24 +163,7 @@ class _PaymentState extends State<Payment> {
           // return Payment();
         }));
         _deleteData();
-        // PaymentM payment = PaymentM(
-        //   cardnum: _cardnum,
-        //   cardexp: '',
-        //   cardcvv: '',
-        //   cardname: _cardname,
-        //   allmoney: _money,
-        //   shareid: _shareid,
-        //   status: 'เสร็จสิ้นการแชร์',
-
-        //   // endplace: _endplace,
-        //   // price: _price,
-        //   // seat: _seat,
-        //   // date: _date,
-        //   // time: _time,
-        //   timestamp: intl.DateFormat("dd-MM-yyyy hh:mm").format(now),
-        //   // DateTime.now().toIso8601String().toString(),
-        //   authorId: Provider.of<Userdata>(context).currentUserID,
-        // );
+        
         Paymentcheck paymentcheck = Paymentcheck(
           cardnum: _cardnum,
 
@@ -193,11 +176,7 @@ class _PaymentState extends State<Payment> {
           to: _endplace,
           licensecar: _licensecar,
           allpeople: _allpeople,
-// 'concert': paymentcheck.concert,
-//       'from': paymentcheck.from,
-//       'to': paymentcheck.to,
-//       'licensecar': paymentcheck.licensecar,
-//       'allpeople': paymentcheck.allpeople,
+
           timestamp: intl.DateFormat("dd-MM-yyyy hh:mm").format(now),
           // DateTime.now().toIso8601String().toString(),
           authorId: Provider.of<Userdata>(context).currentUserID,
@@ -258,21 +237,7 @@ class _PaymentState extends State<Payment> {
                   ),
                   actions: <Widget>[
                     // usually buttons at the bottom of the dialog
-                    new FlatButton(
-                      child: new Text(
-                        "ยืนยัน",
-                        style: TextStyle(fontFamily: 'Kanit', color: purple2),
-                      ),
-                      onPressed: _submit,
-                      //           onPressed: () =>  Navigator.of(context)
-                      //     .push(MaterialPageRoute(builder: (BuildContext context) {
-
-                      //   return Home();
-                      //   // return Payment();
-                      // }
-                      // )
-                      // ),
-                    ),
+                   
                     new FlatButton(
                       child: new Text(
                         "ยกเลิก",
@@ -281,6 +246,14 @@ class _PaymentState extends State<Payment> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
+                    ),
+                     new FlatButton(
+                      child: new Text(
+                        "ยืนยัน",
+                        style: TextStyle(fontFamily: 'Kanit', color: purple2),
+                      ),
+                      onPressed: _submit,
+                     
                     ),
                   ],
                 ),
@@ -306,7 +279,7 @@ class _PaymentState extends State<Payment> {
             icon: new Icon(Icons.arrow_back_ios, color: purple2),
             onPressed: () => Navigator.of(context).pop(),
           ),
-          title: Text("ชำระเงิน",
+          title: Text("กรอกข้อมูลเพื่อรับเงิน",
               style: TextStyle(
                 fontFamily: 'Kanit',
                 fontWeight: FontWeight.w600,

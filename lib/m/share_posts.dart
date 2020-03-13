@@ -13,6 +13,7 @@ class Share {
   String seatyou2;
   String date;
   String time;
+  String gender;
   String details;
   String picpro;
   String brandcar;
@@ -36,6 +37,7 @@ class Share {
     startplace = data['StartPlace'];
     endplace = data['Endplace'];
     price = data['Price'];
+    gender = data['gender'];
     seat = data['Seat'];
     seatyou = data['Seatyou'];
     seatyou2 = data['Seatyou2'];
@@ -64,6 +66,7 @@ class Share {
       'Seat': seat,
       'Seatyou': seatyou,
       'Seatyou2': seatyou2,
+      'gender':gender,
       'Date': date,
       'Time': time,
       'Seatyou': seatyou,
@@ -90,6 +93,7 @@ class Share {
     this.seatyou2,
     this.seatyou,
     this.date,
+    this.gender,
     this.time,
     this.brandcar,
     this.gencar,
@@ -108,6 +112,7 @@ class Share {
       startplace: doc['StartPlace'],
       endplace: doc['Endplace'],
       price: doc['Price'],
+      gender: doc['gender'],
       seat: doc['Seat'],
       seatyou: doc['Seatyou'],
       seatyou2: doc['Seatyou2'],
