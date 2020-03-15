@@ -23,7 +23,8 @@ class _LoginState extends State<Login> {
       AuthService.login(_email, _password);
       /* print(_email);
       print(_password);*/
-      ;
+      print(_email);
+      print(_password);
     }
   }
 
